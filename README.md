@@ -1,16 +1,16 @@
-# C++ solutions for [Advent of Code 2019](https://adventofcode.com/2019)
+### C++ solutions for [Advent of Code 2019](https://adventofcode.com/2019)
 
-## Prerequisites
+#### Prerequisites
 * 64-bit Linux
 * g++ (with c++17 support)
 * make
 
-## Compile
+#### Compile
     make build
 
-## Run
+#### Run
     make run
 
-## Clean up
+#### Clean up
     make clean
 
