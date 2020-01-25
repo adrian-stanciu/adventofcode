@@ -6,18 +6,18 @@
 
 using AsmC = AsmComputer<6>;
 
-auto sum_of_divisors(int n)
+auto sum_of_divisors(long n)
 {
-    auto sum = 0;
+    auto sum = 0L;
 
-    for (auto i = 1; i <= n; ++i)
+    for (auto i = 1L; i <= n; ++i)
         if (n % i == 0)
             sum += i;
 
     return sum;
 }
 
-auto optimize_and_run(AsmC& ac, int result)
+auto optimize_and_run(AsmC& ac, long result)
 {
     // the asm code computes the sum of the divisors of some number N
 

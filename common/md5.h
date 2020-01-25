@@ -1,12 +1,13 @@
 #pragma once
 
+#include <array>
 #include <string>
 #include <unordered_map>
 
 #include <openssl/md5.h>
 
 namespace {
-    [[maybe_unused]] auto dec2hex(int d)
+    [[maybe_unused]] inline auto dec2hex(int d)
     {
         if (d <= 9)
             return '0' + d;
@@ -14,7 +15,7 @@ namespace {
             return 'a' + (d - 10);
     }
 
-    [[maybe_unused]] auto hex2dec(int h)
+    [[maybe_unused]] inline auto hex2dec(int h)
     {
         if (h <= '9')
             return h - '0';
@@ -32,15 +33,15 @@ namespace {
                 return it->second;
         }
 
-        unsigned char md5sum[MD5_DIGEST_LENGTH];
-        MD5(reinterpret_cast<const unsigned char*>(s.data()), s.size(), md5sum);
+        std::array<unsigned char, MD5_DIGEST_LENGTH> md5sum;
+        MD5(reinterpret_cast<const unsigned char*>(s.data()), s.size(), md5sum.data());
 
         std::string hash;
         hash.reserve(2 * MD5_DIGEST_LENGTH);
 
-        for (auto i = 0; i < MD5_DIGEST_LENGTH; ++i) {
-            hash.push_back(dec2hex((md5sum[i] >> 4) & 0xf));
-            hash.push_back(dec2hex(md5sum[i] & 0xf));
+        for (auto byte : md5sum) {
+            hash.push_back(dec2hex((byte >> 4) & 0xf));
+            hash.push_back(dec2hex(byte & 0xf));
         }
 
         if (use_cache)

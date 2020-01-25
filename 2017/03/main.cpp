@@ -1,3 +1,4 @@
+#include <array>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -82,8 +83,8 @@ unsigned long first_greater(unsigned long n, unsigned long start_val)
         ++r;
         ++c;
 
-        long r_inc_v[] = {-1, 0, 1, 0};
-        long c_inc_v[] = {0, -1, 0, 1};
+        const std::array<long, 4> r_inc_v{-1, 0, 1, 0};
+        const std::array<long, 4> c_inc_v{0, -1, 0, 1};
 
         for (int i = 0; i < 4; ++i) {
             long r_inc = r_inc_v[i];

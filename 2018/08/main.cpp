@@ -31,6 +31,7 @@ auto compute_value(const std::vector<unsigned int>& vec, size_t& idx)
     auto metadata_num = vec[idx++];
 
     std::vector<unsigned int> children;
+    children.reserve(children_num);
     for (auto i = 0U; i < children_num; ++i)
         children.push_back(compute_value(vec, idx));
 

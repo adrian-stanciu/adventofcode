@@ -88,7 +88,7 @@ void drop_water(std::vector<std::vector<char>>& map, int max_y, int start_y, int
     }
 }
 
-void count_tiles_with_water(std::vector<Range2D> clay_zones,
+void count_tiles_with_water(const std::vector<Range2D>& clay_zones,
     int min_x, int max_x, int min_y, int max_y)
 {
     std::vector<std::vector<char>> map (max_y + 1, std::vector<char> (max_x + 2, '.'));

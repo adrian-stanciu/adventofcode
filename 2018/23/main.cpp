@@ -30,12 +30,12 @@ bool operator<(const Point& p1, const Point& p2)
 
 auto dist_p2p(const Point& p1, const Point& p2)
 {
-    return abs(p1.x - p2.x) + abs(p1.y - p2.y) + abs(p1.z - p2.z);
+    return std::abs(p1.x - p2.x) + std::abs(p1.y - p2.y) + std::abs(p1.z - p2.z);
 }
 
 auto dist_p2orig(const Point& p)
 {
-    return abs(p.x) + abs(p.y) + abs(p.z);
+    return std::abs(p.x) + std::abs(p.y) + std::abs(p.z);
 }
 
 struct Robot {
@@ -63,7 +63,7 @@ auto count_in_range(const std::vector<Robot>& robots, long max_r)
     }
 
     auto in_range = [x, y, z, max_r] (const auto& robot) {
-        auto d = abs(x - robot.p.x) + abs(y - robot.p.y) + abs(z - robot.p.z);
+        auto d = std::abs(x - robot.p.x) + std::abs(y - robot.p.y) + std::abs(z - robot.p.z);
         return d <= max_r;
     };
 
@@ -141,10 +141,9 @@ auto count_robots_in_cube(const std::vector<Robot>& robots, const Cube& cube)
     return count;
 }
 
-auto dist_to_closest_point_in_range_of_most_robots(const std::vector<Robot>& robots,
-    Cube cube)
+auto dist_to_closest_point_in_range_of_most_robots(const std::vector<Robot>& robots, Cube cube)
 {
-    Point vertices[] = {
+    const Point vertices[] = {
         {0, 0, 0},
         {1, 0, 0},
         {0, 1, 0},
@@ -193,10 +192,10 @@ auto dist_to_closest_point_in_range_of_most_robots(const std::vector<Robot>& rob
             // devide cube into 8 sub-cubes
             auto new_l = cube.l / 2;
 
-            for (auto i = 0U; i < sizeof(vertices) / sizeof(vertices[0]); ++i) {
-                auto new_x = cube.p.x + vertices[i].x * new_l;
-                auto new_y = cube.p.y + vertices[i].y * new_l;
-                auto new_z = cube.p.z + vertices[i].z * new_l;
+            for (const auto& vertex : vertices) {
+                auto new_x = cube.p.x + vertex.x * new_l;
+                auto new_y = cube.p.y + vertex.y * new_l;
+                auto new_z = cube.p.z + vertex.z * new_l;
                 Cube new_cube {new_x, new_y, new_z, new_l};
 
                 auto cnt = count_robots_in_cube(robots, new_cube);
