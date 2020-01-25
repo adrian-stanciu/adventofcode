@@ -18,11 +18,12 @@ auto read_map(const std::vector<long long>& prog)
     while (ic.run()) {
         auto out = *ic.get_last_output();
 
-        if (out == '\n') {
-            if (!row.empty())
-                map.push_back(std::move(row));
-        } else
+        if (out != '\n')
             row.push_back(out);
+        else if (!row.empty()) {
+            map.push_back(std::move(row));
+            row.clear();
+        }
     }
 
     return map;

@@ -75,7 +75,7 @@ auto min_steps_to_reduce_to_electron(const std::string& molecule, const Replacem
         std::string molecule;
         long dist;
 
-        long score() const
+        unsigned long score() const
         {
             // molecule's size (how much remains to be reduced) + number of replacements made so far
             return molecule.size() + dist;

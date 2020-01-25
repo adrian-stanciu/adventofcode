@@ -65,7 +65,7 @@ struct HexPath {
 
     unsigned long dist() const
     {
-        return std::accumulate(begin(counters), end(counters), 0);
+        return std::accumulate(begin(counters), end(counters), 0UL);
     }
 };
 
