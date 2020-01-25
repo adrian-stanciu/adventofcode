@@ -4,6 +4,8 @@
 #include <unordered_set>
 #include <vector>
 
+#include "hasher.h"
+
 struct Point {
     long x;
     long y;
@@ -66,18 +68,6 @@ auto simulate(std::vector<Point> points, long iters)
     return total_e;
 }
 
-struct LongVectorHasher {
-    auto operator()(const std::vector<long>& vec) const
-    {
-        // based on boost's hash_combine()
-        size_t h = 0;
-        for (auto val : vec) {
-            h ^= val + 0x9e3779b9 + (h << 6) + (h >> 2);
-        }
-        return h;
-    }
-};
-
 auto simulate_until_repeat(std::vector<Point> points,
     const std::function<long(const Point&)>& get_position,
     const std::function<long(const Point&)>& get_velocity,
@@ -86,7 +76,7 @@ auto simulate_until_repeat(std::vector<Point> points,
 {
     auto iter = 0L;
 
-    std::unordered_set<std::vector<long>, LongVectorHasher> uniq;
+    std::unordered_set<std::vector<long>, VectorHasher<long>> uniq;
 
     std::vector<long> v;
     for (const auto& p : points) {
