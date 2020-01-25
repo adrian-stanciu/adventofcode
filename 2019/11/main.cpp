@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include "hasher.h"
 #include "int_computer.h"
 
 struct Cell {
@@ -49,24 +50,13 @@ enum Dir {
 
 using Map = std::unordered_map<Cell, Color, CellHasher>;
 
-struct IntPairHasher {
-    auto operator()(const std::pair<int, int>& p) const
-    {
-        // based on boost's hash_combine()
-        size_t h = 0;
-        h ^= p.first + 0x9e3779b9 + (h << 6) + (h >> 2);
-        h ^= p.second + 0x9e3779b9 + (h << 6) + (h >> 2);
-        return h;
-    }
-};
-
 auto compute_map(const std::vector<long long>& prog, Color starting_color)
 {
     Map map;
     Cell c{0, 0};
     Orientation o{N};
 
-    std::unordered_map<std::pair<Orientation, Dir>, Orientation, IntPairHasher> o_map {
+    std::unordered_map<std::pair<Orientation, Dir>, Orientation, PairHasher<int>> o_map {
         {{N, Left}, W}, {{N, Right}, E},
         {{S, Left}, E}, {{S, Right}, W},
         {{E, Left}, N}, {{E, Right}, S},
