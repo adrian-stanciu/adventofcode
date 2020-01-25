@@ -1,7 +1,7 @@
 .PHONY: build run clean
 
 CC=g++
-CXXFLAGS=-std=c++17 -O3
+CXXFLAGS=-std=c++17 -O3 -Wall
 
 build: main
 main: main.o

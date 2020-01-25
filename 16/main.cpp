@@ -1,18 +1,19 @@
 #include <iostream>
 #include <vector>
 
-void fft(std::vector<int> values, int iters, int offset, int count)
+void fft(std::vector<int> values, unsigned int iters,
+    unsigned int offset, unsigned int count)
 {
-    for (auto i = 1; i <= iters; ++i) {
+    for (auto i = 1U; i <= iters; ++i) {
         std::vector<int> new_values;
         new_values.reserve(values.size());
 
         std::vector<int> prefix_sum(values.size() + 1, 0);
 
-        for (auto j = 1; j <= values.size(); ++j)
+        for (auto j = 1U; j <= values.size(); ++j)
             prefix_sum[j] = prefix_sum[j - 1] + values[j - 1];
 
-        for (auto j = 0; j < values.size(); ++j) {
+        for (auto j = 0U; j < values.size(); ++j) {
             auto sum = 0LL;
 
             auto k = j;
@@ -53,17 +54,19 @@ void fft(std::vector<int> values, int iters, int offset, int count)
     std::cout << "\n";
 }
 
-void fft_repeated(std::vector<int> values, int repeated_x_times, int iters, int offset, int count)
+void fft_repeated(std::vector<int> values,
+    unsigned int repeated_x_times, unsigned int iters,
+    unsigned int offset, unsigned int count)
 {
-    auto sz = values.size();
+    const auto sz = values.size();
 
     if (offset > sz * repeated_x_times - count) {
         std::cout << "N/A\n";
         return;
     }
 
-    for (auto i = 1; i < repeated_x_times; ++i)
-        for (auto j = 0; j < sz; ++j)
+    for (auto i = 1U; i < repeated_x_times; ++i)
+        for (auto j = 0U; j < sz; ++j)
             values.push_back(values[j]);
 
     fft(std::move(values), iters, offset, count);

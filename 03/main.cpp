@@ -92,8 +92,8 @@ void solve(const std::vector<Move>& moves1, const std::vector<Move>& moves2)
 
                     min_dist = std::min(min_dist, abs(x) + abs(y));
                     min_steps = std::min(min_steps,
-                            s_x.steps + abs(y - s_x.y1) +
-                            s_y.steps + abs(x - s_y.x1));
+                        s_x.steps + abs(y - s_x.y1) +
+                        s_y.steps + abs(x - s_y.x1));
                 }
     };
 

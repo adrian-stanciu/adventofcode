@@ -21,7 +21,7 @@ struct Point {
 auto simulate(std::vector<Point> points, long iters)
 {
     while (iters--) {
-        for (auto p1 = 0; p1 < points.size(); ++p1)
+        for (auto p1 = 0U; p1 < points.size(); ++p1)
             for (auto p2 = p1 + 1; p2 < points.size(); ++p2) {
                 if (points[p1].x < points[p2].x) {
                     ++points[p1].vx;
@@ -98,7 +98,7 @@ auto simulate_until_repeat(std::vector<Point> points,
     while (true) {
         ++iter;
 
-        for (auto p1 = 0; p1 < points.size(); ++p1)
+        for (auto p1 = 0U; p1 < points.size(); ++p1)
             for (auto p2 = p1 + 1; p2 < points.size(); ++p2) {
                 auto p1_pos = get_position(points[p1]);
                 auto p2_pos = get_position(points[p2]);
