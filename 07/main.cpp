@@ -13,7 +13,7 @@ auto compute_max_result(const std::vector<long long>& prog)
     std::vector<int> p{0, 1, 2, 3, 4};
     do {
         std::vector<IntComputer> network;
-        for (auto i = 0; i < p.size(); ++i) {
+        for (auto i = 0U; i < p.size(); ++i) {
             network.emplace_back(prog);
             network[i].append_input(p[i]);
         }
@@ -22,7 +22,7 @@ auto compute_max_result(const std::vector<long long>& prog)
 
         auto res = 0LL;
 
-        for (auto i = 0; i < p.size(); ++i) {
+        for (auto i = 0U; i < p.size(); ++i) {
             network[i].run();
 
             if (i == p.size() - 1)
@@ -45,7 +45,7 @@ auto compute_max_result_with_feedback_loop(const std::vector<long long>& prog)
     do {
         std::vector<IntComputer> network;
 
-        for (auto i = 0; i < p.size(); ++i) {
+        for (auto i = 0U; i < p.size(); ++i) {
             network.emplace_back(prog);
             network[i].append_input(p[i]);
         }
@@ -55,7 +55,7 @@ auto compute_max_result_with_feedback_loop(const std::vector<long long>& prog)
         while (true) {
             auto last_halted = false;
 
-            for (auto i = 0; i < p.size(); ++i) {
+            for (auto i = 0U; i < p.size(); ++i) {
                 auto halted = !network[i].run();
 
                 if (halted)

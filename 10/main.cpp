@@ -90,7 +90,7 @@ struct SlopeHasher {
 auto find_max_sight(const std::unordered_set<Point, PointHasher>& points)
 {
     Point max_p(-1, -1);
-    auto max_cnt = 0;
+    auto max_cnt = 0U;
 
     for (const auto& src_p : points) {
         // only 2 points can be in sight on the same slope
@@ -135,7 +135,7 @@ bool are_visible(const Point& src_p, const Point& dst_p,
     return true;
 }
 
-auto n_vaporized(const Point& src_p, std::unordered_set<Point, PointHasher> points, int n)
+auto n_vaporized(const Point& src_p, std::unordered_set<Point, PointHasher> points, unsigned int n)
 {
     if (n <= 0 || n > points.size())
         return -1;
@@ -226,7 +226,7 @@ int main()
     auto y = 0;
     std::string line;
     while (getline(std::cin, line)) {
-        for (auto x = 0; x < line.size(); ++x)
+        for (auto x = 0U; x < line.size(); ++x)
             if (line[x] == '#')
                 points.emplace(x, y);
         ++y;

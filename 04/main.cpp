@@ -15,7 +15,10 @@ auto extract_reversed_digits(int n)
 
 bool has_non_decreasing_digits(const std::vector<int>& reversed_digits)
 {
-    for (auto i = 0; i < reversed_digits.size() - 1; ++i)
+    if (reversed_digits.size() < 2)
+        return true;
+
+    for (auto i = 0U; i < reversed_digits.size() - 1; ++i)
         if (reversed_digits[i] < reversed_digits[i + 1])
             return false;
 
@@ -24,7 +27,10 @@ bool has_non_decreasing_digits(const std::vector<int>& reversed_digits)
 
 bool has_adjacent_equal_digits(const std::vector<int>& digits)
 {
-    for (auto i = 0; i < digits.size() - 1; ++i)
+    if (digits.size() < 2)
+        return false;
+
+    for (auto i = 0U; i < digits.size() - 1; ++i)
         if (digits[i] == digits[i + 1])
             return true;
 
@@ -35,7 +41,7 @@ bool has_max_2_adjacent_equal_digits(const std::vector<int>& digits)
 {
     auto cnt = 1;
 
-    for (auto i = 1; i < digits.size(); ++i) {
+    for (auto i = 1U; i < digits.size(); ++i) {
         if (digits[i] == digits[i - 1]) {
             ++cnt;
         } else {

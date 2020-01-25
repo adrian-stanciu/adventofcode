@@ -48,7 +48,7 @@ using Map = std::unordered_map<Cell, CellType, CellHasher>;
 auto explore(const std::vector<long long>& prog)
 {
     static const std::array<int, 5> dx{0, 0, 0, -1, 1};
-    static const std::array<int, 5> dy{0, 1, -1, 0, 0};
+    static const std::array<int, 5> dy{0, -1, 1, 0, 0};
 
     auto get_move_cmd = [&] (const Cell& from, const Cell& to) {
         auto delta_x = to.x - from.x;
@@ -116,7 +116,7 @@ auto explore(const std::vector<long long>& prog)
 auto find_oxigen(const Map& map)
 {
     static const std::array<int, 5> dx{0, 0, 0, -1, 1};
-    static const std::array<int, 5> dy{0, 1, -1, 0, 0};
+    static const std::array<int, 5> dy{0, -1, 1, 0, 0};
 
     Cell c{0, 0};
 
@@ -155,7 +155,7 @@ auto find_oxigen(const Map& map)
 auto compute_time_to_fill_map(const Map& map, const Cell& oxigen)
 {
     static const std::array<int, 5> dx{0, 0, 0, -1, 1};
-    static const std::array<int, 5> dy{0, 1, -1, 0, 0};
+    static const std::array<int, 5> dy{0, -1, 1, 0, 0};
 
     auto max_t = 0;
 

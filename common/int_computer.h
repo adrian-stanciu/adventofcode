@@ -41,7 +41,7 @@ private:
 public:
     IntComputer(const std::vector<long long>& prog)
     {
-        for (auto i = 0; i < prog.size(); ++i)
+        for (auto i = 0U; i < prog.size(); ++i)
             mem[i] = prog[i];
     }
 
@@ -78,7 +78,7 @@ public:
     std::optional<long long> extract_first_output()
     {
         if (outputs.empty())
-            return {};
+            return std::nullopt;
 
         auto val = outputs.front();
         outputs.pop();
@@ -89,7 +89,7 @@ public:
     std::optional<long long> get_last_output() const
     {
         if (outputs.empty())
-            return {};
+            return std::nullopt;
 
         return outputs.back();
     }

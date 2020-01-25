@@ -6,7 +6,7 @@
 #include <unordered_set>
 #include <vector>
 
-const auto RecursionDepthLimit = 999;
+constexpr auto RecursionDepthLimit = 999;
 
 struct Cell {
     int x;
@@ -44,7 +44,7 @@ auto find_exit(const Map& map, const Cell& entry_c, const Cell& exit_c,
     const PortalEndpointMap& in2out_portals, const PortalEndpointMap& out2in_portals)
 {
     static const std::array<int, 4> dx{0, 0, -1, 1};
-    static const std::array<int, 4> dy{1, -1, 0, 0};
+    static const std::array<int, 4> dy{-1, 1, 0, 0};
 
     std::queue<std::pair<Cell, int>> q;
     q.emplace(entry_c, 0);
@@ -129,7 +129,7 @@ auto find_exit_with_recursion(const Map& map, const Cell& entry_c, const Cell& e
     const PortalEndpointMap& in2out_portals, const PortalEndpointMap& out2in_portals)
 {
     static const std::array<int, 4> dx{0, 0, -1, 1};
-    static const std::array<int, 4> dy{1, -1, 0, 0};
+    static const std::array<int, 4> dy{-1, 1, 0, 0};
 
     MultiLevelCell mlc{entry_c, 0};
 
@@ -189,10 +189,10 @@ void fill_vertical_portals(const Map& map, PortalMap& in_portals, PortalMap& out
 {
     auto r = 0;
 
-    for (auto i = 0; i < map.size();) {
+    for (auto i = 0; i < static_cast<int>(map.size());) {
         bool found = false;
 
-        for (auto j = 0; j < map.size(); ++j)
+        for (auto j = 0; j < static_cast<int>(map[0].size()); ++j)
             if (map[i][j] >= 'A' && map[i][j] <= 'Z' &&
                 map[i + 1][j] >= 'A' && map[i + 1][j] <= 'Z') {
                 if (!found) {
@@ -231,10 +231,10 @@ void fill_horizontal_portals(const Map& map, PortalMap& in_portals, PortalMap& o
 {
     auto c = 0;
 
-    for (auto j = 0; j < map[0].size();) {
+    for (auto j = 0; j < static_cast<int>(map[0].size());) {
         bool found = false;
 
-        for (auto i = 0; i < map.size(); ++i)
+        for (auto i = 0; i < static_cast<int>(map.size()); ++i)
             if (map[i][j] >= 'A' && map[i][j] <= 'Z' &&
                 map[i][j + 1] >= 'A' && map[i][j + 1] <= 'Z') {
                 if (!found) {
