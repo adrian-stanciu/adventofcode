@@ -1,11 +1,11 @@
 .PHONY: build run clean
 
 CC=g++
-CXXFLAGS=-std=c++17 -O0 -g -I../int_computer
+CXXFLAGS=-std=c++17 -O0 -g -I../common
 
 build: main
 main: main.o
-main.o: main.cpp ../int_computer/int_computer.h
+main.o: main.cpp ../common/int_computer.h
 
 run: main
 	./main < input
