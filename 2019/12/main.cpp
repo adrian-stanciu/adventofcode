@@ -60,8 +60,8 @@ auto simulate(std::vector<Point> points, long iters)
     auto total_e = 0;
 
     for (const auto& p : points) {
-        auto pot_e = abs(p.x) + abs(p.y) + abs(p.z);
-        auto kin_e = abs(p.vx) + abs(p.vy) + abs(p.vz);
+        auto pot_e = std::abs(p.x) + std::abs(p.y) + std::abs(p.z);
+        auto kin_e = std::abs(p.vx) + std::abs(p.vy) + std::abs(p.vz);
         total_e += pot_e * kin_e;
     }
 
@@ -127,6 +127,9 @@ auto gcd(long a, long b)
 
 auto lcm(long a, long b)
 {
+    if (a == 0 || b == 0)
+        return 0L;
+
     return a * b / gcd(a, b);
 }
 

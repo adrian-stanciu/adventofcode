@@ -49,7 +49,7 @@ struct FileSystem {
 
 void parse(const std::string& line, std::vector<FileSystem>& fs_vec)
 {
-    static const std::regex fs_re{".*-x([0-9]+)-y([0-9]+)\\s+([0-9]+)T\\s+([0-9]+)T\\s+([0-9]+)T\\s+.*"};
+    static const std::regex fs_re{R"(.*-x([0-9]+)-y([0-9]+)\s+([0-9]+)T\s+([0-9]+)T\s+([0-9]+)T\s+.*)"};
 
     std::smatch matched;
     if (regex_match(line, matched, fs_re)) {
@@ -85,7 +85,7 @@ auto a_star_dist(const Map& map, const Point& src, const Point& dst, const Point
     static const std::array<int, 4> dx{0, 0, -1, 1};
 
     auto dist = [&] (const Point& p) {
-        return abs(p.y - dst.y) + abs(p.x - dst.x);
+        return std::abs(p.y - dst.y) + std::abs(p.x - dst.x);
     };
 
     struct State {
@@ -181,7 +181,7 @@ auto a_star(const Map& map, const Point& from, const Point& to, const Point& emp
     static const std::array<int, 4> dx{0, 0, -1, 1};
 
     auto dist = [&] (const Point& p) {
-        return abs(p.y - to.y) + abs(p.x - to.x);
+        return std::abs(p.y - to.y) + std::abs(p.x - to.x);
     };
 
     struct State {

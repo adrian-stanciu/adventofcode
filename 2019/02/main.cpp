@@ -4,7 +4,7 @@
 
 #include "int_computer.h"
 
-auto run(std::vector<long long> prog, long long noun, long long verb)
+auto run(const std::vector<long long>& prog, long long noun, long long verb)
 {
     IntComputer ic(prog);
 
@@ -16,7 +16,7 @@ auto run(std::vector<long long> prog, long long noun, long long verb)
     return ic.get_mem(0);
 }
 
-auto find_noun_and_verb(std::vector<long long> prog, long long expected)
+auto find_noun_and_verb(const std::vector<long long>& prog, long long expected)
 {
     for (auto noun = 0; noun < 100; ++noun)
         for (auto verb = 0; verb < 100; ++verb)

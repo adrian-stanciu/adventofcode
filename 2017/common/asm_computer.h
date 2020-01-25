@@ -273,17 +273,17 @@ public:
         stats.fill(0);
     }
 
-    auto get_ip() const
+    [[nodiscard]] auto get_ip() const
     {
         return ip;
     }
 
-    auto num_regs() const
+    [[nodiscard]] auto num_regs() const
     {
         return static_cast<long>(regs.size());
     }
 
-    long get_reg(char reg) const
+    [[nodiscard]] long get_reg(char reg) const
     {
         return regs[to_reg(reg)];
     }
@@ -293,7 +293,7 @@ public:
         regs[to_reg(reg)] = val;
     }
 
-    bool input_empty() const
+    [[nodiscard]] bool input_empty() const
     {
         return inputs.empty();
     }
@@ -303,12 +303,12 @@ public:
         inputs.push(val);
     }
 
-    bool output_empty() const
+    [[nodiscard]] bool output_empty() const
     {
         return outputs.empty();
     }
 
-    auto output_size() const
+    [[nodiscard]] auto output_size() const
     {
         return outputs.size();
     }
@@ -324,7 +324,7 @@ public:
         return val;
     }
 
-    std::optional<long> get_last_output() const
+    [[nodiscard]] std::optional<long> get_last_output() const
     {
         if (outputs.empty())
             return std::nullopt;
@@ -332,7 +332,7 @@ public:
         return outputs.back();
     }
 
-    bool halted() const
+    [[nodiscard]] bool halted() const
     {
         return status == Status::Halted;
     }
@@ -369,7 +369,7 @@ public:
         return false;
     }
 
-    long get_stats(const std::string& op)
+    [[nodiscard]] long get_stats(const std::string& op)
     {
         if (op == "add")
             return stats[static_cast<int>(Op::Add)];

@@ -20,7 +20,7 @@ struct Turn {
     {
         for (auto y = up_le.first; y <= bo_ri.first; ++y)
             std::transform(g[y].begin() + up_le.second, g[y].begin() + bo_ri.second + 1,
-                g[y].begin() + up_le.second, [&] (auto _) { return on; });
+                g[y].begin() + up_le.second, [&] (auto) { return on; });
     }
 
     void exec2(Grid2& g) const

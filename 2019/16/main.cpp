@@ -43,7 +43,7 @@ void fft(std::vector<int> values, unsigned int iters,
                 }
             }
 
-            new_values.push_back(abs(sum) % 10);
+            new_values.push_back(std::abs(sum) % 10);
         }
 
         swap(values, new_values);

@@ -183,7 +183,7 @@ void update_dist(Dist& next_d, int next_pos_type,
 
 auto compute_dist(const TypeMap& t_map, int x_t, int y_t, int limit)
 {
-    const std::pair<int, int> neigh[] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    const std::pair<int, int> neighbours[] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
     auto dist = [x_t, y_t] (int x, int y) {
         return abs(x_t - x) + abs(y_t -y);
@@ -226,9 +226,9 @@ auto compute_dist(const TypeMap& t_map, int x_t, int y_t, int limit)
         const auto& curr_d = d_map[curr];
         auto curr_pos_type = t_map[curr.second][curr.first];
 
-        for (auto i = 0U; i < sizeof neigh / sizeof neigh[0]; ++i) {
-            auto next_x = curr.first + neigh[i].first;
-            auto next_y = curr.second + neigh[i].second;
+        for (const auto& [neigh_x, neigh_y] : neighbours) {
+            auto next_x = curr.first + neigh_x;
+            auto next_y = curr.second + neigh_y;
 
             if (next_x < 0 || next_y < 0)
                 continue;

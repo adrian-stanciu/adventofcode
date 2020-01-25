@@ -37,8 +37,7 @@ auto split_reactants(const std::string& list)
     while (getline(ss_list, element, ',')) {
         std::smatch matched;
         if (regex_match(element, matched, re))
-            reactants.emplace_back(std::move(matched[2].str()),
-                strtol(matched[1].str().data(), nullptr, 10));
+            reactants.emplace_back(matched[2].str(), strtol(matched[1].str().data(), nullptr, 10));
     }
 
     return reactants;
