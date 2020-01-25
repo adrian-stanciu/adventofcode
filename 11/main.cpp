@@ -120,7 +120,7 @@ void paint(const Map& map)
         img[p.first.y - min_y][p.first.x - min_x] = p.second;
 
     for (auto i = static_cast<int>(img.size()) - 1; i >= 0; --i) {
-        for (auto j = 0; j < img[i].size(); ++j)
+        for (auto j = 0U; j < img[i].size(); ++j)
             if (img[i][j] == Black)
                 std::cout << ' ';
             else

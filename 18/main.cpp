@@ -42,17 +42,19 @@ using KeyMap = std::unordered_map<char, Point>;
 struct Key {
     char k;
     long d;
-    int finder;
+    unsigned int finder;
 
-    Key(char k, long d, int finder)
+    Key(char k, long d, unsigned int finder)
     : k(k), d(d), finder(finder)
     {}
 };
 
-auto find_reachable_keys_by(const Map& map, const Point& p, const KeySet& key_set, int finder)
+// bfs
+auto find_reachable_keys_by(const Map& map, const Point& p, const KeySet& key_set,
+    unsigned int finder)
 {
     static const std::array<int, 4> dr{0, 0, -1, 1};
-    static const std::array<int, 4> dc{1, -1, 0, 0};
+    static const std::array<int, 4> dc{-1, 1, 0, 0};
 
     std::queue<std::pair<Point, long>> q;
     q.emplace(p, 0);
@@ -98,7 +100,7 @@ auto find_reachable_keys(const Map& map, const std::vector<Point>& points, const
 {
     std::vector<Key> all_keys;
 
-    for (auto i = 0; i < points.size(); ++i) {
+    for (auto i = 0U; i < points.size(); ++i) {
         auto keys = find_reachable_keys_by(map, points[i], key_set, i);
         move(keys.begin(), keys.end(), back_inserter(all_keys));
     }
@@ -168,7 +170,7 @@ auto sp_dijkstra(const Map& map, const std::vector<Point>& points,
             new_key_set.set(key.k - 'a');
 
             std::vector<Point> new_points;
-            for (auto i = 0; i < s.points.size(); ++i)
+            for (auto i = 0U; i < s.points.size(); ++i)
                 if (i == key.finder)
                     new_points.push_back(key_map.at(key.k));
                 else
@@ -195,8 +197,8 @@ auto sp(const Map& map, const KeyMap& key_map)
 {
     std::vector<Point> points;
 
-    for (auto i = 0; i < map.size(); ++i)
-        for (auto j = 0; j < map[i].size(); ++j)
+    for (auto i = 0U; i < map.size(); ++i)
+        for (auto j = 0U; j < map[i].size(); ++j)
             if (map[i][j] == '@')
                 points.emplace_back(i, j);
 
@@ -213,8 +215,8 @@ int main()
 
     KeyMap key_map;
 
-    for (auto i = 0; i < map.size(); ++i)
-        for (auto j = 0; j < map[i].size(); ++j)
+    for (auto i = 0U; i < map.size(); ++i)
+        for (auto j = 0U; j < map[i].size(); ++j)
             if (map[i][j] >= 'a' && map[i][j] <= 'z')
                 key_map.try_emplace(map[i][j], i, j);
 

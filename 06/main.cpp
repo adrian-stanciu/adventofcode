@@ -77,7 +77,7 @@ int count_dist(const Tree& tree)
     auto you_path = get_path_to(tree, "YOU");
     auto san_path = get_path_to(tree, "SAN");
 
-    for (auto i = 0; i < std::min(you_path.size(), san_path.size()); ++i)
+    for (auto i = 0U; i < std::min(you_path.size(), san_path.size()); ++i)
         if (you_path[i] != san_path[i])
             return you_path.size() - i + san_path.size() - i;
 

@@ -108,9 +108,10 @@ void run_item_cmd(IntComputer& ic, const std::vector<std::string>& items, const 
     run_without_output(ic);
 }
 
-void run_item_cmd(IntComputer& ic, const std::vector<std::string>& items, const std::string& cmd, int selected)
+void run_item_cmd(IntComputer& ic, const std::vector<std::string>& items,
+    const std::string& cmd, int selected)
 {
-    for (auto i = 0; i < items.size(); ++i)
+    for (auto i = 0U; i < items.size(); ++i)
         if ((selected >> i) & 0x1)
             append_item_cmd(ic, items[i], cmd);
 
@@ -185,7 +186,8 @@ bool test_item(IntComputer ic, const std::string& item)
     return test_item_cmd(ic, item, "take") && test_item_cmd(ic, item, "drop");
 }
 
-auto test_items(IntComputer& ic, std::vector<std::string> items, std::unordered_set<std::string>& bad_items)
+auto test_items(IntComputer& ic, std::vector<std::string> items,
+    std::unordered_set<std::string>& bad_items)
 {
     items.erase(remove_if(items.begin(), items.end(),
         [&] (const std::string& item) {
@@ -203,8 +205,9 @@ auto test_items(IntComputer& ic, std::vector<std::string> items, std::unordered_
     return good_items;
 }
 
-void explore(IntComputer& ic, std::vector<std::string>& collected_items, std::unordered_set<std::string>& bad_items,
-     std::deque<std::string>& path, std::vector<std::string>& path2target)
+void explore(IntComputer& ic, std::vector<std::string>& collected_items,
+    std::unordered_set<std::string>& bad_items,
+    std::deque<std::string>& path, std::vector<std::string>& path2target)
 {
     static const std::unordered_map<std::string, std::string> opposite = {
         {"north", "south"},
@@ -263,7 +266,8 @@ auto is_iteam_too_heavy(IntComputer ic, const std::string& item, const std::stri
     return false;
 }
 
-auto find_candidate_items(IntComputer& ic, const std::vector<std::string>& items, const std::string& final_door)
+auto find_candidate_items(IntComputer& ic, const std::vector<std::string>& items,
+    const std::string& final_door)
 {
     std::vector<std::string> candidate_items;
 

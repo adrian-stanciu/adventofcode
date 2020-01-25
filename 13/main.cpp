@@ -59,15 +59,16 @@ auto play(const std::vector<long long>& prog)
     ic.set_mem(0, 2);
 
     std::vector<Tile> tiles;
-    long long num_tiles_on_row;
+    long long num_tiles_on_row = -1;
 
-    long long x, y;
+    long long x = -1;
+    long long y = -1;
     auto min_x = std::numeric_limits<long long>::max();
     auto max_x = std::numeric_limits<long long>::min();
     auto min_y = std::numeric_limits<long long>::max();
 
-    long long ball_x;
-    long long paddle_x;
+    long long ball_x = -1;
+    long long paddle_x = -1;
 
     auto move_paddle = [&] () {
         if (ball_x < paddle_x)

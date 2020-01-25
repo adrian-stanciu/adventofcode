@@ -6,17 +6,6 @@
 
 #include "int_computer.h"
 
-struct IntPairHasher {
-    auto operator()(const std::pair<int, int>& p) const
-    {
-        // based on boost's hash_combine()
-        size_t h = 0;
-        h ^= p.first + 0x9e3779b9 + (h << 6) + (h >> 2);
-        h ^= p.second + 0x9e3779b9 + (h << 6) + (h >> 2);
-        return h;
-    }
-};
-
 using Map = std::vector<std::vector<char>>;
 
 auto read_map(const std::vector<long long>& prog)
@@ -43,8 +32,8 @@ auto compute_map_csum(const Map& map)
 {
     auto s = 0;
 
-    for (auto i = 1; i < map.size() - 1; ++i)
-        for (auto j = 1; j < map[i].size() - 1; ++j)
+    for (auto i = 1U; i < map.size() - 1; ++i)
+        for (auto j = 1U; j < map[i].size() - 1; ++j)
             if (map[i][j] == '#') {
                 if (map[i - 1][j] != '#')
                     continue;
@@ -66,8 +55,8 @@ auto find_start(const Map& map)
     auto r = 0;
     auto c = 0;
 
-    for (auto i = 0; i < map.size(); ++i)
-        for (auto j = 0; j < map[i].size(); ++j)
+    for (auto i = 0U; i < map.size(); ++i)
+        for (auto j = 0U; j < map[i].size(); ++j)
             if (map[i][j] == '^' || map[i][j] == 'v' ||
                 map[i][j] == '<' || map[i][j] == '>') {
                 r = i;
@@ -104,7 +93,7 @@ auto get_dir(int r, int c, int next_r, int next_c, int& dr, int& dc)
     auto new_dr = next_r - r;
     auto new_dc = next_c - c;
 
-    char dir;
+    char dir = '?';
 
     if (dr == -1) {
         if (new_dc == -1)
@@ -138,22 +127,26 @@ using Path = std::vector<std::pair<char, int>>;
 
 auto compute_path(const Map& map)
 {
+    const auto map_sz = static_cast<int>(map.size());
+
     // direction is represented as deltas on rows and columns
     auto [r, c, dr, dc] = find_start(map);
 
     Path path;
 
     while (true) {
+        const auto map_r_sz = static_cast<int>(map[r].size());
+
         auto next_r = r;
         auto next_c = c;
 
         if (r - 1 >= 0 && map[r - 1][c] == '#' && dr == 0)
             next_r = r - 1;
-        else if (r + 1 < map.size() && map[r + 1][c] == '#' && dr == 0)
+        else if (r + 1 < map_sz && map[r + 1][c] == '#' && dr == 0)
             next_r = r + 1;
         else if (c - 1 >= 0 && map[r][c - 1] == '#' && dc == 0)
             next_c = c - 1;
-        else if (c + 1 < map[r].size() && map[r][c + 1] == '#' && dc == 0)
+        else if (c + 1 < map_r_sz && map[r][c + 1] == '#' && dc == 0)
             next_c = c + 1;
 
         // check end of line
@@ -168,9 +161,9 @@ auto compute_path(const Map& map)
         auto len = 1;
 
         while (true) {
-            if (r + dr < 0 || r + dr == map.size())
+            if (r + dr < 0 || r + dr == map_sz)
                 break;
-            if (c + dc < 0 || c + dc == map[r].size())
+            if (c + dc < 0 || c + dc == map_r_sz)
                 break;
 
             if (map[r + dr][c + dc] != '#')
@@ -189,9 +182,9 @@ auto compute_path(const Map& map)
 }
 
 auto extract_instruction_block(const std::string& path,
-    int num_instructions, const std::set<char>& skip_chars)
+    unsigned int num_instructions, const std::set<char>& skip_chars)
 {
-    auto i = 0;
+    auto i = 0UL;
 
     while (i < path.size())
         if (skip_chars.count(path[i]) > 0)
@@ -221,7 +214,7 @@ auto extract_instruction_block(const std::string& path,
 
 void replace(std::string& where, const std::string& what, const std::string& with)
 {
-    auto i = 0;
+    auto i = 0UL;
 
     while (true) {
         i = where.find(what, i);
@@ -234,7 +227,7 @@ void replace(std::string& where, const std::string& what, const std::string& wit
     }
 }
 
-auto is_valid_main(const std::string& main, int max_fct_len)
+auto is_valid_main(const std::string& main, unsigned int max_fct_len)
 {
     for (auto c : main)
         if (c != 'A' && c != 'B' && c != 'C' && c != ',')
@@ -242,7 +235,7 @@ auto is_valid_main(const std::string& main, int max_fct_len)
     return main.size() <= max_fct_len;
 }
 
-auto split_path(const Path& path, int max_fct_len)
+auto split_path(const Path& path, unsigned int max_fct_len)
 {
     std::string path_s;
 
@@ -256,7 +249,7 @@ auto split_path(const Path& path, int max_fct_len)
 
     auto max_instr_cnt = max_fct_len / 2;
 
-    for (auto a_len = 1; a_len <= max_instr_cnt; ++a_len) {
+    for (auto a_len = 1U; a_len <= max_instr_cnt; ++a_len) {
         auto path_a = path_s;
 
         auto a = extract_instruction_block(path_a, a_len, {});
@@ -265,7 +258,7 @@ auto split_path(const Path& path, int max_fct_len)
 
         replace(path_a, a, "A,");
 
-        for (auto b_len = 1; b_len <= max_instr_cnt; ++b_len) {
+        for (auto b_len = 1U; b_len <= max_instr_cnt; ++b_len) {
             auto path_ab = path_a;
 
             auto b = extract_instruction_block(path_ab, b_len, {'A'});
@@ -274,7 +267,7 @@ auto split_path(const Path& path, int max_fct_len)
 
             replace(path_ab, b, "B,");
 
-            for (auto c_len = 1; c_len <= max_instr_cnt; ++c_len) {
+            for (auto c_len = 1U; c_len <= max_instr_cnt; ++c_len) {
                 auto path_abc = path_ab;
 
                 auto c = extract_instruction_block(path_abc, c_len, {'A', 'B'});
@@ -297,7 +290,7 @@ auto split_path(const Path& path, int max_fct_len)
     return make_tuple(std::string(), std::string(), std::string(), std::string());
 }
 
-void fill_input(IntComputer& ic, const Path& path, int max_fct_len)
+void fill_input(IntComputer& ic, const Path& path, unsigned int max_fct_len)
 {
     auto [main, a, b, c] = split_path(path, max_fct_len);
 
@@ -316,7 +309,8 @@ void fill_input(IntComputer& ic, const Path& path, int max_fct_len)
     ic.append_input('\n');
 }
 
-auto traverse_path(const std::vector<long long>& prog, const Path& path, int max_fct_len)
+auto traverse_path(const std::vector<long long>& prog, const Path& path,
+    unsigned int max_fct_len)
 {
     IntComputer ic(prog);
     ic.set_mem(0, 2);

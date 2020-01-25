@@ -4,8 +4,6 @@
 #include <unordered_set>
 #include <vector>
 
-using namespace std;
-
 using Map = std::vector<std::string>;
 
 struct MapHasher {
@@ -25,11 +23,11 @@ auto count_bugs(const Map& map, int i, int j)
 
     if (i - 1 >= 0)
         bugs += map[i - 1][j] == '#';
-    if (i + 1 < map.size())
+    if (i + 1 < static_cast<int>(map.size()))
         bugs += map[i + 1][j] == '#';
     if (j - 1 >= 0)
         bugs += map[i][j - 1] == '#';
-    if (j + 1 < map[0].size())
+    if (j + 1 < static_cast<int>(map[0].size()))
         bugs += map[i][j + 1] == '#';
 
     return bugs;
@@ -44,10 +42,10 @@ auto count_biodiv_rating(Map map)
     while (true) {
         Map next_map;
 
-        for (auto i = 0; i < map.size(); ++i) {
+        for (auto i = 0U; i < map.size(); ++i) {
             std::string row;
 
-            for (auto j = 0; j < map[0].size(); ++j) {
+            for (auto j = 0U; j < map[0].size(); ++j) {
                 auto bugs = count_bugs(map, i, j);
 
                 if (map[i][j] == '#') {
@@ -74,15 +72,15 @@ auto count_biodiv_rating(Map map)
 
     auto rating = 0;
 
-    for (auto i = 0; i < map.size(); ++i)
-        for (auto j = 0; j < map[0].size(); ++j)
+    for (auto i = 0U; i < map.size(); ++i)
+        for (auto j = 0U; j < map[0].size(); ++j)
             if (map[i][j] == '#')
                 rating += pow(2, i * map[0].size() + j);
 
     return rating;
 }
 
-auto count_neigh_bugs(const std::vector<Map>& levels, int l,
+auto count_neigh_bugs(const std::vector<Map>& levels, unsigned int l,
     int i, int j, int sz, int neigh_i, int neigh_j)
 {
     auto center = sz / 2;
@@ -120,7 +118,7 @@ auto count_neigh_bugs(const std::vector<Map>& levels, int l,
         return (levels[l][neigh_i][neigh_j] == '#') ? 1 : 0;
 }
 
-auto count_bugs(const std::vector<Map>& levels, int l, int i, int j, int sz)
+auto count_bugs(const std::vector<Map>& levels, unsigned int l, int i, int j, int sz)
 {
     return count_neigh_bugs(levels, l, i, j, sz, i - 1, j) +
            count_neigh_bugs(levels, l, i, j, sz, i + 1, j) +
@@ -130,23 +128,23 @@ auto count_bugs(const std::vector<Map>& levels, int l, int i, int j, int sz)
 
 bool has_inner_bugs(const Map& map)
 {
-    auto center = map.size() / 2;
+    const auto center = map.size() / 2;
 
     return map[center - 1][center] == '#' ||
-        map[center + 1][center] == '#' ||
-        map[center][center - 1] == '#' ||
-        map[center][center + 1] == '#';
+           map[center + 1][center] == '#' ||
+           map[center][center - 1] == '#' ||
+           map[center][center + 1] == '#';
 }
 
 bool has_outer_bugs(const Map& map)
 {
-    auto sz = map.size();
+    const auto sz = map.size();
 
-    for (auto i = 0; i < sz; ++i)
+    for (auto i = 0U; i < sz; ++i)
         if (map[i][0] == '#' || map[i][sz - 1] == '#')
             return true;
 
-    for (auto j = 1; j < sz - 1; ++j)
+    for (auto j = 1U; j < sz - 1; ++j)
         if (map[0][j] == '#' || map[sz - 1][j] == '#')
             return true;
 
@@ -155,10 +153,10 @@ bool has_outer_bugs(const Map& map)
 
 auto count_bugs_recursively(Map map, int iters)
 {
-    auto sz = map.size();
+    const auto sz = static_cast<int>(map.size());
     map[sz / 2][sz / 2] = '?';
 
-    Map empty_map{sz, std::string(sz, '.')};
+    Map empty_map(sz, std::string(sz, '.'));
     empty_map[sz / 2][sz / 2] = '?';
 
     // prev level (L-1) is the outer level, next level (L+1) is the inner level
@@ -171,7 +169,7 @@ auto count_bugs_recursively(Map map, int iters)
     while (iters--) {
         std::vector<Map> next_levels{levels};
 
-        for (auto l = 0; l < next_levels.size(); ++l) {
+        for (auto l = 0U; l < next_levels.size(); ++l) {
             auto& next_map = next_levels[l];
 
             for (auto i = 0; i < sz; ++i)

@@ -10,9 +10,9 @@ enum Color : char {
     Transparent = '2',
 };
 
-const auto layer_w = 25;
-const auto layer_h = 6;
-const auto layer_sz = layer_w * layer_h;
+constexpr auto LayerW = 25;
+constexpr auto LayerH = 6;
+constexpr auto LayerSz = LayerW * LayerH;
 
 auto compute_csum(const Image& img)
 {
@@ -20,12 +20,12 @@ auto compute_csum(const Image& img)
 
     auto min_0 = std::numeric_limits<int>::max();
 
-    for (auto layer = 0; layer < img.size(); ++layer) {
+    for (auto layer = 0U; layer < img.size(); ++layer) {
         auto c0 = 0;
         auto c1 = 0;
         auto c2 = 0;
 
-        for (auto pixel = 0; pixel < layer_sz; ++pixel)
+        for (auto pixel = 0; pixel < LayerSz; ++pixel)
             if (img[layer][pixel] == '0')
                 ++c0;
             else if (img[layer][pixel] == '1')
@@ -44,10 +44,10 @@ auto compute_csum(const Image& img)
 
 auto decode(const Image& img)
 {
-    std::vector<char> dec_img(layer_sz);
+    std::vector<char> dec_img(LayerSz);
 
-    for (auto pixel = 0; pixel < layer_sz; ++pixel)
-        for (auto layer = 0; layer < img.size(); ++layer)
+    for (auto pixel = 0; pixel < LayerSz; ++pixel)
+        for (auto layer = 0U; layer < img.size(); ++layer)
             if (img[layer][pixel] == Color::Transparent) {
                 continue;
             } else if (img[layer][pixel] == Color::Black) {
@@ -58,9 +58,9 @@ auto decode(const Image& img)
                 break;
             }
 
-    for (auto pixel = 0; pixel < layer_sz; ++pixel) {
+    for (auto pixel = 0; pixel < LayerSz; ++pixel) {
         std::cout << dec_img[pixel];
-        if ((pixel + 1) % layer_w == 0)
+        if ((pixel + 1) % LayerW == 0)
             std::cout << "\n";
     }
 }
@@ -74,7 +74,7 @@ int main()
     while (std::cin >> c) {
         layer.push_back(c);
 
-        if (layer.size() % layer_sz == 0)
+        if (layer.size() % LayerSz == 0)
             img.push_back(std::move(layer));
     }
 
