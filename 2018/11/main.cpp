@@ -82,7 +82,7 @@ auto max_power_subgrid_k(const std::array<std::array<int, Sz + 1>, Sz + 1>& grid
 void check(int serial, int expected_max_3_x, int expected_max_3_y,
     int expected_max_k_x, int expected_max_k_y, int expected_max_k)
 {
-    std::array<std::array<int, Sz + 1>, Sz + 1> grid {0};
+    std::array<std::array<int, Sz + 1>, Sz + 1> grid{};
     fill_grid_power(grid, serial);
     make_prefix_sum_grid(grid);
 
@@ -104,7 +104,7 @@ int main()
     int serial;
     std::cin >> serial;
 
-    std::array<std::array<int, Sz + 1>, Sz + 1> grid {0};
+    std::array<std::array<int, Sz + 1>, Sz + 1> grid{};
     fill_grid_power(grid, serial);
     make_prefix_sum_grid(grid);
 

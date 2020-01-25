@@ -107,7 +107,7 @@ struct Increment {
         return (n * i) % sz;
     }
 
-    void update_fn(int128& a, int128& b, int128 sz) const
+    void update_fn(int128& a, [[maybe_unused]] int128& b, int128 sz) const
     {
         // i * n = 1 (mod sz) => i = 1 / n (mod sz)
         // f(0) = b, f(1) = a * i + b => f(1) - f(0) = a * i

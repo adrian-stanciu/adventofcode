@@ -20,17 +20,17 @@ auto compute_csum(const Image& img)
 
     auto min_0 = std::numeric_limits<int>::max();
 
-    for (auto layer = 0U; layer < img.size(); ++layer) {
+    for (const auto& layer : img) {
         auto c0 = 0;
         auto c1 = 0;
         auto c2 = 0;
 
-        for (auto pixel = 0; pixel < LayerSz; ++pixel)
-            if (img[layer][pixel] == '0')
+        for (auto pixel : layer)
+            if (pixel == '0')
                 ++c0;
-            else if (img[layer][pixel] == '1')
+            else if (pixel == '1')
                 ++c1;
-            else if (img[layer][pixel] == '2')
+            else if (pixel == '2')
                 ++c2;
 
         if (c0 < min_0) {
@@ -47,13 +47,13 @@ auto decode(const Image& img)
     std::vector<char> dec_img(LayerSz);
 
     for (auto pixel = 0; pixel < LayerSz; ++pixel)
-        for (auto layer = 0U; layer < img.size(); ++layer)
-            if (img[layer][pixel] == Color::Transparent) {
+        for (const auto& layer : img)
+            if (layer[pixel] == Color::Transparent) {
                 continue;
-            } else if (img[layer][pixel] == Color::Black) {
+            } else if (layer[pixel] == Color::Black) {
                 dec_img[pixel] = ' ';
                 break;
-            } else if (img[layer][pixel] == Color::White) {
+            } else if (layer[pixel] == Color::White) {
                 dec_img[pixel] = '#';
                 break;
             }
@@ -74,8 +74,10 @@ int main()
     while (std::cin >> c) {
         layer.push_back(c);
 
-        if (layer.size() % LayerSz == 0)
+        if (layer.size() % LayerSz == 0) {
             img.push_back(std::move(layer));
+            layer.clear();
+        }
     }
 
     std::cout << compute_csum(img) << "\n";

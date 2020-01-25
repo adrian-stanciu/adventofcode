@@ -8,131 +8,131 @@
 #include <vector>
 
 namespace {
-    auto addr_precond = [](auto num_regs, const auto& instr) {
+    inline auto addr_precond = [](auto num_regs, const auto& instr) {
         return !(instr.a >= num_regs || instr.b >= num_regs || instr.c >= num_regs);
     };
 
-    auto addi_precond = [](auto num_regs, const auto& instr) {
+    inline auto addi_precond = [](auto num_regs, const auto& instr) {
         return !(instr.a >= num_regs || instr.c >= num_regs);
     };
 
-    auto mulr_precond = [](auto num_regs, const auto& instr) {
+    inline auto mulr_precond = [](auto num_regs, const auto& instr) {
         return !(instr.a >= num_regs || instr.b >= num_regs || instr.c >= num_regs);
     };
 
-    auto muli_precond = [](auto num_regs, const auto& instr) {
+    inline auto muli_precond = [](auto num_regs, const auto& instr) {
         return !(instr.a >= num_regs || instr.c >= num_regs);
     };
 
-    auto banr_precond = [](auto num_regs, const auto& instr) {
+    inline auto banr_precond = [](auto num_regs, const auto& instr) {
         return !(instr.a >= num_regs || instr.b >= num_regs || instr.c >= num_regs);
     };
 
-    auto bani_precond = [](auto num_regs, const auto& instr) {
+    inline auto bani_precond = [](auto num_regs, const auto& instr) {
         return !(instr.a >= num_regs || instr.c >= num_regs);
     };
 
-    auto borr_precond = [](auto num_regs, const auto& instr) {
+    inline auto borr_precond = [](auto num_regs, const auto& instr) {
         return !(instr.a >= num_regs || instr.b >= num_regs || instr.c >= num_regs);
     };
 
-    auto bori_precond = [](auto num_regs, const auto& instr) {
+    inline auto bori_precond = [](auto num_regs, const auto& instr) {
         return !(instr.a >= num_regs || instr.c >= num_regs);
     };
 
-    auto setr_precond = [](auto num_regs, const auto& instr) {
+    inline auto setr_precond = [](auto num_regs, const auto& instr) {
         return !(instr.a >= num_regs || instr.c >= num_regs);
     };
 
-    auto seti_precond = [](auto num_regs, const auto& instr) {
+    inline auto seti_precond = [](auto num_regs, const auto& instr) {
         return !(instr.c >= num_regs);
     };
 
-    auto gtir_precond = [](auto num_regs, const auto& instr) {
+    inline auto gtir_precond = [](auto num_regs, const auto& instr) {
         return !(instr.b >= num_regs || instr.c >= num_regs);
     };
 
-    auto gtri_precond = [](auto num_regs, const auto& instr) {
+    inline auto gtri_precond = [](auto num_regs, const auto& instr) {
         return !(instr.a >= num_regs || instr.c >= num_regs);
     };
 
-    auto gtrr_precond = [](auto num_regs, const auto& instr) {
+    inline auto gtrr_precond = [](auto num_regs, const auto& instr) {
         return !(instr.a >= num_regs || instr.b >= num_regs || instr.c >= num_regs);
     };
 
-    auto eqir_precond = [](auto num_regs, const auto& instr) {
+    inline auto eqir_precond = [](auto num_regs, const auto& instr) {
         return !(instr.b >= num_regs || instr.c >= num_regs);
     };
 
-    auto eqri_precond = [](auto num_regs, const auto& instr) {
+    inline auto eqri_precond = [](auto num_regs, const auto& instr) {
         return !(instr.a >= num_regs || instr.c >= num_regs);
     };
 
-    auto eqrr_precond = [](auto num_regs, const auto& instr) {
+    inline auto eqrr_precond = [](auto num_regs, const auto& instr) {
         return !(instr.a >= num_regs || instr.b >= num_regs || instr.c >= num_regs);
     };
 
-    auto addr = [](auto& regs, const auto& instr) {
+    inline auto addr = [](auto& regs, const auto& instr) {
         regs[instr.c] = regs[instr.a] + regs[instr.b];
     };
 
-    auto addi = [](auto& regs, const auto& instr) {
+    inline auto addi = [](auto& regs, const auto& instr) {
         regs[instr.c] = regs[instr.a] + instr.b;
     };
 
-    auto mulr = [](auto& regs, const auto& instr) {
+    inline auto mulr = [](auto& regs, const auto& instr) {
         regs[instr.c] = regs[instr.a] * regs[instr.b];
     };
 
-    auto muli = [](auto& regs, const auto& instr) {
+    inline auto muli = [](auto& regs, const auto& instr) {
         regs[instr.c] = regs[instr.a] * instr.b;
     };
 
-    auto banr = [](auto& regs, const auto& instr) {
+    inline auto banr = [](auto& regs, const auto& instr) {
         regs[instr.c] = regs[instr.a] & regs[instr.b];
     };
 
-    auto bani = [](auto& regs, const auto& instr) {
+    inline auto bani = [](auto& regs, const auto& instr) {
         regs[instr.c] = regs[instr.a] & instr.b;
     };
 
-    auto borr = [](auto& regs, const auto& instr) {
+    inline auto borr = [](auto& regs, const auto& instr) {
         regs[instr.c] = regs[instr.a] | regs[instr.b];
     };
 
-    auto bori = [](auto& regs, const auto& instr) {
+    inline auto bori = [](auto& regs, const auto& instr) {
         regs[instr.c] = regs[instr.a] | instr.b;
     };
 
-    auto setr = [](auto& regs, const auto& instr) {
+    inline auto setr = [](auto& regs, const auto& instr) {
         regs[instr.c] = regs[instr.a];
     };
 
-    auto seti = [](auto& regs, const auto& instr) {
+    inline auto seti = [](auto& regs, const auto& instr) {
         regs[instr.c] = instr.a;
     };
 
-    auto gtir = [](auto& regs, const auto& instr) {
+    inline auto gtir = [](auto& regs, const auto& instr) {
         regs[instr.c] = (instr.a > regs[instr.b]) ? 1 : 0;
     };
 
-    auto gtri = [](auto& regs, const auto& instr) {
+    inline auto gtri = [](auto& regs, const auto& instr) {
         regs[instr.c] = (regs[instr.a] > instr.b) ? 1 : 0;
     };
 
-    auto gtrr = [](auto& regs, const auto& instr) {
+    inline auto gtrr = [](auto& regs, const auto& instr) {
         regs[instr.c] = (regs[instr.a] > regs[instr.b]) ? 1 : 0;
     };
 
-    auto eqir = [](auto& regs, const auto& instr) {
+    inline auto eqir = [](auto& regs, const auto& instr) {
         regs[instr.c] = (instr.a == regs[instr.b]) ? 1 : 0;
     };
 
-    auto eqri = [](auto& regs, const auto& instr) {
+    inline auto eqri = [](auto& regs, const auto& instr) {
         regs[instr.c] = (regs[instr.a] == instr.b) ? 1 : 0;
     };
 
-    auto eqrr = [](auto& regs, const auto& instr) {
+    inline auto eqrr = [](auto& regs, const auto& instr) {
         regs[instr.c] = (regs[instr.a] == regs[instr.b]) ? 1 : 0;
     };
 
@@ -221,7 +221,7 @@ namespace {
             }
         }
 
-        static auto to_number(const std::string s)
+        static auto to_number(const std::string& s)
         {
             return strtol(s.data(), nullptr, 10);
         }
@@ -301,17 +301,17 @@ namespace {
             status = Status::Ok;
         }
 
-        auto get_ip() const
+        [[nodiscard]] auto get_ip() const
         {
             return regs[ip_reg];
         }
 
-        auto num_regs() const
+        [[nodiscard]] auto num_regs() const
         {
             return static_cast<long>(regs.size());
         }
 
-        long get_reg(long reg) const
+        [[nodiscard]] long get_reg(long reg) const
         {
             return regs[reg];
         }
@@ -321,7 +321,7 @@ namespace {
             regs[reg] = val;
         }
 
-        bool halted() const
+        [[nodiscard]] bool halted() const
         {
             return status == Status::Halted;
         }

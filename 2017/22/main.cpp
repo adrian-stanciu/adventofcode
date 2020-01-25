@@ -36,8 +36,8 @@ auto grid_to_map1(const std::vector<std::string>& grid)
 {
     std::unordered_map<std::string, bool> map;
 
-    long mid_r = grid.size() / 2;
-    long mid_c = grid[mid_r].size() / 2;
+    auto mid_r = grid.size() / 2;
+    auto mid_c = grid[mid_r].size() / 2;
 
     for (auto i = 0U; i < grid.size(); ++i)
         for (auto j = 0U; j < grid[i].size(); ++j)
@@ -90,8 +90,8 @@ auto grid_to_map2(const std::vector<std::string>& grid)
 {
     std::unordered_map<std::string, State> map;
 
-    long mid_r = grid.size() / 2;
-    long mid_c = grid[mid_r].size() / 2;
+    auto mid_r = grid.size() / 2;
+    auto mid_c = grid[mid_r].size() / 2;
 
     for (auto i = 0U; i < grid.size(); ++i)
         for (auto j = 0U; j < grid[i].size(); ++j)

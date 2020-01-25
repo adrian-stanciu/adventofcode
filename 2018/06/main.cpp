@@ -8,7 +8,7 @@
 
 auto max_finite_area(const std::vector<std::pair<int, int>>& points, int max_x, int max_y)
 {
-    int p_map[max_x + 1][max_y + 1];
+    auto p_map = std::vector(max_x + 1, std::vector(max_y + 1, 0));
 
     for (auto i = 0; i <= max_x; ++i)
         for (auto j = 0; j <= max_y; ++j) {

@@ -45,7 +45,7 @@ public:
             mem[i] = prog[i];
     }
 
-    long long get_mem(long long idx)
+    [[nodiscard]] long long get_mem(long long idx)
     {
         return mem[idx];
     }
@@ -55,7 +55,7 @@ public:
         mem[idx] = val;
     }
 
-    bool input_empty() const
+    [[nodiscard]] bool input_empty() const
     {
         return inputs.empty();
     }
@@ -65,12 +65,12 @@ public:
         inputs.push(val);
     }
 
-    bool output_empty() const
+    [[nodiscard]] bool output_empty() const
     {
         return outputs.empty();
     }
 
-    auto output_size() const
+    [[nodiscard]] auto output_size() const
     {
         return outputs.size();
     }
@@ -86,7 +86,7 @@ public:
         return val;
     }
 
-    std::optional<long long> get_last_output() const
+    [[nodiscard]] std::optional<long long> get_last_output() const
     {
         if (outputs.empty())
             return std::nullopt;
@@ -94,7 +94,7 @@ public:
         return outputs.back();
     }
 
-    bool halted() const
+    [[nodiscard]] bool halted() const
     {
         return status == Status::Halted;
     }

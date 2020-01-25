@@ -72,7 +72,7 @@ auto get_path_to(const Tree& tree, const std::string& target)
     return path;
 }
 
-int count_dist(const Tree& tree)
+auto count_dist(const Tree& tree)
 {
     auto you_path = get_path_to(tree, "YOU");
     auto san_path = get_path_to(tree, "SAN");
@@ -81,7 +81,7 @@ int count_dist(const Tree& tree)
         if (you_path[i] != san_path[i])
             return you_path.size() - i + san_path.size() - i;
 
-    return 0;
+    return 0UL;
 }
 
 int main()

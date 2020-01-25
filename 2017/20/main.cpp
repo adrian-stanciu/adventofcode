@@ -15,7 +15,7 @@ auto solve_quadratic_eq_pd(long a, long b, long c)
 
     if (a == 0) {
         if (b != 0) {
-            double r = -c / b;
+            double r = -(double)c / b;
             if (r > 0)
                 roots.push_back(r);
         }
@@ -30,7 +30,7 @@ auto solve_quadratic_eq_pd(long a, long b, long c)
             if (r2 > 0)
                 roots.push_back(r2);
         } else if (delta == 0) {
-            double r = -b / (2 * a);
+            double r = -(double)b / (2 * a);
             if (r > 0)
                 roots.push_back(r);
         }
@@ -46,7 +46,7 @@ struct Particle {
 
     long dist()
     {
-        return abs(px) + abs(py) + abs(pz);
+        return std::abs(px) + std::abs(py) + std::abs(pz);
     }
 
     // compute the last time when position changes its sign on any direction
@@ -91,9 +91,9 @@ struct Particle {
 
     long p_abs(long t)
     {
-        return abs(px + vx * t + ax * t * (t + 1) / 2) +
-            abs(py + vy * t + ay * t * (t + 1) / 2) +
-            abs(pz + vz * t + az * t * (t + 1) / 2);
+        return std::abs(px + vx * t + ax * t * (t + 1) / 2) +
+            std::abs(py + vy * t + ay * t * (t + 1) / 2) +
+            std::abs(pz + vz * t + az * t * (t + 1) / 2);
     }
 
     // compute the last time when velocity changes its sign on any direction
@@ -114,14 +114,14 @@ struct Particle {
 
     long v_abs(long t)
     {
-        return abs(vx + ax * t) +
-            abs(vy + ay * t) +
-            abs(vz + az * t);
+        return std::abs(vx + ax * t) +
+            std::abs(vy + ay * t) +
+            std::abs(vz + az * t);
     }
 
     long a_abs()
     {
-        return abs(ax) + abs(ay) + abs(az);
+        return std::abs(ax) + std::abs(ay) + std::abs(az);
     }
 
     void move()

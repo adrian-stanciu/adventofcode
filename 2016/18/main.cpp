@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-bool is_trap(char left, char center, char right)
+bool is_trap(char left, char right)
 {
     return (left == '^' && right == '.') || (left == '.' && right == '^');
 }
@@ -13,7 +13,7 @@ auto generate_next_tiles(const std::string& tiles)
     next_tiles.reserve(tiles.size() - 2);
 
     for (auto i = 1U; i < tiles.size() - 1; ++i)
-        next_tiles.push_back(is_trap(tiles[i - 1], tiles[i], tiles[i + 1]) ? '^' : '.');
+        next_tiles.push_back(is_trap(tiles[i - 1], tiles[i + 1]) ? '^' : '.');
 
     return next_tiles;
 }

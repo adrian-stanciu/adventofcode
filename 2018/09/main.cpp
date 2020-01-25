@@ -1,12 +1,13 @@
 #include <algorithm>
 #include <cassert>
 #include <iostream>
-#include <string>
 #include <list>
+#include <string>
+#include <vector>
 
 auto score(int num_players, int last_val)
 {
-    size_t scores[num_players] = {0};
+    std::vector<size_t> scores(num_players, 0);
 
     std::list<int> circle;
     circle.push_back(0);
@@ -44,7 +45,7 @@ auto score(int num_players, int last_val)
             ++val;
         }
 
-    return *std::max_element(scores, scores + num_players);
+    return *std::max_element(scores.begin(), scores.end());
 }
 
 int main()

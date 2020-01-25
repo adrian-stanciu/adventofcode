@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <array>
 #include <cassert>
 #include <iostream>
 #include <limits>
@@ -12,9 +13,11 @@ using Matrix = std::vector<Row>;
 constexpr auto Inf = std::numeric_limits<int>::max();
 constexpr auto Sz  = 32;
 
+using DistMatrix = std::array<std::array<int, Sz + 1>, Sz + 1>;
+
 struct Player;
 
-void fill_dist(int dist[][Sz + 1], int x, int y,
+void fill_dist(DistMatrix& dist, int x, int y,
     const Matrix& map, const std::vector<Player>& players);
 
 struct Target {
@@ -81,10 +84,10 @@ struct Player {
 
     bool move(const Matrix& map, std::vector<Player>& players)
     {
-        int dist[Sz + 1][Sz + 1];
-        for (auto i = 1; i <= Sz; ++i)
-            for (auto j = 1; j <= Sz; ++j)
-                dist[i][j] = Inf;
+        DistMatrix dist;
+
+        for (auto& d : dist)
+            d.fill(Inf);
         fill_dist(dist, x, y, map, players);
 
         // select target
@@ -118,9 +121,8 @@ struct Player {
         auto near_x = targets[0].x;
 
         // select path
-        for (auto i = 1; i <= Sz; ++i)
-            for (auto j = 1; j <= Sz; ++j)
-                dist[i][j] = Inf;
+        for (auto& d : dist)
+            d.fill(Inf);
         fill_dist(dist, near_x, near_y, map, players);
 
         auto min_dist = Inf;
@@ -160,7 +162,7 @@ struct Player {
     }
 };
 
-void fill_dist(int dist[][Sz + 1], int x, int y,
+void fill_dist(DistMatrix& dist, int x, int y,
     const Matrix& map, const std::vector<Player>& players)
 {
     std::queue<Target> q;

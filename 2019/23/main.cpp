@@ -9,14 +9,14 @@
 auto run(std::vector<IntComputer> network)
 {
     while (true) {
-        for (auto i = 0U; i < network.size(); ++i)
-            network[i].run();
+        for (auto& comp : network)
+            comp.run();
 
-        for (auto i = 0U; i < network.size(); ++i) {
-            while (!network[i].output_empty() && network[i].output_size() % 3 == 0) {
-                auto dst = *network[i].extract_first_output();
-                auto x = *network[i].extract_first_output();
-                auto y = *network[i].extract_first_output();
+        for (auto& comp : network) {
+            while (!comp.output_empty() && comp.output_size() % 3 == 0) {
+                auto dst = *comp.extract_first_output();
+                auto x = *comp.extract_first_output();
+                auto y = *comp.extract_first_output();
 
                 if (dst == 255)
                     return y;
@@ -26,9 +26,9 @@ auto run(std::vector<IntComputer> network)
             }
         }
 
-        for (auto i = 0U; i < network.size(); ++i)
-            if (network[i].input_empty())
-                network[i].append_input(-1);
+        for (auto& comp : network)
+            if (comp.input_empty())
+                comp.append_input(-1);
     }
 }
 
@@ -46,14 +46,14 @@ auto run_with_nat(std::vector<IntComputer> network)
     };
 
     while (true) {
-        for (auto i = 0U; i < network.size(); ++i)
-            network[i].run();
+        for (auto& comp : network)
+            comp.run();
 
-        for (auto i = 0U; i < network.size(); ++i) {
-            while (!network[i].output_empty() && network[i].output_size() % 3 == 0) {
-                auto dst = *network[i].extract_first_output();
-                auto x = *network[i].extract_first_output();
-                auto y = *network[i].extract_first_output();
+        for (auto& comp : network) {
+            while (!comp.output_empty() && comp.output_size() % 3 == 0) {
+                auto dst = *comp.extract_first_output();
+                auto x = *comp.extract_first_output();
+                auto y = *comp.extract_first_output();
 
                 if (dst == 255) {
                     nat_avail = true;
@@ -75,9 +75,9 @@ auto run_with_nat(std::vector<IntComputer> network)
 
             nat_last_delivered_y = nat_y;
         } else {
-            for (auto i = 0U; i < network.size(); ++i)
-                if (network[i].input_empty())
-                    network[i].append_input(-1);
+            for (auto& comp : network)
+                if (comp.input_empty())
+                    comp.append_input(-1);
         }
     }
 }

@@ -167,8 +167,8 @@ long find_correct_weight(const Program& p,
     if (p.children.size() > 2) {
         auto maj_weight = get_maj_weight(p.children, programs);
 
-        for (size_t i = 0; i < p.children.size(); ++i) {
-            auto& child = get_program(p.children[i], programs);
+        for (const auto& c : p.children) {
+            auto& child = get_program(c, programs);
             if (child.total_weight != maj_weight)
                 return find_correct_weight(child, programs, maj_weight);
         }
