@@ -1,6 +1,6 @@
 .PHONY: build run clean
 
-N := 1
+N := 2
 
 build:
 	for i in $$(seq -f "%02g" 1 ${N}); do \
