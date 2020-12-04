@@ -13,7 +13,7 @@ auto extract_reversed_digits(int n)
     return digits;
 }
 
-bool has_non_decreasing_digits(const std::vector<int>& reversed_digits)
+bool has_non_increasing_digits(const std::vector<int>& reversed_digits)
 {
     if (reversed_digits.size() < 2)
         return true;
@@ -37,7 +37,7 @@ bool has_adjacent_equal_digits(const std::vector<int>& digits)
     return false;
 }
 
-bool has_max_2_adjacent_equal_digits(const std::vector<int>& digits)
+bool has_k_adjacent_equal_digits(const std::vector<int>& digits, int k)
 {
     auto cnt = 1;
 
@@ -45,14 +45,14 @@ bool has_max_2_adjacent_equal_digits(const std::vector<int>& digits)
         if (digits[i] == digits[i - 1]) {
             ++cnt;
         } else {
-            if (cnt == 2)
+            if (cnt == k)
                 return true;
 
             cnt = 1;
         }
     }
 
-    if (cnt == 2)
+    if (cnt == k)
         return true;
 
     return false;
@@ -66,13 +66,13 @@ auto count_valid_pass(int first, int last)
     for (auto i = first; i <= last; ++i) {
         auto reversed_digits = extract_reversed_digits(i);
 
-        if (!has_non_decreasing_digits(reversed_digits))
+        if (!has_non_increasing_digits(reversed_digits))
             continue;
 
         if (has_adjacent_equal_digits(reversed_digits)) {
             ++cnt1;
 
-            if (has_max_2_adjacent_equal_digits(reversed_digits))
+            if (has_k_adjacent_equal_digits(reversed_digits, 2))
                 ++cnt2;
         }
     }
