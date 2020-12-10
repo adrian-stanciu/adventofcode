@@ -29,7 +29,7 @@ int main()
             strtol(matched[2].str().data(), nullptr, 10),
             matched[3].str()[0]
         };
-        Password pw{move(pol), matched[4].str()};
+        Password pw{pol, matched[4].str()};
 
         passwords.push_back(move(pw));
     }
