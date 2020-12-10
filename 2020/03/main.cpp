@@ -23,7 +23,7 @@ int main()
     cout << count(3, 1, '#') << '\n';
 
     auto res = 1l;
-    const pair<int, int> slopes[] = {{1, 1}, {3, 1}, {5, 1}, {7, 1}, {1, 2}};
+    const array<pair<int, int>, 5> slopes{{{1, 1}, {3, 1}, {5, 1}, {7, 1}, {1, 2}}};
     for (auto [dx, dy] : slopes)
         res *= count(dx, dy, '#');
     cout << res << '\n';
