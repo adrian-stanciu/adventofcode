@@ -4,7 +4,7 @@ using namespace std;
 
 auto read(const string& line)
 {
-    static const regex r{"([a-zA-Z]* [a-zA-Z]*) bags contain (.*)."};
+    static const regex r{"([a-zA-Z]+ [a-zA-Z]+) bags contain (.+)."};
     smatch matched;
     regex_match(line, matched, r);
 

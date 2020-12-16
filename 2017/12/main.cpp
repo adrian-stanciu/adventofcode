@@ -12,7 +12,7 @@ auto read_pipes()
     std::string line;
     while (getline(std::cin, line)) {
         // it assumes that the left ends are sorted in ascending order
-        static const std::regex re{"[0-9]+ <-> (.*)"};
+        static const std::regex re{"[0-9]+ <-> (.+)"};
 
         std::smatch matched;
         regex_match(line, matched, re);
