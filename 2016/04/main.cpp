@@ -17,7 +17,7 @@ std::optional<Room> parse_line(const std::string& line)
 
     const auto trailer = line.substr(pos + 1);
     std::smatch matched;
-    static const std::regex trailer_re{"([1-9][0-9]*)\\[(.*)\\]"};
+    static const std::regex trailer_re{R"(([1-9][0-9]*)\[(.+)\])"};
     if (!regex_match(trailer, matched, trailer_re))
         return {};
 

@@ -37,8 +37,8 @@ auto read_programs()
 
     std::string line;
     while (getline(std::cin, line)) {
-        static const std::regex leaf_re{"([a-z]+) \\(([1-9][0-9]*)\\)"};
-        static const std::regex inter_re{"([a-z]+) \\(([1-9][0-9]*)\\) -> (.*)"};
+        static const std::regex leaf_re{R"(([a-z]+) \(([1-9][0-9]*)\))"};
+        static const std::regex inter_re{R"(([a-z]+) \(([1-9][0-9]*)\) -> (.+))"};
 
         std::string name;
         long weight;

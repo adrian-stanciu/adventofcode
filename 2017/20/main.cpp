@@ -161,7 +161,7 @@ std::tuple<long, long, long> read_group(const std::string& group)
 
 auto read_particles()
 {
-    static const std::regex re{"p=<(.*)>, v=<(.*)>, a=<(.*)>"};
+    static const std::regex re{"p=<(.+)>, v=<(.+)>, a=<(.+)>"};
 
     std::vector<Particle> particles;
 

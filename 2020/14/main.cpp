@@ -114,7 +114,7 @@ auto solve2(const vector<Instr>& prog)
 int main()
 {
     static const regex mask_r{R"(mask = ([01X]{36}))"};
-    static const regex mem_r{R"(mem\[([0-9]*)\] = ([0-9]*))"};
+    static const regex mem_r{R"(mem\[([0-9]+)\] = ([0-9]+))"};
 
     vector<Instr> prog;
 

@@ -4,7 +4,7 @@
 
 auto read_position()
 {
-    static const std::regex re{"\\s+Enter the code at row ([1-9][0-9]*), column ([1-9][0-9]*)."};
+    static const std::regex re{R"(\s+Enter the code at row ([1-9][0-9]*), column ([1-9][0-9]*).)"};
 
     static const auto to_number = [] (const auto& s) {
         return strtol(s.data(), nullptr, 10);

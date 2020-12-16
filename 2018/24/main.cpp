@@ -34,10 +34,10 @@ void parse_immune_weak(const std::string& immune_weak_s, Group& g)
         }
     };
 
-    static const std::regex immune_weak_re {"\\(immune to (.+); weak to (.+)\\)"};
-    static const std::regex weak_immune_re {"\\(weak to (.+); immune to (.+)\\)"};
-    static const std::regex immune_re {"\\(immune to (.+)\\)"};
-    static const std::regex weak_re {"\\(weak to (.+)\\)"};
+    static const std::regex immune_weak_re {R"(\(immune to (.+); weak to (.+)\))"};
+    static const std::regex weak_immune_re {R"(\(weak to (.+); immune to (.+)\))"};
+    static const std::regex immune_re {R"(\(immune to (.+)\))"};
+    static const std::regex weak_re {R"(\(weak to (.+)\))"};
 
     std::smatch matched;
     if (regex_match(immune_weak_s, matched, immune_weak_re)) {

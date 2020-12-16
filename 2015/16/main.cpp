@@ -10,7 +10,7 @@ using Criteria = std::unordered_map<std::string, std::function<bool(int)>>;
 
 auto parse(const std::string& line)
 {
-    static const std::regex re{"Sue ([1-9][0-9]*): (.*)"};
+    static const std::regex re{"Sue ([1-9][0-9]*): (.+)"};
 
     std::smatch matched;
     regex_match(line, matched, re);

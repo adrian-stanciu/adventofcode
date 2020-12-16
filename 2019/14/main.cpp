@@ -27,7 +27,7 @@ using ReactionMap = std::unordered_map<std::string, Reaction>;
 
 auto split_reactants(const std::string& list)
 {
-    static const std::regex re{"\\s*([1-9][0-9]*) ([A-Z]+)\\s*"};
+    static const std::regex re{R"(\s*([1-9][0-9]*) ([A-Z]+)\s*)"};
 
     std::vector<Elem> reactants;
 
@@ -105,7 +105,7 @@ auto compute_max_fuel(const ReactionMap& r_map, long max_ore_avail)
 
 int main()
 {
-    static const std::regex re{"\\s*(.*) => ([1-9][0-9]*) ([A-Z]+)\\s*"};
+    static const std::regex re{R"(\s*(.+) => ([1-9][0-9]*) ([A-Z]+)\s*)"};
 
     ReactionMap r_map;
 

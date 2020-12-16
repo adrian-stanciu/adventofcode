@@ -15,7 +15,7 @@ struct Password {
 
 int main()
 {
-    static const regex pw_regex{"([1-9][0-9]*)-([1-9][0-9]*) ([a-zA-Z]): (.*)"};
+    static const regex pw_regex{"([1-9][0-9]*)-([1-9][0-9]*) ([a-zA-Z]): (.+)"};
 
     vector<Password> passwords;
 

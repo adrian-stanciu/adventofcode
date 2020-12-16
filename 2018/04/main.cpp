@@ -133,7 +133,7 @@ auto find_strategy_2(const std::vector<Event>& events)
 int main()
 {
     // [Y-Mo-D H:Mi]
-    static const std::regex time_re {"\\[([0-9]+)-([0-9]+)-([0-9]+) ([0-9]+):([0-9]+)\\] (.*)"};
+    static const std::regex time_re {R"(\[([0-9]+)-([0-9]+)-([0-9]+) ([0-9]+):([0-9]+)\] (.+))"};
     // Guard #ID begins shift
     static const std::regex guard_re {"Guard #([0-9]+) begins shift"};
 

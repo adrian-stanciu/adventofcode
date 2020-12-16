@@ -19,9 +19,9 @@ struct Chamber {
 
 auto parse_chamber(std::stringstream& ss)
 {
-    static const std::regex re_name("== (.*) ==");
-    static const std::regex re_door("- (.*)");
-    static const std::regex re_item("- (.*)");
+    static const std::regex re_name("== (.+) ==");
+    static const std::regex re_door("- (.+)");
+    static const std::regex re_item("- (.+)");
 
     Chamber chamber;
 
@@ -280,7 +280,7 @@ auto find_candidate_items(IntComputer& ic, const std::vector<std::string>& items
 
 auto find_sol(IntComputer& ic, const std::vector<std::string>& items, const std::string& final_door)
 {
-    static const std::regex re_sol{"\"Oh, hello! You should be able to get in by typing ([1-9][0-9]*) on the keypad at the main airlock.\""};
+    static const std::regex re_sol{R"("Oh, hello! You should be able to get in by typing ([1-9][0-9]*) on the keypad at the main airlock.")"};
 
     auto limit = pow(2, items.size());
 
