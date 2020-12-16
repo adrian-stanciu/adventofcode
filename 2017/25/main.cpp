@@ -36,19 +36,19 @@ auto read_state()
     s.name = read_string(name_re)[0];
 
     for (size_t i = 0; i < 2; ++i) {
-        static const std::regex curr_re{"\\s+If the current value is ([0-1]):"};
+        static const std::regex curr_re{R"(\s+If the current value is ([0-1]):)"};
         auto idx = read_long(curr_re);
 
-        static const std::regex out_re{"\\s+- Write the value ([0-1])."};
+        static const std::regex out_re{R"(\s+- Write the value ([0-1]).)"};
         s.outputs[idx] = read_long(out_re);
 
-        static const std::regex dir_re{"\\s+- Move one slot to the (.*)."};
+        static const std::regex dir_re{R"(\s+- Move one slot to the (.+).)"};
         if (read_string(dir_re) == "left")
             s.moves[idx] = -1;
         else
             s.moves[idx] = 1;
 
-        static const std::regex next_state_re{"\\s+- Continue with state ([A-Z])."};
+        static const std::regex next_state_re{R"(\s+- Continue with state ([A-Z]).)"};
         s.next_states[idx] = read_string(next_state_re)[0];
     }
 

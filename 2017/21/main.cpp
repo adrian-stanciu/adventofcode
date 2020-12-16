@@ -102,7 +102,7 @@ auto read_rules()
 
     std::string line;
     while (getline(std::cin, line)) {
-        static const std::regex re{"(.*) => (.*)"};
+        static const std::regex re{"(.+) => (.+)"};
 
         std::smatch matched;
         regex_match(line, matched, re);
