@@ -13,7 +13,7 @@ struct Rule {
 
     Rule(const string& s)
     {
-        static const regex r{R"((.*): ([0-9]*)-([0-9]*) or ([0-9]*)-([0-9]*))"};
+        static const regex r{R"((.+): ([0-9]+)-([0-9]+) or ([0-9]+)-([0-9]+))"};
         smatch matched;
         regex_match(s, matched, r);
         name = matched[1].str();

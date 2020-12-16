@@ -129,11 +129,11 @@ private:
 
     std::optional<Instr> decode_instr(const std::string& instr) const
     {
-        static const std::regex cpy_re{"cpy (.*) (.*)"};
-        static const std::regex inc_re{"inc (.*)"};
-        static const std::regex dec_re{"dec (.*)"};
-        static const std::regex jnz_re{"jnz (.*) (.*)"};
-        static const std::regex out_re{"out (.*)"};
+        static const std::regex cpy_re{"cpy (.+) (.+)"};
+        static const std::regex inc_re{"inc (.+)"};
+        static const std::regex dec_re{"dec (.+)"};
+        static const std::regex jnz_re{"jnz (.+) (.+)"};
+        static const std::regex out_re{"out (.+)"};
 
         std::smatch matched;
         if (regex_match(instr, matched, cpy_re)) {

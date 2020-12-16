@@ -89,7 +89,7 @@ auto read_instructions()
 
     std::string line;
     while (getline(std::cin, line)) {
-        static const std::regex re{"(.*) if (.*)"};
+        static const std::regex re{"(.+) if (.+)"};
         std::smatch matched;
         regex_match(line, matched, re);
 
