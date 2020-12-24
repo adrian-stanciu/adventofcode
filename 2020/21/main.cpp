@@ -71,7 +71,7 @@ void solve(const vector<Food>& foods)
     while (!candidate_a2i.empty())
         for (const auto& [a, bad_i] : candidate_a2i)
             if (bad_i.size() == 1) {
-                auto i = *bad_i.begin();
+                auto i = *begin(bad_i);
                 a2i.emplace(a, i);
                 for (auto& [_, bad_i] : candidate_a2i)
                     bad_i.erase(i);

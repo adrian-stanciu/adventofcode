@@ -142,8 +142,8 @@ auto solve(vector<Rule>& rules, const Ticket& my_ticket, const vector<Ticket>& t
                 if (is_sol(rules[rules_matched[0]].name))
                     res *= my_ticket.values[fields[i].id];
 
-                fields.erase(fields.begin() + i);
-                rules.erase(rules.begin() + rules_matched[0]);
+                fields.erase(begin(fields) + i);
+                rules.erase(begin(rules) + rules_matched[0]);
                 break;
             }
         }

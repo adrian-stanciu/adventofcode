@@ -5,7 +5,7 @@ using namespace std;
 void play(list<int>& l, int iters)
 {
     auto sz = l.size();
-    auto curr = l.begin();
+    auto curr = begin(l);
 
     vector<list<int>::iterator> l_pos(sz + 1);
     for (auto it = begin(l); it != end(l); ++it)

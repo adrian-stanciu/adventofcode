@@ -100,7 +100,7 @@ auto place_tiles(const unordered_map<int, set<int>>& g, int img_sz)
     })->first;
 
     ids_matrix[0][0] = top_lhs_corner;
-    auto it = g.at(top_lhs_corner).begin();
+    auto it = begin(g.at(top_lhs_corner));
     ids_matrix[0][1] = *it;
     ids_matrix[1][0] = *next(it);
 
@@ -109,21 +109,21 @@ auto place_tiles(const unordered_map<int, set<int>>& g, int img_sz)
         const auto& lhs = g.at(ids_matrix[row][col - 1]);
         set<int> candidates;
         set_intersection(begin(top), end(top), begin(lhs), end(lhs),
-            inserter(candidates, candidates.begin()));
+            inserter(candidates, begin(candidates)));
         candidates.erase(ids_matrix[row - 1][col - 1]);
-        return *candidates.begin();
+        return *begin(candidates);
     };
     auto avail_first_row = [&] (auto row, auto col) {
         auto candidates = g.at(ids_matrix[row][col]);
         candidates.erase(ids_matrix[row + 1][col]);
         candidates.erase(ids_matrix[row][col - 1]);
-        return *candidates.begin();
+        return *begin(candidates);
     };
     auto avail_first_col = [&] (auto row, auto col) {
         auto candidates = g.at(ids_matrix[row][col]);
         candidates.erase(ids_matrix[row - 1][col]);
         candidates.erase(ids_matrix[row][col + 1]);
-        return *candidates.begin();
+        return *begin(candidates);
     };
 
     for (auto k = 1; k < img_sz - 1; ++k) {
@@ -209,7 +209,7 @@ auto orient_tiles(const unordered_map<int, Tile>& tiles, int img_sz,
 auto build_image(const unordered_map<int, Tile>& tiles, int img_sz,
     const vector<vector<int>>& ids_matrix)
 {
-    auto tile_sz = tiles.begin()->second.size();
+    auto tile_sz = begin(tiles)->second.size();
     vector<string> img(img_sz * (tile_sz - 2));
 
     for (auto row = 0; row < img_sz; ++row)
