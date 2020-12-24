@@ -31,7 +31,7 @@ void fill_border(const Map<3>& map, const Point<3>& p, Map<3>& new_map)
                 neigh[2] += z;
 
                 auto it = map.find(neigh);
-                if (it == map.end())
+                if (it == end(map))
                     new_map[neigh] = false;
                 else
                     new_map[neigh] = it->second;
@@ -51,7 +51,7 @@ void fill_border(const Map<4>& map, const Point<4>& p, Map<4>& new_map)
                     neigh[3] += w;
 
                     auto it = map.find(neigh);
-                    if (it == map.end())
+                    if (it == end(map))
                         new_map[neigh] = false;
                     else
                         new_map[neigh] = it->second;
@@ -85,7 +85,7 @@ auto count_neigh(const Map<3>& map, const Point<3>& p, Map<3>& new_map)
                 neigh[2] += z;
 
                 auto it = map.find(neigh);
-                if (it == map.end())
+                if (it == end(map))
                     new_map[neigh] = false;
                 else
                     cnt += it->second;
@@ -112,7 +112,7 @@ auto count_neigh(const Map<4>& map, const Point<4>& p, Map<4>& new_map)
                     neigh[3] += w;
 
                     auto it = map.find(neigh);
-                    if (it == map.end())
+                    if (it == end(map))
                         new_map[neigh] = false;
                     else
                         cnt += it->second;
