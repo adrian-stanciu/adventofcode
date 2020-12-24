@@ -13,7 +13,7 @@ std::ostream& operator<<(std::ostream& out, int128 i)
         i /= 10;
     }
 
-    reverse(s.begin(), s.end());
+    reverse(begin(s), end(s));
 
     out << s;
 
