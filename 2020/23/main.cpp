@@ -2,78 +2,63 @@
 
 using namespace std;
 
-void play(list<int>& l, int iters)
+auto play(vector<int>& v, int iters)
 {
-    auto sz = l.size();
-    auto curr = begin(l);
-
-    vector<list<int>::iterator> l_pos(sz + 1);
-    for (auto it = begin(l); it != end(l); ++it)
-        l_pos[*it] = it;
+    auto curr = v[0];
+    auto sz = v.size();
+    vector<int> next(sz + 1);
 
     auto extract_chunk = [&] () {
-        array<int, 3> chunk;
-
-        auto it = next(curr);
-        if (it == end(l))
-            it = begin(l);
-
-        for (auto& x : chunk) {
-            x = *it;
-
-            it = l.erase(it);
-            if (it == end(l))
-                it = begin(l);
-        }
-
+        array<int, 3> chunk{
+            next[curr],
+            next[next[curr]],
+            next[next[next[curr]]]
+        };
+        next[curr] = next[chunk.back()];
         return chunk;
     };
 
+    for (size_t i = 0; i < sz - 1; ++i)
+        next[v[i]] = v[i + 1];
+    next[v[sz - 1]] = v[0];
+
     for (auto i = 0; i < iters; ++i) {
         auto chunk = extract_chunk();
-        reverse(begin(chunk), end(chunk));
 
-        auto dst = *curr;
+        auto dst = curr;
         do {
             --dst;
             if (dst == 0)
                 dst = sz;
         } while (find(begin(chunk), end(chunk), dst) != end(chunk));
-        auto dst_it = l_pos[dst];
 
-        for (auto x : chunk)
-            l_pos[x] = l.insert(next(dst_it), x);
+        next[chunk.back()] = next[dst];
+        next[dst] = chunk.front();
 
-        curr = next(curr);
-        if (curr == end(l))
-            curr = begin(l);
+        curr = next[curr];
     }
+
+    return next;
 }
 
-auto solve1(list<int> l)
+auto solve1(vector<int> v)
 {
-    play(l, 100);
-    auto it1 = find(begin(l), end(l), 1);
+    auto next = play(v, 100);
 
     string res;
-    for (auto it = next(it1); it != end(l); ++it)
-        res.push_back(*it + '0');
-    for (auto it = begin(l); it != it1; ++it)
-        res.push_back(*it + '0');
+    for (auto i = next[1]; i != 1; i = next[i])
+        res.push_back(i + '0');
     return res;
 }
 
-auto solve2(list<int> l)
+auto solve2(vector<int> v)
 {
-    for (auto i = l.size() + 1; i <= 1000000; ++i)
-        l.push_back(i);
+    for (auto i = v.size() + 1; i <= 1000000; ++i)
+        v.push_back(i);
 
-    play(l, 10000000);
-    auto it1 = find(begin(l), end(l), 1);
+    auto next = play(v, 10000000);
 
-    auto a = *next(it1);
-    auto b = *next(next(it1));
-    return 1l * a * b;
+    return 1l * next[1] * next[next[1]];
 }
 
 int main()
@@ -81,12 +66,12 @@ int main()
     string s;
     cin >> s;
 
-    list<int> l;
+    vector<int> v;
     for (auto c : s)
-        l.push_back(c - '0');
+        v.push_back(c - '0');
 
-    cout << solve1(l) << '\n';
-    cout << solve2(l) << '\n';
+    cout << solve1(v) << '\n';
+    cout << solve2(v) << '\n';
 
     return 0;
 }
