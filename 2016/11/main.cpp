@@ -144,10 +144,7 @@ bool is_valid_state(const State& s)
 
 void remove_one(std::multiset<Equipment>& equip_set, const Equipment& equip)
 {
-    auto cnt = equip_set.count(equip);
-    equip_set.erase(equip);
-    while (--cnt)
-        equip_set.emplace(equip);
+    equip_set.erase(equip_set.find(equip));
 }
 
 std::set<State> next_states(const State& s)
