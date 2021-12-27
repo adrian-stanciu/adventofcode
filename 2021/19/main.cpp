@@ -81,7 +81,13 @@ auto solve(vector<Scanner>& scanners)
         for (auto& scanner_j : generate_orientations(scanners[j])) {
             map<Point, int> point2overlaps;
 
-            for (const auto& point_i : scanners[i])
+            auto max_overlaps = 0;
+            auto remaining = scanners[i].size();
+
+            for (const auto& point_i : scanners[i]) {
+                if (max_overlaps + remaining < OverlappingThreshold)
+                    break;
+
                 for (const auto& point_j : scanner_j) {
                     Point scanner_j_pos;
                     for (auto k = 0; k < 3; ++k)
@@ -100,7 +106,12 @@ auto solve(vector<Scanner>& scanners)
 
                         return true;
                     }
+
+                    max_overlaps = max(max_overlaps, num_overlaps);
                 }
+
+                --remaining;
+            }
         }
 
         return false;
