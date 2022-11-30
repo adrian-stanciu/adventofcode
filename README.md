@@ -2,7 +2,7 @@
 
 #### Prerequisites
 * 64-bit Linux
-* g++ (with c++17 support)
+* g++ (with c++20 support)
 * make
 * openssl libcrypto
 
