@@ -137,8 +137,10 @@ int main()
     // Guard #ID begins shift
     static const std::regex guard_re {"Guard #([0-9]+) begins shift"};
 
-    auto str2num = [] (const std::string& s, int& n) {
+    auto str2num = [] (const std::string& s) {
+        auto n = 0;
         std::from_chars(s.data(), s.data() + s.size(), n);
+        return n;
     };
 
     std::vector<Event> events;
@@ -148,12 +150,10 @@ int main()
         std::smatch matched;
         regex_match(line, matched, time_re);
 
-        int y, mo, d, h, mi;
-        str2num(matched[1].str(), y);
-        str2num(matched[2].str(), mo);
-        str2num(matched[3].str(), d);
-        str2num(matched[4].str(), h);
-        str2num(matched[5].str(), mi);
+        auto mo = str2num(matched[2].str());
+        auto d = str2num(matched[3].str());
+        auto h = str2num(matched[4].str());
+        auto mi = str2num(matched[5].str());
 
         auto type_str = matched[6].str();
 
@@ -161,7 +161,7 @@ int main()
         EventType type{EventType::None};
 
         if (regex_match(type_str, matched, guard_re)) {
-            str2num(matched[1].str(), id);
+            id = str2num(matched[1].str());
             type = EventType::Guard;
         } else if (type_str == "falls asleep")
             type = EventType::Asleep;
