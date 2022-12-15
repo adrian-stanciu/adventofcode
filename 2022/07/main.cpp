@@ -6,6 +6,10 @@ const auto Limit{100'000l};
 const auto Total{70'000'000l};
 const auto Needed{30'000'000l};
 
+// unchecked assumptions:
+// 1. each directory is listed only once
+// 2. "cd /" is not used to jump to root directory;
+//    thus, "cd .." can be used to update ancestors' sizes
 auto compute_dir_sizes()
 {
     vector<long> dir_sizes;
