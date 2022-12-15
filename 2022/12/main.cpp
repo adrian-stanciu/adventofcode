@@ -4,17 +4,19 @@ using namespace std;
 
 const auto Inf = numeric_limits<int>::max();
 
-auto bfs(const vector<string>& g, int n, int m, const pair<int, int>& s, const pair<int, int>& e)
+auto bfs(const vector<string>& g, int n, int m,
+    const vector<pair<int, int>>& src, const pair<int, int>& dst)
 {
     const array<pair<int, int>, 4> neigh{{
         {-1, 0}, {1, 0}, {0, -1}, {0, 1},
     }};
 
     queue<pair<int, int>> q;
-    q.push(s);
-
     vector<vector<int>> dist(n, vector<int>(m, -1));
-    dist[s.first][s.second] = 0;
+    for (const auto& [r, c] : src) {
+        q.emplace(r, c);
+        dist[r][c] = 0;
+    }
 
     while (!q.empty()) {
         auto [r, c] = q.front();
@@ -34,10 +36,10 @@ auto bfs(const vector<string>& g, int n, int m, const pair<int, int>& s, const p
             if (g[nr][nc] - 'a' > g[r][c] - 'a' + 1)
                 continue;
 
-            if (nr == e.first && nc == e.second)
+            if (make_pair(nr, nc) == dst)
                 return dist[r][c] + 1;
 
-            q.push(make_pair(nr, nc));
+            q.emplace(nr, nc);
             dist[nr][nc] = dist[r][c] + 1;
         }
     }
@@ -52,23 +54,22 @@ void solve(vector<string>& g)
 
     pair<int, int> s;
     pair<int, int> e;
+    vector<pair<int, int>> a_vec;
     for (auto i = 0; i < n; ++i)
         for (auto j = 0; j < m; ++j)
             if (g[i][j] == 'S') {
-                s = make_pair(i, j);
+                s = {i, j};
                 g[i][j] = 'a';
+                a_vec.emplace_back(i, j);
             } else if (g[i][j] == 'E') {
-                e = make_pair(i, j);
+                e = {i, j};
                 g[i][j] = 'z';
+            } else if (g[i][j] == 'a') {
+                a_vec.emplace_back(i, j);
             }
-    cout << bfs(g, n, m, s, e) << '\n';
 
-    auto min_d = Inf;
-    for (auto i = 0; i < n; ++i)
-        for (auto j = 0; j < m; ++j)
-            if (g[i][j] == 'a')
-                min_d = min(min_d, bfs(g, n, m, make_pair(i, j), e));
-    cout << min_d << '\n';
+    cout << bfs(g, n, m, {s}, e) << '\n';
+    cout << bfs(g, n, m, a_vec, e) << '\n';
 }
 
 int main()
