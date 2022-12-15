@@ -114,7 +114,7 @@ auto read_monkey()
             }
         } else if (line.starts_with("Test")) {
             sscanf(line.data(), "Test: divisible by %d", &m.div);
-            Monkey::Mod *= m.div;
+            Monkey::Mod = lcm(Monkey::Mod, m.div);
         } else if (line.starts_with("If true")) {
             sscanf(line.data(), "If true: throw to monkey %d", &m.dst_true);
         } else if (line.starts_with("If false")) {
