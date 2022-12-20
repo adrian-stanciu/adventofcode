@@ -213,8 +213,8 @@ auto solve2(const vector<Shape>& shapes, const string& jet, long iters)
             // validate that the pattern is repeated indeed
             if (is_repeated(prev_height, pattern_height)) {
                 iters -= prev_i + 1;
-                return prev_height + (iters / cycle_len) * pattern_height +
-                    iter2height[prev_i + iters % cycle_len] - prev_height;
+                return (iters / cycle_len) * pattern_height +
+                    iter2height[prev_i + iters % cycle_len];
             }
         }
     }
