@@ -24,6 +24,7 @@ auto compute_x_intervals(const vector<Pair>& v, int y,
     int x_max_lim = numeric_limits<int>::max())
 {
     vector<Interval> intervals;
+    intervals.reserve(v.size());
     for (const auto& [s, b] : v) {
         auto max_d = abs(s.x - b.x) + abs(s.y - b.y);
         auto y_d = abs(s.y - y);
