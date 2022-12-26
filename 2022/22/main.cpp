@@ -15,7 +15,7 @@ auto score(int r, int c, int dr, int dc)
 }
 
 auto solve(const vector<string>& m, const string& s,
-    function<tuple<int, int, int, int>(const vector<string>&, int, int, int, int)> move)
+    const function<tuple<int, int, int, int>(const vector<string>&, int, int, int, int)>& move)
 {
     auto r = 1;
     auto c = 1;

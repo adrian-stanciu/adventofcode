@@ -78,7 +78,7 @@ auto search(const vector<string>& m, const Point& src, const Point& dst, int t)
             return s.t;
 
         for (auto ns : next_states(m, s, src, dst))
-            states.emplace(move(ns));
+            states.emplace(ns);
     }
 
     assert(false);

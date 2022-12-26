@@ -125,7 +125,8 @@ auto read_monkey()
     return m;
 }
 
-auto solve(vector<Monkey> monkeys, int iters, function<long(const Monkey&, long)> new_value_fct)
+auto solve(vector<Monkey> monkeys, int iters,
+    const function<long(const Monkey&, long)>& new_value_fct)
 {
     while (iters--)
         for (auto& m : monkeys)
@@ -140,6 +141,7 @@ auto solve(vector<Monkey> monkeys, int iters, function<long(const Monkey&, long)
             }
 
     vector<long> top;
+    top.reserve(monkeys.size());
     for (const auto& m : monkeys)
         top.push_back(m.cnt);
     sort(rbegin(top), rend(top));
