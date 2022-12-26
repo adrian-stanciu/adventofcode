@@ -79,7 +79,7 @@ int main()
     while (getline(cin, line)) {
         Move m;
         sscanf(line.data(), "%c %d", &m.dir, &m.steps);
-        moves.push_back(move(m));
+        moves.push_back(m);
     }
 
     cout << solve(moves, 2) << '\n';

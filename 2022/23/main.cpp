@@ -78,7 +78,7 @@ auto solve1(Neigh neigh, unordered_set<Point, PointHasher> pos, int iters)
         max_x = max(max_x, x);
     }
 
-    return (max_y - min_y + 1) * (max_x - min_x + 1) - pos.size();
+    return (max_y - min_y + 1l) * (max_x - min_x + 1l) - ssize(pos);
 }
 
 auto solve2(Neigh neigh, unordered_set<Point, PointHasher> pos)

@@ -107,6 +107,7 @@ auto solve2(const vector<Valve>& valves, int start_valve_id, const vector<vector
     search2(valves, start_valve_id, dist, todo, 0, 26, 0, todo2score);
 
     vector<pair<Bitset, int>> done2score;
+    done2score.reserve(todo2score.size());
     for (const auto& [bs, score] : todo2score)
         done2score.emplace_back(bs ^ todo, score);
 

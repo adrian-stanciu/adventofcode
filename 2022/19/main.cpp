@@ -117,7 +117,7 @@ int main()
                 bp.max_needed[res] = max(bp.max_needed[res], bp.cost[rob][res]);
         bp.max_needed[Res::Ge] = Inf;
 
-        bp_vec.push_back(move(bp));
+        bp_vec.push_back(bp);
     }
 
     cout << solve1(bp_vec) << '\n';
