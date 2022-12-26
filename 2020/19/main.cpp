@@ -101,16 +101,24 @@ auto solve(const unordered_map<int, Rule>& rules, const vector<string>& msgs)
 
 int main()
 {
-    unordered_map<int, Rule> rules;
+    unordered_map<int, Rule> rules1;
+    unordered_map<int, Rule> rules2;
     vector<string> msgs;
 
     string line;
-    while (getline(cin, line) && !line.empty())
-        add_rule(rules, line);
+    while (getline(cin, line) && !line.empty()) {
+        add_rule(rules1, line);
+        if (line == "8: 42")
+            line = "8: 42 | 42 8";
+        else if (line == "11: 42 31")
+            line = "11: 42 31 | 42 11 31";
+        add_rule(rules2, line);
+    }
     while (getline(cin, line) && !line.empty())
         msgs.push_back(move(line));
 
-    cout << solve(rules, msgs) << '\n';
+    cout << solve(rules1, msgs) << '\n';
+    cout << solve(rules2, msgs) << '\n';
 
     return 0;
 }
