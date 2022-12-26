@@ -11,3 +11,12 @@
 *.out
 main
 
+# Alternative solutions
+main[2-9].cpp
+
+# Input files
+input
+
+# Output files
+output
+
