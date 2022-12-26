@@ -31,7 +31,7 @@ auto solve(const vector<long>& v, int iters)
 
     auto sum = 0l;
     for (auto i = 1; i <= 3; ++i)
-        sum += v[idx[(pos0 + i * 1000) % n]];
+        sum += v[idx[(pos0 + i * 1000l) % n]];
     return sum;
 }
 
