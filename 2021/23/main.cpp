@@ -229,14 +229,8 @@ auto a_star(const Board& b, const array<int, NumRooms>& room2col)
     return -1;
 }
 
-int main()
+auto solve(const vector<string>& grid)
 {
-    vector<string> grid;
-
-    string row;
-    while (getline(cin, row))
-        grid.push_back(move(row));
-
     auto hall_sz = static_cast<int>(grid[1].size()) - 2;
 
     array<int, NumRooms> room2col;
@@ -249,7 +243,23 @@ int main()
         for (auto p = 2; p < static_cast<int>(grid.size()) - 1; ++p)
             b.rooms[r].push_back(grid[p][room2col[r] + 1] - 'A');
 
-    cout << a_star(b, room2col) << '\n';
+    return a_star(b, room2col);
+}
+
+int main()
+{
+    vector<string> grid;
+
+    string row;
+    while (getline(cin, row))
+        grid.push_back(move(row));
+
+    cout << solve(grid) << '\n';
+
+    grid.insert(begin(grid) + 3, "  #D#C#B#A#");
+    grid.insert(begin(grid) + 4, "  #D#B#A#C#");
+
+    cout << solve(grid) << '\n';
 
     return 0;
 }

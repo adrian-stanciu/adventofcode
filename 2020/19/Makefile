@@ -8,8 +8,7 @@ main: main.o
 main.o: main.cpp
 
 run: main
-	./main < input1
-	./main < input2
+	./main < input
 
 clean:
 	rm -f *.o main

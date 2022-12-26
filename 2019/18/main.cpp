@@ -277,6 +277,25 @@ int main()
 
     std::cout << sp(map) << "\n";
 
+    auto found = false;
+    for (auto i = 0U; i < map.size() && !found; ++i)
+        for (auto j = 0U; j < map[i].size(); ++j)
+            if (map[i][j] == '@') {
+                map[i - 1][j - 1] = '@';
+                map[i - 1][j] = '#';
+                map[i - 1][j + 1] = '@';
+                map[i][j - 1] = '#';
+                map[i][j] = '#';
+                map[i][j + 1] = '#';
+                map[i + 1][j - 1] = '@';
+                map[i + 1][j] = '#';
+                map[i + 1][j + 1] = '@';
+                found = true;
+                break;
+            }
+
+    std::cout << sp(map) << "\n";
+
     return 0;
 }
 
