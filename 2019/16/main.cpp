@@ -5,9 +5,6 @@ void fft(std::vector<int> values, unsigned int iters,
     unsigned int offset, unsigned int count)
 {
     for (auto i = 1U; i <= iters; ++i) {
-        std::vector<int> new_values;
-        new_values.reserve(values.size());
-
         std::vector<int> prefix_sum(values.size() + 1, 0);
 
         for (auto j = 1U; j <= values.size(); ++j)
@@ -17,7 +14,7 @@ void fft(std::vector<int> values, unsigned int iters,
             auto sum = 0LL;
 
             auto k = j;
-            auto chunk_sz = j + 1;
+            auto chunk_sz = j + offset + 1;
 
             while (true) {
                 if (k + chunk_sz < values.size()) {
@@ -43,13 +40,11 @@ void fft(std::vector<int> values, unsigned int iters,
                 }
             }
 
-            new_values.push_back(std::abs(sum) % 10);
+            values[j] = std::abs(sum) % 10;
         }
-
-        swap(values, new_values);
     }
 
-    for (auto i = offset; i < offset + count; ++i)
+    for (auto i = 0U; i < count; ++i)
         std::cout << values[i];
     std::cout << "\n";
 }
@@ -69,7 +64,12 @@ void fft_repeated(std::vector<int> values,
         for (auto j = 0U; j < sz; ++j)
             values.push_back(values[j]);
 
-    fft(std::move(values), iters, offset, count);
+    std::vector<int> meaningful_values;
+    meaningful_values.reserve(values.size() - offset);
+    for (auto i = offset; i < values.size(); ++i)
+        meaningful_values.push_back(values[i]);
+
+    fft(std::move(meaningful_values), iters, offset, count);
 }
 
 int main()
