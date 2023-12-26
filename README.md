@@ -1,10 +1,11 @@
-### C++ solutions for [Advent of Code](https://adventofcode.com)
+### C++ / Python solutions for [Advent of Code](https://adventofcode.com)
 
 #### Prerequisites
 * 64-bit Linux
-* g++ (with c++20 support)
+* g++ with c++20 support
 * make
 * openssl libcrypto
+* python3 with z3-solver
 
 #### Compile
     make build
