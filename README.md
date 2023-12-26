@@ -2,9 +2,10 @@
 
 #### Prerequisites
 * 64-bit Linux
-* g++ (with c++20 support)
+* g++ with c++20 support
 * make
 * openssl libcrypto
+* libz3
 
 #### Compile
     make build
