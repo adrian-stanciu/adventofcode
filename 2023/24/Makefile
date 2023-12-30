@@ -9,7 +9,6 @@ main.o: main.cpp ../../common/parser.hpp
 
 run: main
 	./main < input
-	python3 main.py < input
 
 clean:
 	rm -f *.o main
