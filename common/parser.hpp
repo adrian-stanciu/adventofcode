@@ -5,7 +5,7 @@
 #include <vector>
 
 namespace {
-    [[maybe_unused]] auto split(std::string_view sv, char sep)
+    [[maybe_unused]] inline auto split(std::string_view sv, char sep)
     {
         while (sv.front() == sep)
             sv.remove_prefix(1);
@@ -26,7 +26,7 @@ namespace {
         return splitted;
     }
 
-    [[maybe_unused]] auto str2num(std::string_view sv)
+    [[maybe_unused]] inline auto str2num(std::string_view sv)
     {
         auto n = 0l;
         std::from_chars(sv.data(), sv.data() + sv.size(), n);
