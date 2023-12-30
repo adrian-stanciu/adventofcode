@@ -6,9 +6,9 @@
 
 #include "knot_hash.h"
 
-constexpr auto NumRounds = 64;
-constexpr auto NumElements = 256;
-constexpr auto GroupSz = 16;
+static constexpr auto NumRounds = 64;
+static constexpr auto NumElements = 256;
+static constexpr auto GroupSz = 16;
 
 auto read_lengths(const std::string& s)
 {

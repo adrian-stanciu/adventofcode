@@ -2,13 +2,13 @@
 
 using namespace std;
 
-constexpr array Cards{
+static constexpr array Cards{
     '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'
 };
 
-constexpr auto NumCards{ssize(Cards)};
+static constexpr auto NumCards{ssize(Cards)};
 
-constexpr auto CardsWithJoker = []() {
+static constexpr auto CardsWithJoker = []() {
     array<char, NumCards> cards_with_joker;
 
     cards_with_joker[0] = 'J';

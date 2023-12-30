@@ -76,7 +76,7 @@ auto count_pairs(const std::vector<FileSystem>& fs_vec)
     return cnt;
 }
 
-constexpr auto Inf = std::numeric_limits<long>::max();
+static constexpr auto Inf = std::numeric_limits<long>::max();
 
 using Map = std::vector<std::vector<char>>;
 
