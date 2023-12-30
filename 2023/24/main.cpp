@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
 
-#include <z3++.h>
-
 #include "parser.hpp"
 
 using namespace std;
@@ -17,20 +15,60 @@ auto trim(string_view sv, char ch = ' ')
     return sv;
 }
 
-struct Point {
+struct Vector {
     int128 x;
     int128 y;
     int128 z;
-    int128 vx;
-    int128 vy;
-    int128 vz;
 
-    Point(int128 x, int128 y, int128 z, int128 vx, int128 vy, int128 vz)
-    : x{x}, y{y}, z{z}, vx{vx}, vy{vy}, vz{vz}
+    Vector(int128 x, int128 y, int128 z) : x{x}, y{y}, z{z} {};
+};
+
+auto add(const Vector& lhs, const Vector& rhs)
+{
+    return Vector{lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z};
+}
+
+auto sub(const Vector& lhs, const Vector& rhs)
+{
+    return Vector{lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z};
+}
+
+auto mul(const Vector& vec, int128 k)
+{
+    return Vector{vec.x * k, vec.y * k, vec.z * k};
+}
+
+optional<Vector> exact_div(const Vector& vec, int128 k)
+{
+    if (vec.x % k != 0 || vec.y % k != 0 || vec.z % k != 0)
+        return nullopt;
+    return Vector{vec.x / k, vec.y / k, vec.z / k};
+}
+
+auto cross_product(const Vector& lhs, const Vector& rhs)
+{
+    return Vector{
+        lhs.y * rhs.z - lhs.z * rhs.y,
+        lhs.z * rhs.x - lhs.x * rhs.z,
+        lhs.x * rhs.y - lhs.y * rhs.x
+    };
+}
+
+auto dot_product(const Vector& lhs, const Vector& rhs)
+{
+    return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
+}
+
+struct Stone {
+    Vector p;
+    Vector v;
+
+    Stone(int128 x, int128 y, int128 z, int128 vx, int128 vy, int128 vz)
+    : p{x, y, z}, v{vx, vy, vz}
     {}
 };
 
-auto intersect_inside_rectangle_in_future(const Point& p1, const Point& p2,
+auto intersect_inside_rectangle_in_future(const Stone& s1, const Stone& s2,
     long min_coord, long max_coord)
 {
     // (x - x1) / (x2 - x1) = (y - y1) / (y2 - y1)
@@ -40,14 +78,14 @@ auto intersect_inside_rectangle_in_future(const Point& p1, const Point& p2,
     // x * vy - y * vx = x1 * vy - y1 * vx
 
     // a1 * x + b1 * y = c1
-    auto a1 = p1.vy;
-    auto b1 = -p1.vx;
-    auto c1 = p1.x * p1.vy - p1.y * p1.vx;
+    auto a1 = s1.v.y;
+    auto b1 = -s1.v.x;
+    auto c1 = s1.p.x * s1.v.y - s1.p.y * s1.v.x;
 
     // a2 * x + b2 * y = c2
-    auto a2 = p2.vy;
-    auto b2 = -p2.vx;
-    auto c2 = p2.x * p2.vy - p2.y * p2.vx;
+    auto a2 = s2.v.y;
+    auto b2 = -s2.v.x;
+    auto c2 = s2.p.x * s2.v.y - s2.p.y * s2.v.x;
 
     // a1 * x + b1 * y = c1 | * a2
     // a2 * x + b2 * y = c2 | * -a1
@@ -63,67 +101,91 @@ auto intersect_inside_rectangle_in_future(const Point& p1, const Point& p2,
     auto y = 1.0l * (c1 * a2 - c2 * a1) / y_den;
     auto x = (c1 - b1 * y) / a1;
 
-    if (x < min_coord || x > max_coord || y < min_coord || y > max_coord )
+    if (x < min_coord || x > max_coord || y < min_coord || y > max_coord)
         return false;
 
-    auto t1 = (x - p1.x) / p1.vx;
-    auto t2 = (x - p2.x) / p2.vx;
-
+    auto t1 = (x - s1.p.x) / s1.v.x;
+    auto t2 = (x - s2.p.x) / s2.v.x;
     return t1 > 0 && t2 > 0;
 }
 
-auto solve1(const vector<Point>& v, long min_coord, long max_coord)
+auto solve1(int n, const vector<Stone>& stones, long min_coord, long max_coord)
 {
-    auto n = ssize(v);
-
     auto cnt = 0;
 
     for (auto i = 0; i < n; ++i)
         for (auto j = i + 1; j < n; ++j)
-            if (intersect_inside_rectangle_in_future(v[i], v[j], min_coord, max_coord))
+            if (intersect_inside_rectangle_in_future(stones[i], stones[j],
+                min_coord, max_coord))
                 ++cnt;
 
     return cnt;
 }
 
-auto solve2(const vector<Point>& points)
+auto solve2(int n, const vector<Stone>& stones)
 {
-    z3::context z3_ctx;
-    z3::solver z3_solver{z3_ctx};
-
-    z3::expr_vector p{z3_ctx};
-    z3::expr_vector v{z3_ctx};
-    z3::expr_vector t{z3_ctx};
-    for (auto i = 0; i < 3; i++) {
-        auto idx = to_string(i);
-        p.push_back(z3_ctx.real_const(("p_" + idx).data()));
-        v.push_back(z3_ctx.real_const(("v_" + idx).data()));
-        t.push_back(z3_ctx.real_const(("t_" + idx).data()));
+    // consider stone 0 as origin
+    auto rel_to_s0_stones{stones};
+    for (auto& s : rel_to_s0_stones) {
+        s.p = sub(s.p, stones[0].p);
+        s.v = sub(s.v, stones[0].v);
     }
 
-    for (auto i = 0; i < 3; i++) {
-        z3_solver.add(p[0] + v[0] * t[i] ==
-            z3_ctx.real_val(to_string(static_cast<long>(points[i].x)).data()) +
-            z3_ctx.real_val(to_string(static_cast<long>(points[i].vx)).data()) * t[i]);
+    for (auto i = 1; i < n; ++i)
+        for (auto j = i + 1; j < n; ++j) {
+            // collision points of stones 0, i and j are collinear
+            // pi + ti * vi is collinear with pj + tj * vj
+            // (pi + ti * vi) x (pj + tj * vj) = 0
+            // (pi x pj) + tj * (pi x vj) + ti * (vi x pj) + ti * tj * (vi x vj) = 0
+            // by dot product with vj: (pi x pj) * vj + ti * (vi x pj) * vj = 0
+            // ti = -((pi x pj) * vj) / ((vi x pj) * vj)
+            // similarly: tj = -((pi x pj) * vi) / ((pi x vj) * vi)
 
-        z3_solver.add(p[1] + v[1] * t[i] ==
-            z3_ctx.real_val(to_string(static_cast<long>(points[i].y)).data()) +
-            z3_ctx.real_val(to_string(static_cast<long>(points[i].vy)).data()) * t[i]);
+            auto pi_pj = cross_product(rel_to_s0_stones[i].p, rel_to_s0_stones[j].p);
+            auto vi_pj = cross_product(rel_to_s0_stones[i].v, rel_to_s0_stones[j].p);
+            auto pi_vj = cross_product(rel_to_s0_stones[i].p, rel_to_s0_stones[j].v);
 
-        z3_solver.add(p[2] + v[2] * t[i] ==
-            z3_ctx.real_val(to_string(static_cast<long>(points[i].z)).data()) +
-            z3_ctx.real_val(to_string(static_cast<long>(points[i].vz)).data()) * t[i]);
-    }
+            auto ti_den = dot_product(vi_pj, rel_to_s0_stones[j].v);
+            if (ti_den == 0)
+                continue;
+            auto ti_num = -dot_product(pi_pj, rel_to_s0_stones[j].v);
+            if (ti_num % ti_den != 0)
+                continue;
+            auto ti = ti_num / ti_den;
+            if (ti < 0)
+                continue;
 
-    auto ret = z3_solver.check();
-    assert(ret == z3::sat);
+            auto tj_den = dot_product(pi_vj, rel_to_s0_stones[i].v);
+            if (tj_den == 0)
+                continue;
+            auto tj_num = -dot_product(pi_pj, rel_to_s0_stones[i].v);
+            if (tj_num % tj_den != 0)
+                continue;
+            auto tj = tj_num / tj_den;
+            if (tj < 0)
+                continue;
 
-    return z3_solver.get_model().eval(p[0] + p[1] + p[2], true).get_numeral_int64();
+            if (ti == tj)
+                continue;
+
+            auto collision_pi = add(stones[i].p, mul(stones[i].v, ti));
+            auto collision_pj = add(stones[j].p, mul(stones[j].v, tj));
+
+            auto vel = exact_div(sub(collision_pj, collision_pi), tj - ti);
+            if (!vel)
+                continue;
+
+            auto pos = sub(collision_pi, mul(*vel, ti));
+
+            return static_cast<long>(pos.x + pos.y + pos.z);
+        }
+
+    assert(false);
 }
 
 int main()
 {
-    vector<Point> v;
+    vector<Stone> stones;
 
     string s;
     while (getline(cin, s)) {
@@ -140,11 +202,13 @@ int main()
         auto vy = str2num(trim(vel[1]));
         auto vz = str2num(trim(vel[2]));
 
-        v.emplace_back(x, y, z, vx, vy, vz);
+        stones.emplace_back(x, y, z, vx, vy, vz);
     }
 
-    cout << solve1(v, 200'000'000'000'000l, 400'000'000'000'000l) << '\n';
-    cout << solve2(v) << '\n';
+    auto n = ssize(stones);
+
+    cout << solve1(n, stones, 200'000'000'000'000l, 400'000'000'000'000l) << '\n';
+    cout << solve2(n, stones) << '\n';
 
     return 0;
 }
