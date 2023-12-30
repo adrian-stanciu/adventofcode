@@ -4,7 +4,7 @@
 #include <unordered_set>
 #include <vector>
 
-#include "hasher.h"
+#include "hasher.hpp"
 
 struct Point {
     long x;

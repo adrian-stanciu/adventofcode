@@ -5,7 +5,7 @@ CXXFLAGS=-std=c++20 -O2 -Wall -Wextra -I../common
 
 build: main
 main: main.o
-main.o: main.cpp ../common/int_computer.h
+main.o: main.cpp ../common/int_computer.hpp
 
 run: main
 	./main < input

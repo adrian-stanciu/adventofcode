@@ -4,7 +4,7 @@
 #include <tuple>
 #include <vector>
 
-#include "int_computer.h"
+#include "int_computer.hpp"
 
 using Map = std::vector<std::vector<char>>;
 

@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-#include "int_computer.h"
+#include "int_computer.hpp"
 
 auto run_in_mode(const std::vector<long long>& prog, long long mode)
 {

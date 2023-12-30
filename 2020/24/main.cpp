@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-#include "hasher.h"
+#include "hasher.hpp"
 
 using namespace std;
 

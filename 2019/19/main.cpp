@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-#include "int_computer.h"
+#include "int_computer.hpp"
 
 auto read_point_status(const std::vector<long long>& prog, int x, int y)
 {

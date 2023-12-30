@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-#include "int_computer.h"
+#include "int_computer.hpp"
 
 auto jump_by_walking(const std::vector<long long>& prog)
 {
