@@ -4,9 +4,9 @@
 #include <sstream>
 #include <string>
 
-constexpr auto FactorA = 16807;
-constexpr auto Factorb = 48271;
-constexpr auto Mod = 2147483647;
+static constexpr auto FactorA = 16807;
+static constexpr auto Factorb = 48271;
+static constexpr auto Mod = 2147483647;
 
 auto read_seed()
 {

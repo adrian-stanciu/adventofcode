@@ -1,10 +1,10 @@
 #include <iostream>
 
-constexpr auto BeginGroup = '{';
-constexpr auto EndGroup = '}';
-constexpr auto BeginGarbage = '<';
-constexpr auto EndGarbage = '>';
-constexpr auto IgnoreGarbage = '!';
+static constexpr auto BeginGroup = '{';
+static constexpr auto EndGroup = '}';
+static constexpr auto BeginGarbage = '<';
+static constexpr auto EndGarbage = '>';
+static constexpr auto IgnoreGarbage = '!';
 
 void cleanup()
 {
