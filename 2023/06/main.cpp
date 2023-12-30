@@ -11,13 +11,6 @@ void squeeze_repeated(string& s, char ch)
     }), end(s));
 }
 
-auto str2num(string_view sv)
-{
-    auto n = 0l;
-    from_chars(sv.data(), sv.data() + sv.size(), n);
-    return n;
-}
-
 auto count(long t, long d)
 {
     optional<long> ans;

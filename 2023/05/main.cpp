@@ -4,13 +4,6 @@
 
 using namespace std;
 
-auto str2num(string_view sv)
-{
-    auto n = 0l;
-    from_chars(sv.data(), sv.data() + sv.size(), n);
-    return n;
-}
-
 struct RangeConversion {
     long dst;
     long src;

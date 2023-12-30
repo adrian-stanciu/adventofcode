@@ -4,17 +4,10 @@
 
 using namespace std;
 
-auto str2num(string_view sv)
-{
-    auto n = 0;
-    from_chars(sv.data(), sv.data() + sv.size(), n);
-    return n;
-}
-
 struct Point {
-    int z;
-    int x;
-    int y;
+    long z;
+    long x;
+    long y;
 
     auto operator<=>(const Point&) const = default;
 };

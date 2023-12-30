@@ -7,6 +7,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include "parser.hpp"
+
 enum class EventType {
     Guard,
     Asleep,
@@ -137,12 +139,6 @@ int main()
     // Guard #ID begins shift
     static const std::regex guard_re {"Guard #([0-9]+) begins shift"};
 
-    auto str2num = [] (const std::string& s) {
-        auto n = 0;
-        std::from_chars(s.data(), s.data() + s.size(), n);
-        return n;
-    };
-
     std::vector<Event> events;
 
     std::string line;
@@ -150,10 +146,10 @@ int main()
         std::smatch matched;
         regex_match(line, matched, time_re);
 
-        auto mo = str2num(matched[2].str());
-        auto d = str2num(matched[3].str());
-        auto h = str2num(matched[4].str());
-        auto mi = str2num(matched[5].str());
+        int mo = str2num(matched[2].str());
+        int d = str2num(matched[3].str());
+        int h = str2num(matched[4].str());
+        int mi = str2num(matched[5].str());
 
         auto type_str = matched[6].str();
 

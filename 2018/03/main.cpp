@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "hasher.hpp"
+#include "parser.hpp"
 
 struct Rectangle {
     int id;
@@ -72,12 +73,6 @@ int main()
     // #CLAIM_NUMBER @ FROM_LEFT,FROM_TOP: WIDTHxHEIGHT
     static const std::regex re {"#([0-9]+) @ ([0-9]+),([0-9]+): ([0-9]+)x([0-9]+)"};
 
-    auto str2num = [] (const std::string& s) {
-        auto n = 0;
-        std::from_chars(s.data(), s.data() + s.size(), n);
-        return n;
-    };
-
     std::vector<Rectangle> rectangles;
 
     std::string line;
@@ -85,11 +80,11 @@ int main()
         std::smatch matched;
         regex_match(line, matched, re);
 
-        auto claim_num = str2num(matched[1].str());
-        auto from_left = str2num(matched[2].str());
-        auto from_top = str2num(matched[3].str());
-        auto width = str2num(matched[4].str());
-        auto height = str2num(matched[5].str());
+        int claim_num = str2num(matched[1].str());
+        int from_left = str2num(matched[2].str());
+        int from_top = str2num(matched[3].str());
+        int width = str2num(matched[4].str());
+        int height = str2num(matched[5].str());
 
         rectangles.push_back({claim_num, from_left, from_top, width, height});
     }

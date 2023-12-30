@@ -8,13 +8,6 @@ using namespace std;
 
 using int128 = __int128;
 
-auto str2num(string_view sv)
-{
-    auto n = 0l;
-    from_chars(sv.data(), sv.data() + sv.size(), n);
-    return n;
-}
-
 auto trim(string_view sv, char ch = ' ')
 {
     while (sv.front() == ch)

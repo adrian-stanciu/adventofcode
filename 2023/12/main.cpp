@@ -4,13 +4,6 @@
 
 using namespace std;
 
-auto str2num(string_view sv)
-{
-    auto n = 0;
-    from_chars(sv.data(), sv.data() + sv.size(), n);
-    return n;
-}
-
 auto solve(const string& s, const vector<int>& v)
 {
     // dp[i][j] (i > 0, j > 0) is the count of different arrangements using
