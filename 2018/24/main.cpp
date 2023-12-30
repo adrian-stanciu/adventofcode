@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+#include "parser.hpp"
+
 struct Group {
     long id;
     bool is_immune_sys;
@@ -55,10 +57,6 @@ void parse_immune_weak(const std::string& immune_weak_s, Group& g)
 
 auto parse_line(const std::string& line, long id, bool is_immune_sys)
 {
-    auto str2num = [] (const std::string& s, long& n) {
-        std::from_chars(s.data(), s.data() + s.size(), n);
-    };
-
     static const std::regex long_re {"([0-9]+) units each with ([0-9]+) hit points (.+) with an attack that does ([0-9]+) ([a-z]+) damage at initiative ([0-9]+)"};
     static const std::regex short_re {"([0-9]+) units each with ([0-9]+) hit points with an attack that does ([0-9]+) ([a-z]+) damage at initiative ([0-9]+)"};
 
@@ -68,18 +66,18 @@ auto parse_line(const std::string& line, long id, bool is_immune_sys)
 
     std::smatch matched;
     if (regex_match(line, matched, long_re)) {
-        str2num(matched[1].str(), g.num);
-        str2num(matched[2].str(), g.hit);
+        g.num = str2num(matched[1].str());
+        g.hit = str2num(matched[2].str());
         parse_immune_weak(matched[3].str(), g);
-        str2num(matched[4].str(), g.damage);
+        g.damage = str2num(matched[4].str());
         g.damage_type = matched[5].str();
-        str2num(matched[6].str(), g.initiative);
+        g.initiative = str2num(matched[6].str());
     } else if (regex_match(line, matched, short_re)) {
-        str2num(matched[1].str(), g.num);
-        str2num(matched[2].str(), g.hit);
-        str2num(matched[3].str(), g.damage);
+        g.num = str2num(matched[1].str());
+        g.hit = str2num(matched[2].str());
+        g.damage = str2num(matched[3].str());
         g.damage_type = matched[4].str();
-        str2num(matched[5].str(), g.initiative);
+        g.initiative = str2num(matched[5].str());
     }
 
     return g;

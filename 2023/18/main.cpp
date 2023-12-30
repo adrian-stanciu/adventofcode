@@ -4,13 +4,6 @@
 
 using namespace std;
 
-auto str2num(string_view sv)
-{
-    auto n = 0;
-    from_chars(sv.data(), sv.data() + sv.size(), n);
-    return n;
-}
-
 auto hex2dec(char hex)
 {
     if (hex >= '0' && hex <= '9')

@@ -4,13 +4,6 @@
 
 using namespace std;
 
-auto str2num(string_view sv)
-{
-    auto n = 0;
-    from_chars(sv.data(), sv.data() + sv.size(), n);
-    return n;
-}
-
 void dfs(int n, const vector<vector<int>>& g, int u, int p_u,
     vector<bool>& visited, vector<int>& parents)
 {
