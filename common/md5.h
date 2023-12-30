@@ -4,7 +4,7 @@
 #include <string>
 #include <unordered_map>
 
-#include <openssl/md5.h>
+#include <mbedtls/md5.h>
 
 namespace {
     [[maybe_unused]] inline auto dec2hex(int d)
@@ -25,6 +25,8 @@ namespace {
 
     auto hex_md5sum(const std::string& s, bool use_cache)
     {
+        static constexpr auto MD5SumLen{16};
+
         static std::unordered_map<std::string, std::string> cache;
 
         if (use_cache) {
@@ -33,11 +35,11 @@ namespace {
                 return it->second;
         }
 
-        std::array<unsigned char, MD5_DIGEST_LENGTH> md5sum;
-        MD5(reinterpret_cast<const unsigned char*>(s.data()), s.size(), md5sum.data());
+        std::array<unsigned char, MD5SumLen> md5sum;
+        mbedtls_md5_ret(reinterpret_cast<const unsigned char*>(s.data()), s.size(), md5sum.data());
 
         std::string hash;
-        hash.reserve(2 * MD5_DIGEST_LENGTH);
+        hash.reserve(2 * MD5SumLen);
 
         for (auto byte : md5sum) {
             hash.push_back(dec2hex((byte >> 4) & 0xf));

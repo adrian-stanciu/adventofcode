@@ -2,7 +2,7 @@
 
 CC=g++
 CXXFLAGS=-std=c++20 -O2 -Wall -Wextra -I../../common
-LDLIBS=-lcrypto
+LDLIBS=-lmbedcrypto
 
 build: main
 main: main.o
