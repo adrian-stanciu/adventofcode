@@ -4,7 +4,7 @@
 * 64-bit Linux
 * g++ with c++20 support
 * make
-* openssl libcrypto
+* mbedtls libmbedcrypto
 * python3 with z3-solver
 
 #### Compile
