@@ -2,6 +2,8 @@
 
 #include <z3++.h>
 
+#include "parser.h"
+
 using namespace std;
 
 using int128 = __int128;
@@ -20,24 +22,6 @@ auto trim(string_view sv, char ch = ' ')
     while (sv.back() == ch)
         sv.remove_suffix(1);
     return sv;
-}
-
-auto split(string_view sv, char sep)
-{
-    sv = trim(sv, sep);
-
-    vector<string_view> split_sv;
-
-    while (true)
-        if (auto to = sv.find_first_of(sep); to == sv.npos) {
-            split_sv.push_back(sv);
-            break;
-        } else {
-            split_sv.push_back(sv.substr(0, to));
-            sv.remove_prefix(to + 1);
-        }
-
-    return split_sv;
 }
 
 struct Point {

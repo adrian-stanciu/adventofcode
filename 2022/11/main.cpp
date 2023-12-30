@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+#include "parser.h"
+
 using namespace std;
 
 struct Monkey {
@@ -60,21 +62,6 @@ auto trim(string& s)
 {
     ltrim(s);
     rtrim(s);
-}
-
-auto split(string_view sv, char sep)
-{
-    vector<string_view> split_sv;
-    while (true) {
-        auto to = sv.find_first_of(sep);
-        if (to == sv.npos) {
-            split_sv.push_back(sv);
-            return split_sv;
-        } else {
-            split_sv.push_back(sv.substr(0, to));
-            sv.remove_prefix(to + 1);
-        }
-    }
 }
 
 auto read_monkey()
