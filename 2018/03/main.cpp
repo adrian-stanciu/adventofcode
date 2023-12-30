@@ -6,7 +6,7 @@
 #include <unordered_set>
 #include <vector>
 
-#include "hasher.h"
+#include "hasher.hpp"
 
 struct Rectangle {
     int id;

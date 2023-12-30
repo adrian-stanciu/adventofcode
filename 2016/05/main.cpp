@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "md5.h"
+#include "md5.hpp"
 
 auto pass(const std::string& id)
 {

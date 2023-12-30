@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "int_computer.h"
+#include "int_computer.hpp"
 
 enum TileType {
     Empty,

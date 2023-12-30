@@ -9,7 +9,7 @@
 #include <unordered_set>
 #include <vector>
 
-#include "int_computer.h"
+#include "int_computer.hpp"
 
 struct Chamber {
     std::string name;

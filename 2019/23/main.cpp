@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "int_computer.h"
+#include "int_computer.hpp"
 
 auto run(std::vector<IntComputer> network)
 {

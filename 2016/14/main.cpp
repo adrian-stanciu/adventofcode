@@ -4,7 +4,7 @@
 #include <string>
 #include <unordered_map>
 
-#include "md5.h"
+#include "md5.hpp"
 
 std::optional<char> find_first_triplet(const std::string& hex)
 {

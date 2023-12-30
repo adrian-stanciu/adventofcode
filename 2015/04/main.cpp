@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-#include "md5.h"
+#include "md5.hpp"
 
 auto find_number(const std::string& key, int count)
 {

@@ -2,7 +2,7 @@
 #include <unordered_set>
 #include <vector>
 
-#include "hasher.h"
+#include "hasher.hpp"
 
 auto move = [] (auto c, auto& x, auto& y) {
     switch (c) {

@@ -5,7 +5,7 @@ CXXFLAGS=-std=c++20 -O2 -Wall -Wextra -I../../common
 
 build: main
 main: main.o
-main.o: main.cpp ../../common/hasher.h
+main.o: main.cpp ../../common/hasher.hpp
 
 run: main
 	./main < input

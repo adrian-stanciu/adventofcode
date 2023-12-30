@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-#include "int_computer.h"
+#include "int_computer.hpp"
 
 auto run(const std::vector<long long>& prog, long long noun, long long verb)
 {

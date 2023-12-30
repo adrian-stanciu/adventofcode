@@ -6,7 +6,7 @@ LDLIBS=-lz3
 
 build: main
 main: main.o
-main.o: main.cpp ../../common/parser.h
+main.o: main.cpp ../../common/parser.hpp
 
 run: main
 	./main < input

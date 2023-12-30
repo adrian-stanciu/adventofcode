@@ -7,7 +7,7 @@
 #include <unordered_set>
 #include <vector>
 
-#include "int_computer.h"
+#include "int_computer.hpp"
 
 struct Cell {
     int x;

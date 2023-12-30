@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "knot_hash.h"
+#include "knot_hash.hpp"
 
 static constexpr auto NumRounds = 64;
 static constexpr auto NumElements = 256;

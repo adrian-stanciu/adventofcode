@@ -2,7 +2,7 @@
 
 #include <z3++.h>
 
-#include "parser.h"
+#include "parser.hpp"
 
 using namespace std;
 

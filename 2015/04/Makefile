@@ -6,7 +6,7 @@ LDLIBS=-lmbedcrypto
 
 build: main
 main: main.o
-main.o: main.cpp ../../common/md5.h
+main.o: main.cpp ../../common/md5.hpp
 
 run: main
 	./main < input

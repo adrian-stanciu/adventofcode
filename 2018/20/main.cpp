@@ -7,7 +7,7 @@
 #include <unordered_set>
 #include <vector>
 
-#include "hasher.h"
+#include "hasher.hpp"
 
 using Tree = std::unordered_map<std::pair<int, int>, std::vector<std::pair<int, int>>, PairHasher<int>>;
 
