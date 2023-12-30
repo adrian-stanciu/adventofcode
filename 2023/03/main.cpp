@@ -1,13 +1,8 @@
 #include <bits/stdc++.h>
 
-using namespace std;
+#include "parser.hpp"
 
-auto str2num(string_view sv)
-{
-    auto n = 0l;
-    from_chars(sv.data(), sv.data() + sv.size(), n);
-    return n;
-}
+using namespace std;
 
 auto get_neighbours(const vector<string>& m, int i, int j, int len)
 {

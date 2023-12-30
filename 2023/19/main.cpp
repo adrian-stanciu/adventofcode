@@ -4,13 +4,6 @@
 
 using namespace std;
 
-auto str2num(string_view sv)
-{
-    auto n = 0;
-    from_chars(sv.data(), sv.data() + sv.size(), n);
-    return n;
-}
-
 static constexpr array RegNames{'x', 'm', 'a', 's'};
 
 auto reg_name2idx(char reg_name)
