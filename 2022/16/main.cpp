@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+#include "parser.h"
+
 using namespace std;
 
 auto trim(string_view sv)
@@ -9,21 +11,6 @@ auto trim(string_view sv)
     while (isspace(sv.back()))
         sv.remove_suffix(1);
     return sv;
-}
-
-auto split(string_view sv, char sep)
-{
-    vector<string_view> split_sv;
-    while (true) {
-        auto to = sv.find_first_of(sep);
-        if (to == sv.npos) {
-            split_sv.push_back(trim(sv));
-            return split_sv;
-        } else {
-            split_sv.push_back(trim(sv.substr(0, to)));
-            sv.remove_prefix(to + 1);
-        }
-    }
 }
 
 struct Valve {
@@ -151,7 +138,7 @@ auto read_valves()
         else
             sv.remove_prefix(strlen(" tunnels lead to valves "));
         for (auto adj_valve : split(sv, ','))
-            valve.adj_valve_ids.push_back(name2id(adj_valve));
+            valve.adj_valve_ids.push_back(name2id(trim(adj_valve)));
         valves.push_back(move(valve));
     }
 
