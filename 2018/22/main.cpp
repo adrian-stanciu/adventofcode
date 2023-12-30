@@ -6,7 +6,7 @@
 #include <unordered_set>
 #include <vector>
 
-#include "hasher.h"
+#include "hasher.hpp"
 
 using TypeMap = std::vector<std::vector<int>>;
 

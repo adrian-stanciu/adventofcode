@@ -3,8 +3,8 @@
 #include <unordered_map>
 #include <vector>
 
-#include "hasher.h"
-#include "int_computer.h"
+#include "hasher.hpp"
+#include "int_computer.hpp"
 
 struct Cell {
     long long x;

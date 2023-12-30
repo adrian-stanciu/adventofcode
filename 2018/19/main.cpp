@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-#include "asm_computer.h"
+#include "asm_computer.hpp"
 
 using AsmC = AsmComputer<6>;
 
