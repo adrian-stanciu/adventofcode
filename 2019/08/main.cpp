@@ -10,9 +10,9 @@ enum Color : char {
     Transparent = '2',
 };
 
-constexpr auto LayerW = 25;
-constexpr auto LayerH = 6;
-constexpr auto LayerSz = LayerW * LayerH;
+static constexpr auto LayerW = 25;
+static constexpr auto LayerH = 6;
+static constexpr auto LayerSz = LayerW * LayerH;
 
 auto compute_csum(const Image& img)
 {

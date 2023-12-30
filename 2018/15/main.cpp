@@ -10,8 +10,8 @@
 using Row = std::vector<char>;
 using Matrix = std::vector<Row>;
 
-constexpr auto Inf = std::numeric_limits<int>::max();
-constexpr auto Sz  = 32;
+static constexpr auto Inf = std::numeric_limits<int>::max();
+static constexpr auto Sz  = 32;
 
 using DistMatrix = std::array<std::array<int, Sz + 1>, Sz + 1>;
 

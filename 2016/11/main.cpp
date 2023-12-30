@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <vector>
 
-constexpr auto LastFloor = 4;
+static constexpr auto LastFloor = 4;
 
 // first is generator's floor, second is microchip's floor
 using Equipment = std::pair<int, int>;

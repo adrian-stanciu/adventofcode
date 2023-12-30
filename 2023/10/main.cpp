@@ -2,7 +2,7 @@
 
 using namespace std;
 
-constexpr array<pair<int, int>, 4> neigh{{
+static constexpr array<pair<int, int>, 4> neigh{{
     {-1, 0}, {1, 0}, {0, -1}, {0, 1}
 }};
 

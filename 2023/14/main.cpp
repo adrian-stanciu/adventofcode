@@ -55,7 +55,7 @@ auto solve1(vector<string> grid)
 
 auto solve2(vector<string>& grid)
 {
-    constexpr auto Iters{static_cast<int>(1e9)};
+    static constexpr auto Iters{static_cast<int>(1e9)};
 
     map<vector<string>, int> grid2iter;
 

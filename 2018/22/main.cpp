@@ -10,8 +10,8 @@
 
 using TypeMap = std::vector<std::vector<int>>;
 
-constexpr auto Inf = std::numeric_limits<long>::max();
-constexpr auto ChangeCost = 7;
+static constexpr auto Inf = std::numeric_limits<long>::max();
+static constexpr auto ChangeCost = 7;
 
 auto build_type_map(int d, int x_t, int y_t, int limit)
 {

@@ -4,7 +4,7 @@
 #include <numeric>
 #include <vector>
 
-constexpr auto Inf = std::numeric_limits<long>::max();
+static constexpr auto Inf = std::numeric_limits<long>::max();
 
 using Group = std::vector<long>;
 using Groups = std::vector<Group>;

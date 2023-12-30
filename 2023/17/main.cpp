@@ -45,7 +45,7 @@ private:
 
 auto solve(const vector<string>& grid, int dr, int dc, int min_steps, int max_steps)
 {
-    constexpr array<pair<int, int>, 4> neigh{{
+    static constexpr array<pair<int, int>, 4> neigh{{
         {-1, 0}, {1, 0}, {0, -1}, {0, 1}
     }};
 

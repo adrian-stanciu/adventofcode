@@ -7,7 +7,7 @@
 #include <unordered_set>
 #include <vector>
 
-constexpr auto RecursionDepthLimit = 999;
+static constexpr auto RecursionDepthLimit = 999;
 
 struct Cell {
     int x;

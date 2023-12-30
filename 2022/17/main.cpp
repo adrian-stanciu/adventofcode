@@ -2,12 +2,12 @@
 
 using namespace std;
 
-constexpr auto Width{7};
+static constexpr auto Width{7};
 const string EmptyRow(Width, '.');
-constexpr auto BottomPadding{3};
-constexpr auto LeftPadding{2};
-constexpr auto Moving{'#'};
-constexpr auto Settled{'@'};
+static constexpr auto BottomPadding{3};
+static constexpr auto LeftPadding{2};
+static constexpr auto Moving{'#'};
+static constexpr auto Settled{'@'};
 
 using Shape = vector<string>;
 

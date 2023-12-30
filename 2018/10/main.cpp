@@ -10,8 +10,8 @@ struct Point {
     int vy;
 };
 
-constexpr auto R = 15; // assume that letters are maximum 15 chars high
-constexpr auto C = 150;
+static constexpr auto R = 15; // assume that letters are maximum 15 chars high
+static constexpr auto C = 150;
 
 bool is_in_limits(const std::vector<Point>& points, int& min_r, int& min_c)
 {
