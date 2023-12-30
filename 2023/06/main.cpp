@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+#include "parser.h"
+
 using namespace std;
 
 void squeeze_repeated(string& s, char ch)
@@ -7,27 +9,6 @@ void squeeze_repeated(string& s, char ch)
     s.erase(unique(begin(s), end(s), [&](auto lhs, auto rhs) {
         return lhs == ch && rhs == ch;
     }), end(s));
-}
-
-auto split(string_view sv, char sep)
-{
-    while (sv.front() == sep)
-        sv.remove_prefix(1);
-    while (sv.back() == sep)
-        sv.remove_suffix(1);
-
-    vector<string_view> split_sv;
-
-    while (true)
-        if (auto to = sv.find_first_of(sep); to == sv.npos) {
-            split_sv.push_back(sv);
-            break;
-        } else {
-            split_sv.push_back(sv.substr(0, to));
-            sv.remove_prefix(to + 1);
-        }
-
-    return split_sv;
 }
 
 auto str2num(string_view sv)
