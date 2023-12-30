@@ -3,6 +3,7 @@
 #include <limits>
 #include <regex>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 using HappinessMap = std::unordered_map<std::string,
