@@ -4,7 +4,7 @@
 #include <vector>
 
 namespace {
-    void circular_reverse(std::vector<unsigned int>& code, size_t first, size_t len)
+    inline void circular_reverse(std::vector<unsigned int>& code, size_t first, size_t len)
     {
         size_t size = code.size();
         size_t last = first + len;
@@ -20,7 +20,7 @@ namespace {
         }
     }
 
-    auto compute_sparse_hash(size_t size, size_t rounds,
+    inline auto compute_sparse_hash(size_t size, size_t rounds,
         const std::vector<unsigned int>& lengths)
     {
         std::vector<unsigned int> code;
@@ -45,7 +45,7 @@ namespace {
         return code;
     }
 
-    auto compute_dense_hash(const std::vector<unsigned int>& sparse_hash, size_t group_size)
+    inline auto compute_dense_hash(const std::vector<unsigned int>& sparse_hash, size_t group_size)
     {
         std::vector<unsigned int> dense_hash;
         size_t current_group_size = 0;

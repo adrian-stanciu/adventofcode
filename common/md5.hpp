@@ -23,7 +23,7 @@ namespace {
             return 10 + (h - 'a');
     }
 
-    auto hex_md5sum(const std::string& s, bool use_cache)
+    inline auto hex_md5sum(const std::string& s, bool use_cache)
     {
         static constexpr auto MD5SumLen{16};
 
