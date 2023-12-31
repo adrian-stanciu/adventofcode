@@ -53,14 +53,16 @@ auto intersect(const Point& p1, const Point& p2)
     // a2 * b1 * y - a1 * b2 * y = c1 * a2 - c2 * a1
     // (a2 * b1 - a1 * b2) * y = c1 * a2 - c2 * a1
     // y = (c1 * a2 - c2 * a1) / (a2 * b1 - a1 * b2)
-    // x = (c1 - b1 * y) / a1
 
     auto y_den = a2 * b1 - a1 * b2;
     if (y_den == 0)
         return make_tuple(false, 0.0l, 0.0l);
 
     auto y = 1.0l * (c1 * a2 - c2 * a1) / y_den;
-    auto x = (c1 - b1 * y) / a1;
+
+    // x = (c1 - b1 * y) / a1, if a1 != 0
+    // otherwise compute x using p2
+    auto x = a1 != 0 ? (c1 - b1 * y) / a1 : p2.x + p2.vx * ((y - p2.y) / p2.vy);
 
     return make_tuple(true, x, y);
 }
@@ -102,32 +104,30 @@ long solve2(int n, vector<Point>& v)
         return tie(lhs.vy, lhs) < tie(rhs.vy, rhs);
     })->vy;
 
-    auto eq = [](auto value, auto expected) {
-        return abs(value - expected) < 0.001;
-    };
-
-    for (auto vx = min_vx; vx <= max_vx; ++vx)
-        for (auto vy = min_vy; vy <= max_vy; ++vy) {
+    for (auto vx = 2 * min_vx; vx <= 2 * max_vx; ++vx)
+        for (auto vy = 2 * min_vy; vy <= 2 * max_vy; ++vy) {
             for (auto& p : v) {
                 p.vx -= vx;
                 p.vy -= vy;
             }
 
-            auto [intersected, x_ref, y_ref] = intersect(v[0], v[1]);
+            auto [intersected, xi, yi] = intersect(v[0], v[1]);
             if (intersected) {
+                auto x = lround(xi);
+                auto y = lround(yi);
                 auto ok = true;
 
                 for (auto j = 2; j < n; ++j) {
-                    auto [intersected, x, y] = intersect(v[0], v[j]);
-                    if (!intersected || !eq(x, x_ref) || !eq(y, y_ref)) {
+                    auto [intersected, xi, yi] = intersect(v[0], v[j]);
+                    if (!intersected || lround(xi) != x || lround(yi) != y) {
                         ok = false;
                         break;
                     }
                 }
 
                 if (ok) {
-                    auto t0 = (x_ref - v[0].x) / v[0].vx;
-                    auto t1 = (x_ref - v[1].x) / v[1].vx;
+                    auto t0 = (x - v[0].x) / v[0].vx;
+                    auto t1 = (x - v[1].x) / v[1].vx;
 
                     auto z0 = v[0].z + v[0].vz * t0;
                     auto z1 = v[1].z + v[1].vz * t1;
@@ -138,7 +138,7 @@ long solve2(int n, vector<Point>& v)
                     // z = (z0 * t1 - z1 * t0) / (t1 - t0)
                     auto z = (z0 * t1 - z1 * t0) / (t1 - t0);
 
-                    return x_ref + y_ref + z;
+                    return x + y + z;
                 }
             }
 
