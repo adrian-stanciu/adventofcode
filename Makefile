@@ -1,7 +1,7 @@
 .PHONY: build run clean
 
 FIRST := 2015
-LAST := 2023
+LAST := 2024
 
 build:
 	for i in $$(seq ${FIRST} ${LAST}); do \
