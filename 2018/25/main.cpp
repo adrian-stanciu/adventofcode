@@ -5,59 +5,59 @@
 
 // weighted quick-union with path halving
 struct UnionFind {
-    private:
-        std::vector<int> ids;
-        std::vector<int> sizes;
-        size_t size;
+private:
+    std::vector<int> ids;
+    std::vector<int> sizes;
+    size_t size;
 
-        auto root(int i)
-        {
-            while (i != ids[i]) {
-                ids[i] = ids[ids[i]];
-                i = ids[i];
-            }
-
-            return i;
+    [[nodiscard]] auto root(int i)
+    {
+        while (i != ids[i]) {
+            ids[i] = ids[ids[i]];
+            i = ids[i];
         }
 
-    public:
-        UnionFind(size_t capacity)
-        : ids(capacity, 0)
-        , sizes(capacity, 1)
-        , size(capacity)
-        {
-            for (auto i = 0U; i < capacity; ++i)
-                ids[i] = i;
+        return i;
+    }
+
+public:
+    UnionFind(size_t capacity)
+    : ids(capacity, 0)
+    , sizes(capacity, 1)
+    , size(capacity)
+    {
+        for (auto i = 0U; i < capacity; ++i)
+            ids[i] = i;
+    }
+
+    [[nodiscard]] bool connected(int i1, int i2)
+    {
+        return root(i1) == root(i2);
+    }
+
+    void connect(int i1, int i2)
+    {
+        auto root1 = root(i1);
+        auto root2 = root(i2);
+
+        if (root1 == root2)
+            return;
+
+        if (sizes[root1] < sizes[root2]) {
+            ids[root1] = root2;
+            sizes[root2] += sizes[root1];
+        } else {
+            ids[root2] = root1;
+            sizes[root1] += sizes[root2];
         }
 
-        bool connected(int i1, int i2)
-        {
-            return root(i1) == root(i2);
-        }
+        --size;
+    }
 
-        void connect(int i1, int i2)
-        {
-            auto root1 = root(i1);
-            auto root2 = root(i2);
-
-            if (root1 == root2)
-                return;
-
-            if (sizes[root1] < sizes[root2]) {
-                ids[root1] = root2;
-                sizes[root2] += sizes[root1];
-            } else {
-                ids[root2] = root1;
-                sizes[root1] += sizes[root2];
-            }
-
-            --size;
-        }
-
-        size_t get_size()
-        {
-            return size;
-        }
+    [[nodiscard]] size_t get_size() const
+    {
+        return size;
+    }
 };
 
 struct Point {

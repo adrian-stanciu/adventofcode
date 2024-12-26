@@ -91,7 +91,7 @@ auto find_exit(const Map& map, const Cell& entry_c, const Cell& exit_c,
                 continue;
 
             s.emplace(next_d, next_c);
-            visited.insert(std::move(next_c));
+            visited.insert(next_c);
         }
     }
 
@@ -105,7 +105,7 @@ struct MultiLevelCell {
     MultiLevelCell() = default;
 
     MultiLevelCell(Cell cell, int level)
-    : cell(std::move(cell)), level(level)
+    : cell(cell), level(level)
     {}
 
     MultiLevelCell(int x, int y, int level)
@@ -141,13 +141,13 @@ auto find_exit_with_recursion(const Map& map, const Cell& entry_c, const Cell& e
     static const std::array<int, 4> dx{0, 0, -1, 1};
     static const std::array<int, 4> dy{-1, 1, 0, 0};
 
-    MultiLevelCell mlc{entry_c, 0};
+    const MultiLevelCell mlc{entry_c, 0};
 
     std::set<std::pair<int, MultiLevelCell>> s;
     s.emplace(0, mlc);
 
     std::unordered_set<MultiLevelCell, MultiLevelCellHasher> visited;
-    visited.insert(std::move(mlc));
+    visited.insert(mlc);
 
     while (!s.empty()) {
         auto [d, mlc] = *s.begin();
@@ -187,7 +187,7 @@ auto find_exit_with_recursion(const Map& map, const Cell& entry_c, const Cell& e
                 continue;
 
             s.emplace(next_d, next_mlc);
-            visited.insert(std::move(next_mlc));
+            visited.insert(next_mlc);
         }
     }
 

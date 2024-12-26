@@ -67,10 +67,7 @@ auto compute_costs(const Player& boss,
     for (const auto& w : weapons)
         for (const auto& a : armor)
             for (const auto& r : rings) {
-                Player me{100,
-                    w.damage + r.damage,
-                    a.armor + r.armor,
-                    };
+                const Player me{100, w.damage + r.damage, a.armor + r.armor };
 
                 if (am_i_winner(me, boss))
                     min_cost_to_win = std::min(min_cost_to_win,
@@ -85,7 +82,7 @@ auto compute_costs(const Player& boss,
 
 int main()
 {
-    std::vector<Item> weapons {
+    const std::vector<Item> weapons {
         {8, 4, 0},
         {10, 5, 0},
         {25, 6, 0},

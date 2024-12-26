@@ -73,7 +73,7 @@ auto bfs(const Map& map, const std::vector<Point>& points, const Point& start,
     q.emplace(start, 0);
 
     std::unordered_set<Point, PointHasher> visited;
-    visited.emplace(std::move(start));
+    visited.emplace(start);
 
     auto start_node = node_of(points, start);
 
@@ -87,7 +87,7 @@ auto bfs(const Map& map, const std::vector<Point>& points, const Point& start,
         }
 
         for (auto i = 0; i < 4; ++i) {
-            Point next_p{p.r + dr[i], p.c + dc[i]};
+            const Point next_p{p.r + dr[i], p.c + dc[i]};
 
             if (visited.count(next_p) != 0)
                 continue;
@@ -96,7 +96,7 @@ auto bfs(const Map& map, const std::vector<Point>& points, const Point& start,
                 continue;
 
             q.emplace(next_p, d + 1);
-            visited.emplace(std::move(next_p));
+            visited.emplace(next_p);
         }
     }
 }
@@ -185,7 +185,7 @@ struct StateHasher {
 auto sp_dijkstra(const Map& map, const std::vector<Point>& points,
     const std::vector<Point>& robots, const Graph& g, const KeySet& key_set)
 {
-    State s{robots, key_set};
+    const State s{robots, key_set};
 
     std::unordered_map<State, int, StateHasher> d_map;
     d_map[s] = 0;

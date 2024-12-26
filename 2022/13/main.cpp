@@ -84,9 +84,9 @@ auto solve1(const vector<string>& v)
 
 auto solve2(vector<string>& v)
 {
-    string p1{"[[2]]"};
+    const string p1{"[[2]]"};
     v.push_back(p1);
-    string p2{"[[6]]"};
+    const string p2{"[[6]]"};
     v.push_back(p2);
 
     sort(begin(v), end(v), [](const auto& lhs, const auto& rhs) {

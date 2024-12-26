@@ -13,17 +13,17 @@ struct AsmComputer {
 private:
     using Regs = std::array<long, NumRegs>;
 
-    bool is_reg(const std::string& s) const
+    [[nodiscard]] bool is_reg(const std::string& s) const
     {
         return s.size() == 1 && ('a' <= s[0] && s[0] <= 'a' + NumRegs);
     }
 
-    static long to_reg(char r)
+    [[nodiscard]] static long to_reg(char r)
     {
         return r - 'a';
     }
 
-    static long to_reg(const std::string& s)
+    [[nodiscard]] static long to_reg(const std::string& s)
     {
         return to_reg(s[0]);
     }
@@ -120,14 +120,14 @@ private:
 
     using Instr = std::variant<CpyInstr, IncInstr, DecInstr, JnzInstr, OutInstr>;
 
-    auto parse_param(const std::string& param_str) const
+    [[nodiscard]] auto parse_param(const std::string& param_str) const
     {
         auto param_is_reg = is_reg(param_str);
         auto param = param_is_reg ? to_reg(param_str) : strtol(param_str.data(), nullptr, 10);
         return std::make_pair(param_is_reg, param);
     }
 
-    std::optional<Instr> decode_instr(const std::string& instr) const
+    [[nodiscard]] std::optional<Instr> decode_instr(const std::string& instr) const
     {
         static const std::regex cpy_re{"cpy (.+) (.+)"};
         static const std::regex inc_re{"inc (.+)"};

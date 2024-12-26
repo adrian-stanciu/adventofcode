@@ -8,7 +8,7 @@ const auto Sz {300};
 
 int compute_cell_power(int x, int y, int serial)
 {
-    long rank = x + 10;
+    const long rank = x + 10;
     long power = rank * y;
     power += serial;
     power *= rank;

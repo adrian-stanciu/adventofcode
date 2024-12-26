@@ -23,7 +23,7 @@ std::ostream& operator<<(std::ostream& out, int128 i)
 auto solve1(long start_t, const vector<pair<long, long>>& ids)
 {
     auto min_dt = numeric_limits<long>::max();
-    auto min_dt_id = 0;
+    auto min_dt_id = 0l;
 
     for (auto [id, _] : ids) {
         auto dt = id - start_t % id;

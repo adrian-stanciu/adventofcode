@@ -42,7 +42,7 @@ unsigned long compute_subtree_size(unsigned long root,
     q.push(root);
 
     while (!q.empty()) {
-        unsigned long current = q.front();
+        const unsigned long current = q.front();
         q.pop();
 
         visited[current] = true;

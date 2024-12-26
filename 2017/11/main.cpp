@@ -6,7 +6,7 @@
 #include <string>
 
 struct HexPath {
-    private:
+private:
     enum Direction {
         NW,
         N,
@@ -17,19 +17,19 @@ struct HexPath {
     };
 
     static constexpr auto size = 6;
-    std::array<unsigned long, size> counters;
+    std::array<unsigned long, size> counters{};
 
     void add(int dir_idx)
     {
-        int opposite_dir_idx = (dir_idx + (size / 2)) % size;
+        const int opposite_dir_idx = (dir_idx + (size / 2)) % size;
 
         if (counters[opposite_dir_idx] > 0) {
             --counters[opposite_dir_idx];
         } else {
-            int first_left_idx = (dir_idx - 1 + size) % size;
-            int second_left_idx = (dir_idx - 2 + size) % size;
-            int first_right_idx = (dir_idx + 1) % size;
-            int second_right_idx = (dir_idx + 2) % size;
+            const int first_left_idx = (dir_idx - 1 + size) % size;
+            const int second_left_idx = (dir_idx - 2 + size) % size;
+            const int first_right_idx = (dir_idx + 1) % size;
+            const int second_right_idx = (dir_idx + 2) % size;
 
             if (counters[second_left_idx] > 0) {
                 --counters[second_left_idx];
@@ -42,11 +42,7 @@ struct HexPath {
         }
     }
 
-    public:
-    HexPath()
-    : counters{}
-    {}
-
+public:
     void add(const std::string& step)
     {
         if (step.compare("nw") == 0)
@@ -63,7 +59,7 @@ struct HexPath {
             add(Direction::SW);
     }
 
-    unsigned long dist() const
+    [[nodiscard]] unsigned long dist() const
     {
         return std::accumulate(begin(counters), end(counters), 0UL);
     }

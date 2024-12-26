@@ -52,7 +52,7 @@ auto inverse(int128 n, int128 m)
 auto compute_geo_prog_sum(int128 q, int128 k, int128 m)
 {
     // q^k
-    int128 q2k = n_to_k(q, k, m);
+    const int128 q2k = n_to_k(q, k, m);
 
     // q^k - 1
     int128 sum = (q2k + m - 1) % m;
@@ -65,7 +65,7 @@ auto compute_geo_prog_sum(int128 q, int128 k, int128 m)
 }
 
 struct Reverse {
-    auto apply(int128 i, int128 sz) const
+    [[nodiscard]] auto apply(int128 i, int128 sz) const
     {
         return sz - 1 - i;
     }
@@ -84,7 +84,7 @@ struct Reverse {
 struct Cut {
     int128 n;
 
-    auto apply(int128 i, int128 sz) const
+    [[nodiscard]] auto apply(int128 i, int128 sz) const
     {
         return (((i - n) % sz) + sz) % sz;
     }
@@ -102,7 +102,7 @@ struct Cut {
 struct Increment {
     int128 n;
 
-    auto apply(int128 i, int128 sz) const
+    [[nodiscard]] auto apply(int128 i, int128 sz) const
     {
         return (n * i) % sz;
     }

@@ -80,13 +80,13 @@ int main()
         std::smatch matched;
         regex_match(line, matched, re);
 
-        int claim_num = str2num(matched[1].str());
-        int from_left = str2num(matched[2].str());
-        int from_top = str2num(matched[3].str());
-        int width = str2num(matched[4].str());
-        int height = str2num(matched[5].str());
+        const int claim_num = str2num(matched[1].str());
+        const int from_left = str2num(matched[2].str());
+        const int from_top = str2num(matched[3].str());
+        const int width = str2num(matched[4].str());
+        const int height = str2num(matched[5].str());
 
-        rectangles.push_back({claim_num, from_left, from_top, width, height});
+        rectangles.emplace_back(claim_num, from_left, from_top, width, height);
     }
 
     std::cout << count_overlapping(rectangles) << "\n";

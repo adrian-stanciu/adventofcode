@@ -166,7 +166,7 @@ auto n_vaporized(const Point& src_p, std::unordered_set<Point, PointHasher> poin
         std::array<std::vector<Point>, 4> quadrants;
 
         for (const auto& t : targets) {
-            Point p{t.x - src_p.x, t.y - src_p.y};
+            const Point p{t.x - src_p.x, t.y - src_p.y};
 
             if (p.x == 0) {
                 if (p.y < 0)

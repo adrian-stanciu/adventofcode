@@ -37,8 +37,8 @@ unsigned long compute_severity(const std::vector<Scanner>& scanners)
     unsigned long severity = 0;
 
     for (auto& scanner : scanners) {
-        unsigned long t = scanner.depth;
-        unsigned long path_len = 2 * (scanner.range - 1);
+        const unsigned long t = scanner.depth;
+        const unsigned long path_len = 2 * (scanner.range - 1);
 
         if (t % path_len == 0)
             severity += scanner.depth * scanner.range;
@@ -50,8 +50,8 @@ unsigned long compute_severity(const std::vector<Scanner>& scanners)
 bool is_caught(const std::vector<Scanner>& scanners, unsigned long delay)
 {
     for (auto& scanner : scanners) {
-        unsigned long t = scanner.depth + delay;
-        unsigned long path_len = 2 * (scanner.range - 1);
+        const unsigned long t = scanner.depth + delay;
+        const unsigned long path_len = 2 * (scanner.range - 1);
 
         if (t % path_len == 0)
             return true;

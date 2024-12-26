@@ -4,7 +4,7 @@ using namespace std;
 
 auto count(const vector<vector<bool>>& has)
 {
-    auto cnt = 0;
+    auto cnt = 0l;
     for (const auto& row : has)
         cnt += count(begin(row), end(row), true);
     return cnt;

@@ -80,13 +80,10 @@ void explore(const Matrix& matrix, int r, int c, int r_dir, int c_dir,
 
 auto get_path_and_steps(const Matrix& matrix)
 {
-    int r = 0;
-    int c = find_start_col(matrix[0]);
-
     std::ostringstream oss;
     long steps = 0;
 
-    explore(matrix, r, c, 1, 0, oss, steps);
+    explore(matrix, 0, find_start_col(matrix[0]), 1, 0, oss, steps);
 
     return std::make_pair(oss.str(), steps);
 }

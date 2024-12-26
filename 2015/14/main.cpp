@@ -17,7 +17,7 @@ struct Reindeer {
     , cycle_duration(flying_duration + resting_duration)
     {}
 
-    auto distance_after(long t) const
+    [[nodiscard]] auto distance_after(long t) const
     {
         auto num_completed_cycles = t / cycle_duration;
         auto remaining_duration = t % cycle_duration;

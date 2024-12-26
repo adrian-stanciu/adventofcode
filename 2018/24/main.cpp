@@ -85,11 +85,11 @@ auto parse_line(const std::string& line, long id, bool is_immune_sys)
 
 void select_targets(std::vector<Group>& groups)
 {
-    for (auto i = 0U; i < groups.size(); ++i) {
-        auto best = -1;
+    for (auto i = 0; i < ssize(groups); ++i) {
+        auto best = -1L;
         auto best_damage = 0L;
 
-        for (auto j = 0U; j < groups.size(); ++j) {
+        for (auto j = 0L; j < ssize(groups); ++j) {
             if (i == j)
                 continue; // same unit
             if (groups[i].is_immune_sys == groups[j].is_immune_sys)

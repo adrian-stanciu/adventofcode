@@ -57,7 +57,7 @@ auto simulate(std::vector<Point> points, long iters)
         }
     }
 
-    auto total_e = 0;
+    auto total_e = 0L;
 
     for (const auto& p : points) {
         auto pot_e = std::abs(p.x) + std::abs(p.y) + std::abs(p.z);

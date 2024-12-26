@@ -29,7 +29,7 @@ struct Board {
         return tie(hall, rooms) < tie(b.hall, b.rooms);
     }
 
-    auto is_sol() const
+    [[nodiscard]] auto is_sol() const
     {
         for (auto r = 0; r < static_cast<int>(rooms.size()); ++r)
             for (auto x : rooms[r])
@@ -83,7 +83,7 @@ struct State {
         }
     }
 
-    auto cost() const
+    [[nodiscard]] auto cost() const
     {
         return paid_cost + estimated_remaining_cost;
     }

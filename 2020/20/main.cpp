@@ -223,7 +223,7 @@ auto build_image(const unordered_map<int, Tile>& tiles, int img_sz,
     return img;
 }
 
-auto matches_pattern(const Tile& img, int start_row, int start_col, const Tile& pattern)
+auto matches_pattern(const Tile& img, size_t start_row, size_t start_col, const Tile& pattern)
 {
     for (size_t i = 0; i < pattern.size(); ++i)
         for (size_t j = 0; j < pattern[0].size(); ++j)

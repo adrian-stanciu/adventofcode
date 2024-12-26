@@ -37,7 +37,7 @@ auto score(const vector<string>& grid)
     const auto n = ssize(grid);
     const auto m = ssize(grid[0]);
 
-    auto sum = 0;
+    auto sum = 0l;
 
     for (auto c = 0; c < m; ++c)
         for (auto r = 0; r < n; ++r)

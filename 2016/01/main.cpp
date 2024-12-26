@@ -9,10 +9,6 @@
 struct Point {
     int x;
     int y;
-
-    Point(int x, int y)
-    : x(x), y(y)
-    {}
 };
 
 bool operator==(const Point& p1, const Point& p2)
@@ -86,10 +82,6 @@ auto find_location(const std::vector<Move>& moves)
 struct Segment {
     Point p1;
     Point p2;
-
-    Segment(Point p1, Point p2)
-    : p1(std::move(p1)), p2(std::move(p2))
-    {}
 };
 
 bool intersect(const Segment& x_seg, const Segment& y_seg)
@@ -129,10 +121,10 @@ auto find_first_revisited_location(const std::vector<Move>& moves)
     for (const auto& m : moves) {
         o = o_map[std::make_pair(o, m.dir)];
 
-        Point next_p{p.x + dx[o] * m.len, p.y + dy[o] * m.len};
+        const Point next_p{p.x + dx[o] * m.len, p.y + dy[o] * m.len};
 
         if (p.x == next_p.x) {
-            Segment x_seg(p, next_p);
+            const Segment x_seg(p, next_p);
 
             for (const auto& y_seg : y_segments) {
                 auto i = check_intersection(x_seg, y_seg);
@@ -140,9 +132,9 @@ auto find_first_revisited_location(const std::vector<Move>& moves)
                     return i.value();
             }
 
-            x_segments.push_back(std::move(x_seg));
+            x_segments.push_back(x_seg);
         } else {
-            Segment y_seg(p, next_p);
+            const Segment y_seg(p, next_p);
 
             for (const auto& x_seg : x_segments) {
                 auto i = check_intersection(x_seg, y_seg);
@@ -150,10 +142,10 @@ auto find_first_revisited_location(const std::vector<Move>& moves)
                     return i.value();
             }
 
-            y_segments.push_back(std::move(y_seg));
+            y_segments.push_back(y_seg);
         }
 
-        p = std::move(next_p);
+        p = next_p;
     }
 
     return p;

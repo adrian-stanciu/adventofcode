@@ -94,7 +94,7 @@ int main()
         for (auto c : in)
             key = (key << 1) | (c == '#');
         auto val = (out == '#');
-        rules[std::move(key)] = val;
+        rules[key] = val;
     }
 
     std::cout << sum(pots, rules, 20) << "\n";

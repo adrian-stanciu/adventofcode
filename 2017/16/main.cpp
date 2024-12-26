@@ -13,9 +13,6 @@ struct Operation {
     };
 
     Operation(const std::string& move)
-    : type(Type::Nop)
-    , param1(-1)
-    , param2(-1)
     {
         std::stringstream ss(move);
 
@@ -62,7 +59,7 @@ struct Operation {
         switch (type) {
         case Type::Spin:
             {
-                size_t d = s.size() - param1;
+                const size_t d = s.size() - param1;
                 reverse(begin(s), begin(s) + d);
                 reverse(begin(s) + d, end(s));
                 reverse(begin(s), end(s));
@@ -85,15 +82,15 @@ struct Operation {
         }
     }
 
-    Type get_type() const
+    [[nodiscard]] Type get_type() const
     {
         return type;
     }
 
-    private:
-    Type type;
-    char param1;
-    char param2;
+private:
+    Type type{Type::Nop};
+    char param1{-1};
+    char param2{-1};
 };
 
 auto read_moves()
@@ -114,11 +111,10 @@ auto read_moves()
 auto decode_moves(const std::vector<std::string>& moves)
 {
     std::vector<Operation> operations;
+    operations.reserve(moves.size());
 
-    for (auto& move : moves) {
-        Operation op(move);
-        operations.push_back(op);
-    }
+    for (const auto& move : moves)
+        operations.emplace_back(move);
 
     return operations;
 }
@@ -182,7 +178,7 @@ int main()
 
     auto operations = decode_moves(moves);
 
-    std::string s("abcdefghijklmnop");
+    const std::string s("abcdefghijklmnop");
     std::string perm1(s);
     std::string perm2(s);
     execute_operations(perm1, perm2, operations);

@@ -104,7 +104,7 @@ auto a_star_dist(const Map& map, const Point& src, const Point& dst, const Point
         {
             if (score == s.score) {
                 if (d == s.d)
-                    return !(*this == s);
+                    return std::tie(p.y, p.x) < std::tie(s.p.y, s.p.x);
                 else
                     return d < s.d;
             } else
@@ -126,9 +126,9 @@ auto a_star_dist(const Map& map, const Point& src, const Point& dst, const Point
     std::unordered_set<State, StateHasher> open_set;
     std::unordered_set<State, StateHasher> closed_set;
 
-    State start{src, 0, dist(src)};
+    const State start{src, 0, dist(src)};
     sorted_set.emplace(start);
-    open_set.emplace(std::move(start));
+    open_set.emplace(start);
 
     while (!open_set.empty()) {
         auto s = *sorted_set.begin();
@@ -151,23 +151,23 @@ auto a_star_dist(const Map& map, const Point& src, const Point& dst, const Point
             if (map[y][x] == '#')
                 continue;
 
-            Point next_p{y, x};
+            const Point next_p{y, x};
 
             if (next_p == skip)
                 continue;
 
             auto next_s_d = s.d + 1;
-            State next_s{next_p, next_s_d, next_s_d + dist(next_p)};
+            const State next_s{next_p, next_s_d, next_s_d + dist(next_p)};
 
             if (closed_set.find(next_s) == closed_set.end()) {
                 auto it = open_set.find(next_s);
                 if (it == open_set.end()) {
                     sorted_set.emplace(next_s);
-                    open_set.emplace(std::move(next_s));
+                    open_set.emplace(next_s);
                 } else if (next_s.score < it->score ||
                     (next_s.score == it->score && next_s.d < it->d)) {
                     sorted_set.erase(*it);
-                    sorted_set.emplace(std::move(next_s));
+                    sorted_set.emplace(next_s);
                 }
             }
         }
@@ -224,9 +224,9 @@ auto a_star(const Map& map, const Point& from, const Point& to, const Point& emp
     std::unordered_set<State, StateHasher> open_set;
     std::unordered_set<State, StateHasher> closed_set;
 
-    State start{from, empty, 0, dist(from)};
+    const State start{from, empty, 0, dist(from)};
     sorted_set.emplace(start);
-    open_set.emplace(std::move(start));
+    open_set.emplace(start);
 
     while (!sorted_set.empty()) {
         auto s = *sorted_set.begin();
@@ -249,20 +249,20 @@ auto a_star(const Map& map, const Point& from, const Point& to, const Point& emp
             if (map[y][x] == '#')
                 continue;
 
-            Point next_obj{y, x};
+            const Point next_obj{y, x};
 
             auto next_obj_d = a_star_dist(map, s.empty, next_obj, s.obj);
             if (next_obj_d == Inf)
                 continue;
 
             auto next_s_d = s.d + next_obj_d + 1;
-            State next_s{next_obj, s.obj, next_s_d, next_s_d + dist(next_obj)};
+            const State next_s{next_obj, s.obj, next_s_d, next_s_d + dist(next_obj)};
 
             if (closed_set.find(next_s) == closed_set.end()) {
                 auto it = open_set.find(next_s);
                 if (it == open_set.end()) {
                     sorted_set.emplace(next_s);
-                    open_set.emplace(std::move(next_s));
+                    open_set.emplace(next_s);
                 } else if (next_s.score < it->score ||
                     (next_s.score == it->score && next_s.d < it->d)) {
                     sorted_set.erase(*it);

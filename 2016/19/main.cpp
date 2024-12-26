@@ -23,7 +23,7 @@ auto find_winner(int n)
 template <typename T>
 struct RedBlackTree {
 
-    unsigned long long size() const
+    [[nodiscard]] unsigned long long size() const
     {
         return count;
     }
@@ -48,12 +48,12 @@ struct RedBlackTree {
         }
     }
 
-    unsigned long long less_than(T key) const
+    [[nodiscard]] unsigned long long less_than(T key) const
     {
         return less_than(root, key);
     }
 
-    std::optional<T> n_key(unsigned long long n) const
+    [[nodiscard]] std::optional<T> n_key(unsigned long long n) const
     {
         if (n == 0 || n > count)
             return std::nullopt;
@@ -67,7 +67,6 @@ struct RedBlackTree {
     }
 
 private:
-
     struct Node {
         T key;
         unsigned long long count {1}; // frequency of current key
@@ -87,12 +86,12 @@ private:
         }
     };
 
-    bool is_red(Node *root) const
+    [[nodiscard]] bool is_red(Node *root) const
     {
         return root && root->is_red;
     }
 
-    Node *rotate_left(Node *root)
+    [[nodiscard]] Node *rotate_left(Node *root)
     {
         Node *right = root->right;
         root->right = right->left;
@@ -106,7 +105,7 @@ private:
         return right;
     }
 
-    Node *rotate_right(Node *root)
+    [[nodiscard]] Node *rotate_right(Node *root)
     {
         Node *left = root->left;
         root->left = left->right;
@@ -127,7 +126,7 @@ private:
         root->right->is_red = false;
     }
 
-    Node *insert(Node *root, T key)
+    [[nodiscard]] Node *insert(Node *root, T key)
     {
         if (!root)
             return new Node(key);
@@ -188,7 +187,7 @@ private:
         }
     }
 
-    unsigned long long less_than(Node *root, T key) const
+    [[nodiscard]] unsigned long long less_than(Node *root, T key) const
     {
         if (!root)
             return 0;
@@ -201,7 +200,7 @@ private:
             return root->left_count;
     }
 
-    T n_key(Node *root, unsigned long long n) const
+    [[nodiscard]] T n_key(Node *root, unsigned long long n) const
     {
         if (root->left_count >= n)
             return n_key(root->left, n);

@@ -2,15 +2,17 @@
 
 using namespace std;
 
-auto solve(const vector<int>& v, size_t n)
+auto solve(const vector<int>& v, int n)
 {
+    auto sz = static_cast<int>(ssize(v));
+
     vector<int> last_pos(n, 0);
-    for (size_t i = 0; i < v.size() - 1; ++i)
+    for (auto i = 0; i < sz - 1; ++i)
         last_pos[v[i]] = i + 1;
 
     auto prev = v.back();
 
-    for (size_t i = v.size(); i < n; ++i) {
+    for (auto i = sz; i < n; ++i) {
         auto next = last_pos[prev] ? i - last_pos[prev] : 0;
         last_pos[prev] = i;
         prev = next;

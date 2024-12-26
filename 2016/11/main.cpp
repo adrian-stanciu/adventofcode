@@ -325,12 +325,12 @@ int main()
 {
     auto equip_set = parse_input();
 
-    State s1{1, equip_set, 0};
+    const State s1{1, equip_set, 0};
     std::cout << count_iters(s1) << "\n";
 
     equip_set.emplace(1, 1);
     equip_set.emplace(1, 1);
-    State s2{1, equip_set, 0};
+    const State s2{1, equip_set, 0};
     std::cout << count_iters(s2) << "\n";
 
     return 0;

@@ -85,11 +85,9 @@ struct Computer {
 
     Computer(const std::vector<std::string>& instructions)
     {
-        for (const auto& instr : instructions) {
-            auto decoded_instr = decode(instr);
-            if (decoded_instr.has_value())
-                prog.push_back(std::move(decoded_instr.value()));
-        }
+        for (const auto& instr : instructions)
+            if (auto decoded_instr = decode(instr); decoded_instr)
+                prog.push_back(*decoded_instr);
     }
 
     void reset()
@@ -98,7 +96,7 @@ struct Computer {
         regs.fill(0);
     }
 
-    auto get_reg(char r) const
+    [[nodiscard]] auto get_reg(char r) const
     {
         return regs[r - 'a'];
     }

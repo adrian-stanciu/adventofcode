@@ -75,12 +75,12 @@ void build_tree_rec(Tree& tree, const std::string& re, int& i, std::pair<int, in
     auto& [x, y] = curr;
 
     while (re[i] != '$') {
-        State s {x, y, i};
+        const State s {x, y, i};
 
         if (visited.find(s) != visited.end())
             return;
 
-        visited.emplace(std::move(s));
+        visited.emplace(s);
 
         switch (re[i]) {
         case 'N':

@@ -12,13 +12,12 @@ struct Program {
     std::string name;
     long weight;
     std::vector<std::string> children;
-    mutable long total_weight;
+    mutable long total_weight{0};
 
-    Program(std::string&& name, long weight, std::vector<std::string>&& children)
+    Program(std::string name, long weight, std::vector<std::string> children)
     : name(std::move(name))
     , weight(weight)
     , children(std::move(children))
-    , total_weight(0)
     {}
 
     friend std::ostream& operator<<(std::ostream& out, const Program& p)

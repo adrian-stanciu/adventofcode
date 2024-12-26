@@ -12,7 +12,7 @@ int output_of(const std::string& wire);
 struct Value {
     int in;
 
-    int output() const
+    [[nodiscard]] int output() const
     {
         return in;
     }
@@ -21,7 +21,7 @@ struct Value {
 struct Wire {
     std::string in;
 
-    int output() const
+    [[nodiscard]] int output() const
     {
         return output_of(in);
     }
@@ -44,7 +44,7 @@ struct Input {
         in = Value{n};
     }
 
-    int output() const
+    [[nodiscard]] int output() const
     {
         return std::visit([] (const auto& _) { return _.output(); }, in);
     }
@@ -54,7 +54,7 @@ struct AndGate {
     Input in1;
     Input in2;
 
-    int output() const
+    [[nodiscard]] int output() const
     {
         return in1.output() & in2.output();
     }
@@ -64,7 +64,7 @@ struct OrGate {
     Input in1;
     Input in2;
 
-    int output() const
+    [[nodiscard]] int output() const
     {
         return in1.output() | in2.output();
     }
@@ -74,7 +74,7 @@ struct LShiftGate {
     Input in1;
     Input in2;
 
-    int output() const
+    [[nodiscard]] int output() const
     {
         return in1.output() << in2.output();
     }
@@ -84,7 +84,7 @@ struct RShiftGate {
     Input in1;
     Input in2;
 
-    int output() const
+    [[nodiscard]] int output() const
     {
         return in1.output() >> in2.output();
     }
@@ -93,7 +93,7 @@ struct RShiftGate {
 struct NotGate {
     Input in;
 
-    int output() const
+    [[nodiscard]] int output() const
     {
         return ~in.output();
     }

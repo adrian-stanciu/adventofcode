@@ -22,9 +22,9 @@ struct Sample {
     Regs regs_after;
 
     Sample(Regs regs_before, Instr instr, Regs regs_after)
-    : regs_before(std::move(regs_before))
-    , instr(std::move(instr))
-    , regs_after(std::move(regs_after))
+    : regs_before(regs_before)
+    , instr(instr)
+    , regs_after(regs_after)
     {}
 };
 
@@ -63,7 +63,7 @@ auto count_samples_with_n_or_more_opcodes_behaviour(const std::vector<Sample>& s
         auto possible_opcodes = 0;
 
         for (const auto& [precond, op] : functions)
-            if (precond(sample.regs_before.size(), sample.instr)) {
+            if (precond(ssize(sample.regs_before), sample.instr)) {
                 auto regs = sample.regs_before;
                 op(regs, sample.instr);
                 if (regs == sample.regs_after)
@@ -84,7 +84,7 @@ auto translate_opcodes_to_functions(const std::vector<Sample>& samples)
 
     for (auto i = 0; i < NumFunctions; ++i) {
         for (auto& sample : samples) {
-            if (!functions[i].precond(sample.regs_before.size(), sample.instr)) {
+            if (!functions[i].precond(ssize(sample.regs_before), sample.instr)) {
                 func2opcodes[i][sample.instr.opcode] = false;
                 continue;
             }
@@ -155,7 +155,7 @@ int main()
         sscanf(after_line.data(), "After: [%d, %d, %d, %d]",
             &regs_after[0], &regs_after[1], &regs_after[2], &regs_after[3]);
 
-        samples.emplace_back(std::move(regs_before), std::move(instr), std::move(regs_after));
+        samples.emplace_back(regs_before, instr, regs_after);
     }
 
     std::cout << count_samples_with_n_or_more_opcodes_behaviour(samples, 3) << "\n";
@@ -166,7 +166,7 @@ int main()
         sscanf(instr_line.data(), "%d %d %d %d",
             &instr.opcode, &instr.a, &instr.b, &instr.c);
 
-        instructions.push_back(std::move(instr));
+        instructions.push_back(instr);
     }
 
     auto opcode2func = translate_opcodes_to_functions(samples);

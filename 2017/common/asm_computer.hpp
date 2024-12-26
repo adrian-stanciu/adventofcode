@@ -14,22 +14,22 @@ struct AsmComputer {
 private:
     using Regs = std::array<long, NumRegs>;
 
-    bool is_reg(const std::string& s) const
+    [[nodiscard]] bool is_reg(const std::string& s) const
     {
         return s.size() == 1 && ('a' <= s[0] && s[0] <= 'a' + NumRegs);
     }
 
-    static long to_reg(char r)
+    [[nodiscard]] static long to_reg(char r)
     {
         return r - 'a';
     }
 
-    static long to_reg(const std::string& s)
+    [[nodiscard]] static long to_reg(const std::string& s)
     {
         return to_reg(s[0]);
     }
 
-    static long to_val(const std::string& s)
+    [[nodiscard]] static long to_val(const std::string& s)
     {
         return strtol(s.data(), nullptr, 10);
     }
@@ -39,7 +39,7 @@ private:
         long reg_x;
         long y;
 
-        bool exec(AsmComputer& ac) const
+        [[nodiscard]] bool exec(AsmComputer& ac) const
         {
             ++ac.stats[static_cast<int>(Op::Add)];
             ac.regs[reg_x] += y_is_reg ? ac.regs[y] : y;
@@ -53,7 +53,7 @@ private:
         long reg_x;
         long y;
 
-        bool exec(AsmComputer& ac) const
+        [[nodiscard]] bool exec(AsmComputer& ac) const
         {
             ++ac.stats[static_cast<int>(Op::Sub)];
             ac.regs[reg_x] -= y_is_reg ? ac.regs[y] : y;
@@ -67,7 +67,7 @@ private:
         long reg_x;
         long y;
 
-        bool exec(AsmComputer& ac) const
+        [[nodiscard]] bool exec(AsmComputer& ac) const
         {
             ++ac.stats[static_cast<int>(Op::Mul)];
             ac.regs[reg_x] *= y_is_reg ? ac.regs[y] : y;
@@ -81,7 +81,7 @@ private:
         long reg_x;
         long y;
 
-        bool exec(AsmComputer& ac) const
+        [[nodiscard]] bool exec(AsmComputer& ac) const
         {
             ++ac.stats[static_cast<int>(Op::Mod)];
             ac.regs[reg_x] %= y_is_reg ? ac.regs[y] : y;
@@ -95,7 +95,7 @@ private:
         long reg_x;
         long y;
 
-        bool exec(AsmComputer& ac) const
+        [[nodiscard]] bool exec(AsmComputer& ac) const
         {
             ++ac.stats[static_cast<int>(Op::Set)];
             ac.regs[reg_x] = y_is_reg ? ac.regs[y] : y;
@@ -110,7 +110,7 @@ private:
         long x;
         long y;
 
-        bool exec(AsmComputer& ac) const
+        [[nodiscard]] bool exec(AsmComputer& ac) const
         {
             ++ac.stats[static_cast<int>(Op::Jgz)];
             auto val_x = x_is_reg ? ac.regs[x] : x;
@@ -129,7 +129,7 @@ private:
         long x;
         long y;
 
-        bool exec(AsmComputer& ac) const
+        [[nodiscard]] bool exec(AsmComputer& ac) const
         {
             ++ac.stats[static_cast<int>(Op::Jnz)];
             auto val_x = x_is_reg ? ac.regs[x] : x;
@@ -146,7 +146,7 @@ private:
         bool x_is_reg;
         long x;
 
-        bool exec(AsmComputer& ac) const
+        [[nodiscard]] bool exec(AsmComputer& ac) const
         {
             ++ac.stats[static_cast<int>(Op::Snd)];
             ac.outputs.push(x_is_reg ? ac.regs[x] : x);
@@ -158,7 +158,7 @@ private:
     struct Rcv {
         long reg_x;
 
-        bool exec(AsmComputer& ac) const
+        [[nodiscard]] bool exec(AsmComputer& ac) const
         {
             ++ac.stats[static_cast<int>(Op::Rcv)];
             if (ac.inputs.empty())
@@ -172,7 +172,7 @@ private:
 
     using Instr = std::variant<Add, Sub, Mul, Mod, Set, Jgz, Jnz, Snd, Rcv>;
 
-    std::optional<Instr> decode_instr(const std::string& instr) const
+    [[nodiscard]] std::optional<Instr> decode_instr(const std::string& instr) const
     {
         std::stringstream ss(instr);
 
@@ -313,7 +313,7 @@ public:
         return outputs.size();
     }
 
-    std::optional<long> extract_first_output()
+    [[nodiscard]] std::optional<long> extract_first_output()
     {
         if (outputs.empty())
             return std::nullopt;

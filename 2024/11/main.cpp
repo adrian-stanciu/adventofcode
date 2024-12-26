@@ -21,7 +21,7 @@ auto extract_digits(long x)
     return digits;
 }
 
-auto build_num(const vector<int>& digits, int begin, int end)
+auto build_num(const vector<int>& digits, size_t begin, size_t end)
 {
     auto x = 0l;
 

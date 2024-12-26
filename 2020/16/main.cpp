@@ -21,7 +21,7 @@ struct Rule {
         intervals.emplace_back(to_num(matched[4].str()), to_num(matched[5].str()));
     }
 
-    bool match(int val) const
+    [[nodiscard]] bool match(int val) const
     {
         for (auto [lo, hi] : intervals)
             if (val >= lo && val <= hi)
@@ -29,7 +29,7 @@ struct Rule {
         return false;
     }
 
-    bool match(const vector<int>& values) const
+    [[nodiscard]] bool match(const vector<int>& values) const
     {
         for (auto val : values)
             if (!match(val))
@@ -123,7 +123,7 @@ auto solve(vector<Rule>& rules, const Ticket& my_ticket, const vector<Ticket>& t
     };
 
     vector<Field> fields(my_ticket.values.size());
-    for (size_t i = 0; i < fields.size(); ++i) {
+    for (auto i = 0; i < ssize(fields); ++i) {
         fields[i].id = i;
         for (const auto& t : tickets)
             fields[i].values.push_back(t.values[i]);
@@ -132,9 +132,9 @@ auto solve(vector<Rule>& rules, const Ticket& my_ticket, const vector<Ticket>& t
     auto res = 1l;
 
     while (!fields.empty())
-        for (size_t i = 0; i < fields.size(); ++i) {
+        for (auto i = 0; i < ssize(fields); ++i) {
             vector<int> rules_matched;
-            for (size_t j = 0; j < rules.size(); ++j)
+            for (auto j = 0; j < ssize(rules); ++j)
                 if (rules[j].match(fields[i].values))
                     rules_matched.push_back(j);
 

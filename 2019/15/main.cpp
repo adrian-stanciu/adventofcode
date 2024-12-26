@@ -63,7 +63,7 @@ auto explore(const std::vector<long long>& prog)
 
     IntComputer ic(prog);
 
-    Cell c{0, 0};
+    const Cell c{0, 0};
 
     Map map;
     map[c] = Empty;
@@ -77,7 +77,7 @@ auto explore(const std::vector<long long>& prog)
         auto moved = false;
 
         for (auto i = 1; i <= 4; ++i) {
-            Cell next_c{c.x + dx[i], c.y + dy[i]};
+            const Cell next_c{c.x + dx[i], c.y + dy[i]};
 
             if (map.count(next_c) != 0)
                 continue;
@@ -118,7 +118,7 @@ auto find_oxigen(const Map& map)
     static const std::array<int, 5> dx{0, 0, 0, -1, 1};
     static const std::array<int, 5> dy{0, -1, 1, 0, 0};
 
-    Cell c{0, 0};
+    const Cell c{0, 0};
 
     std::queue<std::pair<Cell, int>> q;
     q.emplace(c, 0);
@@ -130,7 +130,7 @@ auto find_oxigen(const Map& map)
         const auto& [c, dist] = q.front();
 
         for (auto i = 1; i <= 4; ++i) {
-            Cell next_c{c.x + dx[i], c.y + dy[i]};
+            const Cell next_c{c.x + dx[i], c.y + dy[i]};
 
             if (visited.count(next_c) != 0)
                 continue;
@@ -171,7 +171,7 @@ auto compute_time_to_fill_map(const Map& map, const Cell& oxigen)
         max_t = std::max(max_t, t);
 
         for (auto i = 1; i <= 4; ++i) {
-            Cell next_c{c.x + dx[i], c.y + dy[i]};
+            const Cell next_c{c.x + dx[i], c.y + dy[i]};
 
             if (visited.count(next_c) != 0)
                 continue;

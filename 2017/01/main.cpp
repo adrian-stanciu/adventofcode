@@ -4,7 +4,7 @@
 auto sum_if_next_digit_is_equal(const std::string& str)
 {
     auto sum = 0L;
-    size_t last_index = str.size() - 1;
+    const size_t last_index = str.size() - 1;
 
     for (size_t i = 0; i < last_index; ++i)
         if (str[i] == str[i + 1])
@@ -19,7 +19,7 @@ auto sum_if_next_digit_is_equal(const std::string& str)
 auto sum_if_halfway_around_digit_is_equal(const std::string& str)
 {
     auto sum = 0L;
-    size_t halfway = str.size() / 2;
+    const size_t halfway = str.size() / 2;
 
     for (size_t i = 0; i < halfway; ++i)
         if (str[i] == str[i + halfway])

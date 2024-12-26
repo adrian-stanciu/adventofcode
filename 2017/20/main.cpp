@@ -15,22 +15,22 @@ auto solve_quadratic_eq_pd(long a, long b, long c)
 
     if (a == 0) {
         if (b != 0) {
-            double r = -(double)c / b;
+            const double r = -(double)c / b;
             if (r > 0)
                 roots.push_back(r);
         }
     } else {
-        long delta = b * b - 4 * a * c;
+        const long delta = b * b - 4 * a * c;
         if (delta > 0) {
-            double delta_sqrt = sqrt(delta);
-            double r1 = (-b + delta_sqrt) / (2 * a);
+            const double delta_sqrt = sqrt(delta);
+            const double r1 = (-b + delta_sqrt) / (2 * a);
             if (r1 > 0)
                 roots.push_back(r1);
-            double r2 = (-b - delta_sqrt) / (2 * a);
+            const double r2 = (-b - delta_sqrt) / (2 * a);
             if (r2 > 0)
                 roots.push_back(r2);
         } else if (delta == 0) {
-            double r = -(double)b / (2 * a);
+            const double r = -(double)b / (2 * a);
             if (r > 0)
                 roots.push_back(r);
         }
@@ -58,7 +58,7 @@ struct Particle {
         if (px * ax < 0) {
             auto roots = solve_quadratic_eq_pd(ax, 2 * vx + ax, 2 * px);
             for (auto r : roots) {
-                long t = ceil(r);
+                const long t = ceil(r);
                 if (t >= tx) {
                     tx = t;
                     break;
@@ -68,7 +68,7 @@ struct Particle {
         if (py * ay < 0) {
             auto roots = solve_quadratic_eq_pd(ay, 2 * vy + ay, 2 * py);
             for (auto r : roots) {
-                long t = ceil(r);
+                const long t = ceil(r);
                 if (t >= ty) {
                     ty = t;
                     break;
@@ -78,7 +78,7 @@ struct Particle {
         if (pz * az < 0) {
             auto roots = solve_quadratic_eq_pd(az, 2 * vz + az, 2 * pz);
             for (auto r : roots) {
-                long t = ceil(r);
+                const long t = ceil(r);
                 if (t >= tz) {
                     tz = t;
                     break;
@@ -152,9 +152,9 @@ std::tuple<long, long, long> read_group(const std::string& group)
     std::smatch matched;
     regex_match(group, matched, re);
 
-    long x = strtol(matched[1].str().data(), nullptr, 10);
-    long y = strtol(matched[2].str().data(), nullptr, 10);
-    long z = strtol(matched[3].str().data(), nullptr, 10);
+    const long x = strtol(matched[1].str().data(), nullptr, 10);
+    const long y = strtol(matched[2].str().data(), nullptr, 10);
+    const long z = strtol(matched[3].str().data(), nullptr, 10);
 
     return std::make_tuple(x, y, z);
 }
@@ -176,7 +176,7 @@ auto read_particles()
         std::tie(p.vx, p.vy, p.vz) = read_group(matched[2].str());
         std::tie(p.ax, p.ay, p.az) = read_group(matched[3].str());
 
-        particles.push_back(std::move(p));
+        particles.push_back(p);
     }
 
     return particles;
@@ -188,27 +188,27 @@ size_t closest_to_origin_in_long_run(std::vector<Particle> particles)
     size_t min_a_idx = 0;
 
     for (size_t i = 1; i < particles.size(); ++i) {
-        long a = particles[i].a_abs();
+        const long a = particles[i].a_abs();
 
         if (a > min_a) {
             continue;
         } else if (a == min_a) {
-            long va_t = particles[i].va_t();
-            long min_va_t = particles[min_a_idx].va_t();
-            long t = std::max(va_t, min_va_t);
+            const long va_t = particles[i].va_t();
+            const long min_va_t = particles[min_a_idx].va_t();
+            const long t = std::max(va_t, min_va_t);
 
-            long v = particles[i].v_abs(t);
-            long min_v = particles[min_a_idx].v_abs(t);
+            const long v = particles[i].v_abs(t);
+            const long min_v = particles[min_a_idx].v_abs(t);
 
             if (v > min_v) {
                 continue;
             } else if (v == min_v) {
-                long pva_t = std::max(va_t, particles[i].pva_t());
-                long min_pva_t = std::max(min_va_t, particles[min_a_idx].pva_t());
-                long t = std::max(pva_t, min_pva_t);
+                const long pva_t = std::max(va_t, particles[i].pva_t());
+                const long min_pva_t = std::max(min_va_t, particles[min_a_idx].pva_t());
+                const long t = std::max(pva_t, min_pva_t);
 
-                long p = particles[i].p_abs(t);
-                long min_p = particles[min_a_idx].p_abs(t);
+                const long p = particles[i].p_abs(t);
+                const long min_p = particles[min_a_idx].p_abs(t);
 
                 if (p > min_p)
                     continue;
@@ -234,26 +234,26 @@ auto solve_quadratic_eq_nni(long a, long b, long c)
         } else {
             // check root is interger
             if (-c % b == 0) {
-                long r = -c / b;
+                const long r = -c / b;
                 if (r >= 0)
                     roots.push_back(r);
             }
         }
     } else {
-        long delta = b * b - 4 * a * c;
+        const long delta = b * b - 4 * a * c;
         if (delta > 0) {
-            long delta_sqrt = sqrt(delta);
+            const long delta_sqrt = sqrt(delta);
             // check sqrt(delta) is interger
             if (delta_sqrt * delta_sqrt == delta) {
                 // check root is interger
                 if ((-b + delta_sqrt) % (2 * a) == 0) {
-                    long r = (-b + delta_sqrt) / (2 * a);
+                    const long r = (-b + delta_sqrt) / (2 * a);
                     if (r >= 0)
                         roots.push_back(r);
                 }
                 // check root is interger
                 if ((-b - delta_sqrt) % (2 * a) == 0) {
-                    long r = (-b - delta_sqrt) / (2 * a);
+                    const long r = (-b - delta_sqrt) / (2 * a);
                     if (r >= 0)
                         roots.push_back(r);
                 }
@@ -261,7 +261,7 @@ auto solve_quadratic_eq_nni(long a, long b, long c)
         } else if (delta == 0) {
             // check root is interger
             if (-b % (2 * a) == 0) {
-                long r = -b / (2 * a);
+                const long r = -b / (2 * a);
                 if (r >= 0)
                     roots.push_back(r);
             }

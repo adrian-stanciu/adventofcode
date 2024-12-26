@@ -23,7 +23,7 @@ auto fold_up(const vector<vector<char>>& grid, int at)
 
     auto new_n = max(at, n - at - 1);
 
-    vector<vector<char>> new_grid(new_n, vector<char>(m, '.'));
+    vector<vector<char>> new_grid(new_n, vector<char>(m, ' '));
 
     for (auto i = at - 1, k = new_n - 1; i >= 0; --i, --k)
         for (auto j = 0; j < m; ++j)
@@ -67,7 +67,7 @@ auto fold(const vector<vector<char>>& grid, const Fold& fold)
 
 auto count_points(const vector<vector<char>>& grid)
 {
-    auto cnt = 0;
+    auto cnt = 0l;
 
     for (const auto& row : grid)
         cnt += count(begin(row), end(row), '#');
@@ -85,7 +85,7 @@ auto solve(const vector<pair<int, int>>& points, const vector<Fold>& folds)
         max_y = max(max_y, y);
     }
 
-    vector<vector<char>> grid(max_y + 1, vector<char>(max_x + 1, '.'));
+    vector<vector<char>> grid(max_y + 1, vector<char>(max_x + 1, ' '));
     for (const auto& [x, y] : points)
         grid[y][x] = '#';
 

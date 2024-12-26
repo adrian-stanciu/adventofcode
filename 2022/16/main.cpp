@@ -114,7 +114,7 @@ auto read_valves()
 {
     auto name2id = [](string_view name_sv) {
         static unordered_map<string, int> name2id_map;
-        string name_s{name_sv};
+        const string name_s{name_sv};
         if (!name2id_map.contains(name_s))
             name2id_map.try_emplace(name_s, name2id_map.size());
         return name2id_map[name_s];

@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iostream>
+#include <ranges>
 #include <regex>
 #include <string>
 #include <unordered_map>
@@ -8,12 +9,12 @@
 
 void rotate_l(std::string& data, long steps)
 {
-    rotate(data.begin(), data.begin() + (steps % data.size()), data.end());
+    rotate(data.begin(), data.begin() + (steps % ssize(data)), data.end());
 }
 
 void rotate_r(std::string& data, long steps)
 {
-    rotate(data.rbegin(), data.rbegin() + (steps % data.size()), data.rend());
+    rotate(data.rbegin(), data.rbegin() + (steps % ssize(data)), data.rend());
 }
 
 struct SwapPos {
@@ -91,9 +92,9 @@ struct RotatePos {
         const auto steps_map = [&] () {
             std::unordered_map<long, long> steps_map;
 
-            for (auto i = 0U; i < data.size(); ++i) {
+            for (auto i = 0l; i < ssize(data); ++i) {
                 auto steps = 1 + i + ((i >= 4) ? 1 : 0);
-                steps_map[(i + steps) % data.size()] = steps;
+                steps_map[(i + steps) % ssize(data)] = steps;
             }
 
             return steps_map;
@@ -157,8 +158,8 @@ auto unscramble(const std::vector<Operation>& operations, std::string scrambled)
 {
     auto unscrambled{std::move(scrambled)};
 
-    for (auto it = operations.crbegin(); it != operations.crend(); ++it)
-        visit([&] (const auto& _) { _.undo(unscrambled); }, *it);
+    for (const auto& op : std::ranges::reverse_view(operations))
+        visit([&] (const auto& _) { _.undo(unscrambled); }, op);
 
     return unscrambled;
 }

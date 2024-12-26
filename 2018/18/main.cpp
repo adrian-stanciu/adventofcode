@@ -9,7 +9,7 @@ struct MapHasher {
     size_t operator()(const Map& map) const
     {
         size_t h = 0;
-        std::hash<std::string> hash_fn;
+        const std::hash<std::string> hash_fn;
 
         for (auto const& s : map) {
             // based on boost's hash_combine()
@@ -20,7 +20,7 @@ struct MapHasher {
     }
 };
 
-auto count_adj(const Map& map, int i, int j, char c)
+auto count_adj(const Map& map, size_t i, size_t j, char c)
 {
     auto count = 0;
 
@@ -104,7 +104,7 @@ int main()
 {
     Map map;
 
-    auto row_size = 0;
+    size_t row_size = 0;
     auto first_row = true;
 
     std::string row;

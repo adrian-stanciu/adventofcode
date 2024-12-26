@@ -82,9 +82,7 @@ long compute_strongest_bridge_score(const std::vector<Component>& left,
 {
     std::vector<bool> used(left.size(), false);
 
-    long max_score = compute_strongest_bridge_score_helper(left, right, 0, used);
-
-    return max_score;
+    return compute_strongest_bridge_score_helper(left, right, 0, used);
 }
 
 std::tuple<long, long> compute_longest_strongest_bridge_score_helper(

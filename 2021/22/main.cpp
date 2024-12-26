@@ -6,17 +6,17 @@ struct Interval {
     int from;
     int to;
 
-    auto size() const
+    [[nodiscard]] auto size() const
     {
         return to - from + 1;
     }
 
-    auto is_intersecting(const Interval& other) const
+    [[nodiscard]] auto is_intersecting(const Interval& other) const
     {
         return max(from, other.from) <= min(to, other.to);
     }
 
-    auto intersection_size(const Interval& other) const
+    [[nodiscard]] auto intersection_size(const Interval& other) const
     {
         return max(min(to, other.to) - max(from, other.from) + 1, 0);
     }
@@ -27,19 +27,19 @@ struct Cuboid {
     Interval y;
     Interval z;
 
-    auto size() const
+    [[nodiscard]] auto size() const
     {
         return 1l * x.size() * y.size() * z.size();
     }
 
-    auto is_intersecting(const Cuboid& other) const
+    [[nodiscard]] auto is_intersecting(const Cuboid& other) const
     {
         return x.is_intersecting(other.x) &&
                y.is_intersecting(other.y) &&
                z.is_intersecting(other.z);
     }
 
-    auto intersection_size(const Cuboid& other) const
+    [[nodiscard]] auto intersection_size(const Cuboid& other) const
     {
         return 1l * x.intersection_size(other.x) *
                     y.intersection_size(other.y) *

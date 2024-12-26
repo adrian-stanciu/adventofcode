@@ -5,7 +5,7 @@ using namespace std;
 auto play(vector<int>& v, int iters)
 {
     auto curr = v[0];
-    auto sz = v.size();
+    auto sz = ssize(v);
     vector<int> next(sz + 1);
 
     auto extract_chunk = [&] () {
@@ -18,7 +18,7 @@ auto play(vector<int>& v, int iters)
         return chunk;
     };
 
-    for (size_t i = 0; i < sz - 1; ++i)
+    for (auto i = 0; i < sz - 1; ++i)
         next[v[i]] = v[i + 1];
     next[v[sz - 1]] = v[0];
 
@@ -53,7 +53,7 @@ auto solve1(vector<int> v)
 
 auto solve2(vector<int> v)
 {
-    for (auto i = v.size() + 1; i <= 1000000; ++i)
+    for (auto i = ssize(v) + 1; i <= 1000000; ++i)
         v.push_back(i);
 
     auto next = play(v, 10000000);

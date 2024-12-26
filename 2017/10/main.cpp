@@ -37,7 +37,7 @@ auto read_ascii_lengths(const std::string& s)
 void print_dense_hash(const std::vector<unsigned int>& dense_hash)
 {
     // save old flags
-    std::ios::fmtflags old_flags(std::cout.flags());
+    const std::ios::fmtflags old_flags(std::cout.flags());
 
     // change flags
     std::cout << std::setfill('0') << std::hex;

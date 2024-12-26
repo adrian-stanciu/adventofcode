@@ -118,8 +118,8 @@ void find_min_cost_to_win_rec(Player me, Boss boss,
                     }
                 }
 
-                find_min_cost_to_win_rec(std::move(next_me), std::move(next_boss),
-                    spells, std::move(next_active_spells), dec_life, false, min_cost_to_win);
+                find_min_cost_to_win_rec(next_me, next_boss, spells,
+                    std::move(next_active_spells), dec_life, false, min_cost_to_win);
             }
     } else {
         auto my_armor = 0;
@@ -132,8 +132,8 @@ void find_min_cost_to_win_rec(Player me, Boss boss,
         if (me.life <= 0)
             return;
 
-        find_min_cost_to_win_rec(std::move(me), std::move(boss),
-            spells, std::move(active_spells), dec_life, true, min_cost_to_win);
+        find_min_cost_to_win_rec(me, boss, spells,
+            std::move(active_spells), dec_life, true, min_cost_to_win);
     }
 }
 
@@ -142,8 +142,7 @@ auto find_min_cost_to_win(const Player& me, Boss& boss,
 {
     auto min_cost_to_win = std::numeric_limits<int>::max();
 
-    std::unordered_set<Spell, SpellHasher> active_spells;
-    find_min_cost_to_win_rec(me, boss, spells, active_spells, dec_life, true, min_cost_to_win);
+    find_min_cost_to_win_rec(me, boss, spells, {}, dec_life, true, min_cost_to_win);
 
     return min_cost_to_win;
 }
@@ -159,7 +158,7 @@ int main()
         {5, 229, 0, 0, 0, 101, 5},
     };
 
-    Player me{50, 500, 0};
+    const Player me{50, 500, 0};
     auto boss = read_boss();
 
     std::cout << find_min_cost_to_win(me, boss, spells, false) << "\n";

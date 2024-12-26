@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <array>
 #include <iostream>
 #include <limits>
 #include <queue>
@@ -9,12 +10,6 @@ struct Point {
     long x;
     long y;
     long z;
-
-    Point() = default;
-
-    Point(long x, long y, long z)
-    : x(x), y(y), z(z)
-    {}
 };
 
 bool operator<(const Point& p1, const Point& p2)
@@ -143,7 +138,7 @@ auto count_robots_in_cube(const std::vector<Robot>& robots, const Cube& cube)
 
 auto dist_to_closest_point_in_range_of_most_robots(const std::vector<Robot>& robots, Cube cube)
 {
-    const Point vertices[] = {
+    static constexpr std::array<Point, 8> Vertices{{
         {0, 0, 0},
         {1, 0, 0},
         {0, 1, 0},
@@ -151,14 +146,14 @@ auto dist_to_closest_point_in_range_of_most_robots(const std::vector<Robot>& rob
         {0, 0, 1},
         {1, 0, 1},
         {0, 1, 1},
-        {1, 1, 1},
-    };
+        {1, 1, 1}
+    }};
 
     std::priority_queue<std::pair<long, Cube>> pq;
-    pq.push(std::make_pair(robots.size(), std::move(cube)));
+    pq.emplace(robots.size(), cube);
 
-    auto max_cnt = 0;
-    auto max_cnt_dst = 0;
+    auto max_cnt = 0L;
+    auto max_cnt_dst = 0L;
     Point sol {};
     bool first_candidate = true;
 
@@ -192,15 +187,15 @@ auto dist_to_closest_point_in_range_of_most_robots(const std::vector<Robot>& rob
             // devide cube into 8 sub-cubes
             auto new_l = cube.l / 2;
 
-            for (const auto& vertex : vertices) {
+            for (const auto& vertex : Vertices) {
                 auto new_x = cube.p.x + vertex.x * new_l;
                 auto new_y = cube.p.y + vertex.y * new_l;
                 auto new_z = cube.p.z + vertex.z * new_l;
-                Cube new_cube {new_x, new_y, new_z, new_l};
+                const Cube new_cube {new_x, new_y, new_z, new_l};
 
                 auto cnt = count_robots_in_cube(robots, new_cube);
                 if (cnt > 0)
-                    pq.push(std::make_pair(cnt, std::move(new_cube)));
+                    pq.emplace(cnt, new_cube);
             }
         }
     }

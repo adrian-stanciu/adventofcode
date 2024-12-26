@@ -76,7 +76,7 @@ auto run(long iters, char& curr_state, const std::unordered_map<char, State>& st
     for (long i = 0; i < iters; ++i) {
         auto& state = states.find(curr_state)->second;
         auto& val = tape[curr_pos];
-        int idx = val;
+        const int idx = val;
 
         val = state.outputs[idx];
         curr_pos += state.moves[idx];

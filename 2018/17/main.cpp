@@ -26,7 +26,7 @@ auto check_bucket(const std::vector<std::vector<char>>& map, char type, int y, i
 void drop_water(std::vector<std::vector<char>>& map, int max_y, int start_y, int start_x)
 {
     std::stack<std::pair<int, int>> sources;
-    sources.push(std::make_pair(start_y, start_x));
+    sources.emplace(start_y, start_x);
 
     while (!sources.empty()) {
         auto p = sources.top();
@@ -71,11 +71,11 @@ void drop_water(std::vector<std::vector<char>>& map, int max_y, int start_y, int
                     }
 
                     if (!l_water.first && l_before == '.') {
-                        sources.push(std::make_pair(y, l_water.second));
+                        sources.emplace(y, l_water.second);
                         changed = true;
                     }
                     if (!r_water.first && r_before == '.') {
-                        sources.push(std::make_pair(y, r_water.second));
+                        sources.emplace(y, r_water.second);
                         changed = true;
                     }
                 }
