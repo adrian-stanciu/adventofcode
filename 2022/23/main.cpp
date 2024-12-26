@@ -41,7 +41,7 @@ auto make_moves(unordered_set<Point, PointHasher>& pos, const Neigh& neigh)
             continue;
 
         auto i = distance(begin(is_busy), find(begin(is_busy), end(is_busy), false));
-        Point to{from.y + neigh[i][1].y, from.x + neigh[i][1].x};
+        const Point to{from.y + neigh[i][1].y, from.x + neigh[i][1].x};
 
         auto it = dst2src.find(to);
         if (it == end(dst2src)) {
@@ -92,7 +92,7 @@ auto solve2(Neigh neigh, unordered_set<Point, PointHasher> pos)
 
 int main()
 {
-    Neigh neigh{{
+    static constexpr Neigh Neigh{{
         {{{-1, -1}, {-1,  0}, {-1,  1}}},
         {{{ 1, -1}, { 1,  0}, { 1,  1}}},
         {{{-1, -1}, { 0, -1}, { 1, -1}}},
@@ -107,8 +107,8 @@ int main()
             if (line[x] == '#')
                 pos.emplace(y, x);
 
-    cout << solve1(neigh, pos, 10) << '\n';
-    cout << solve2(neigh, pos) << '\n';
+    cout << solve1(Neigh, pos, 10) << '\n';
+    cout << solve2(Neigh, pos) << '\n';
 
     return 0;
 }

@@ -20,7 +20,7 @@ auto generate_next_tiles(const std::string& tiles)
 
 auto count_safe_tiles(const std::string& first_row, int num_rows)
 {
-    auto cnt = 0;
+    auto cnt = 0L;
 
     if (num_rows <= 0)
         return cnt;

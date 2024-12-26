@@ -95,16 +95,16 @@ int main()
 
         string s;
         while (getline(cin, s)) {
-            string_view sv{s};
+            const string_view sv{s};
 
             auto sep = sv.find(':');
 
-            string src{sv.substr(0, sep)};
+            const string src{sv.substr(0, sep)};
             if (!name2idx.contains(src))
                 name2idx.emplace(src, n++);
 
             for (auto dst_sv : split(sv.substr(sep + 1), ' ')) {
-                string dst{dst_sv};
+                const string dst{dst_sv};
                 if (!name2idx.contains(dst))
                     name2idx.emplace(dst, n++);
 

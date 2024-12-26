@@ -22,8 +22,8 @@ void rotate_row(Screen& screen, int row, int n)
 void rotate_col(Screen& screen, int col, int n)
 {
     Line column;
-    for (auto r = 0U; r < screen.size(); ++r)
-        column.push_back(screen[r][col]);
+    for (const auto& row : screen)
+        column.push_back(row[col]);
 
     rotate(column.rbegin(), column.rbegin() + n, column.rend());
 
@@ -47,8 +47,8 @@ void print(const Screen& screen)
 {
     for (const auto& row : screen) {
         for (auto pixel : row)
-            std::cout << pixel;
-        std::cout << "\n";
+            std::cout << (pixel == '.' ? ' ' : pixel);
+        std::cout << '\n';
     }
 }
 

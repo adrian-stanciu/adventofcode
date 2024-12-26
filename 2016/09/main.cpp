@@ -6,8 +6,8 @@ auto compute_decompressed_size(const std::string& line)
 {
     static const std::regex marker_re{"([1-9][0-9]*)x([1-9][0-9]*)"};
 
-    auto sz = 0LL;
-    auto pos = 0;
+    size_t sz = 0;
+    size_t pos = 0;
 
     while (true) {
         auto lp = line.find_first_of('(', pos);
@@ -22,7 +22,7 @@ auto compute_decompressed_size(const std::string& line)
             auto len = strtoul(matched[1].str().data(), nullptr, 10);
             auto cnt = strtoul(matched[2].str().data(), nullptr, 10);
 
-            sz += 1LL * len * cnt;
+            sz += len * cnt;
             pos = rp + len + 1;
         } else {
             sz += line.size() - pos;
@@ -33,12 +33,12 @@ auto compute_decompressed_size(const std::string& line)
     return sz;
 }
 
-auto compute_decompressed_size_v2(const std::string& line) -> long long
+auto compute_decompressed_size_v2(const std::string& line) -> size_t
 {
     static const std::regex marker_re{"([1-9][0-9]*)x([1-9][0-9]*)"};
 
-    auto sz = 0LL;
-    auto pos = 0;
+    size_t sz = 0;
+    size_t pos = 0;
 
     while (true) {
         auto lp = line.find_first_of('(', pos);

@@ -6,9 +6,9 @@
 
 auto size_in_mem(const std::string& s)
 {
-    auto sz = 0;
+    size_t sz = 0;
 
-    auto pos = 0;
+    size_t pos = 0;
     while (true) {
         auto bs_pos = s.find('\\', pos);
         if (bs_pos == std::string::npos) {

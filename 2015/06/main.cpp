@@ -93,7 +93,7 @@ void run_instructions(const std::vector<Instr>& instructions, Grid1& g)
 
 auto sum_in_grid(const Grid1& g)
 {
-    auto cnt = 0;
+    auto cnt = 0l;
 
     for (const auto& row : g)
         cnt += std::count(row.begin(), row.end(), true);
@@ -109,10 +109,10 @@ void run_instructions(const std::vector<Instr>& instructions, Grid2& g)
 
 auto sum_in_grid(const Grid2& g)
 {
-    auto cnt = 0;
+    auto cnt = 0l;
 
     for (const auto& row : g)
-        cnt += std::accumulate(row.begin(), row.end(), 0);
+        cnt += std::accumulate(row.begin(), row.end(), 0l);
 
     return cnt;
 }

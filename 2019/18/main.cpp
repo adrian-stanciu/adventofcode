@@ -61,7 +61,7 @@ auto find_reachable_keys_by(const Map& map, const Point& p, const KeySet& key_se
     q.emplace(p, 0);
 
     std::unordered_set<Point, PointHasher> visited;
-    visited.emplace(std::move(p));
+    visited.emplace(p);
 
     std::vector<Key> keys;
 
@@ -69,7 +69,7 @@ auto find_reachable_keys_by(const Map& map, const Point& p, const KeySet& key_se
         const auto& [p, d] = q.front();
 
         for (auto i = 0; i < 4; ++i) {
-            Point next_p{p.r + dr[i], p.c + dc[i]};
+            const Point next_p{p.r + dr[i], p.c + dc[i]};
 
             if (visited.count(next_p) != 0)
                 continue;
@@ -88,7 +88,7 @@ auto find_reachable_keys_by(const Map& map, const Point& p, const KeySet& key_se
             }
 
             q.emplace(next_p, d + 1);
-            visited.emplace(std::move(next_p));
+            visited.emplace(next_p);
         }
 
         q.pop();
@@ -134,7 +134,7 @@ struct StateHasher {
 auto sp_dijkstra(const Map& map, const std::vector<Point>& points,
     const KeyMap& key_map, const KeySet& key_set)
 {
-    State s{points, key_set};
+    const State s{points, key_set};
 
     std::unordered_map<State, long, StateHasher> d_map;
     d_map[s] = 0;

@@ -24,7 +24,7 @@ int main()
         smatch matched;
         regex_match(line, matched, pw_regex);
 
-        Policy pol{
+        const Policy pol{
             strtol(matched[1].str().data(), nullptr, 10),
             strtol(matched[2].str().data(), nullptr, 10),
             matched[3].str()[0]

@@ -21,7 +21,7 @@ auto border(const Grid& grid, char border_elem)
 {
     Grid new_grid;
 
-    string border_row(grid.front().size() + 4, border_elem);
+    const string border_row(grid.front().size() + 4, border_elem);
 
     new_grid.push_back(border_row);
     new_grid.push_back(border_row);
@@ -72,7 +72,7 @@ auto solve(const string& mapping, Grid grid, int num_iters)
         fill_elem = border_elem == '#' ? mapping.back() : mapping.front();
     }
 
-    auto cnt = 0;
+    auto cnt = 0l;
 
     for (const auto& row : grid)
         cnt += count(begin(row), end(row), '#');

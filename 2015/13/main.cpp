@@ -78,7 +78,7 @@ int main()
         happiness_map["me"][p] = 0;
         happiness_map[p]["me"] = 0;
     }
-    persons.push_back("me");
+    persons.emplace_back("me");
 
     std::cout << max_happiness(persons, happiness_map) << "\n";
 

@@ -4,6 +4,8 @@
 #include <vector>
 #include <unordered_map>
 
+#include "hasher.hpp"
+
 enum State {
     Clean = 0,
     Weakened,
@@ -22,26 +24,16 @@ auto read_grid()
     return grid;
 }
 
-std::string stringify(long r, long c)
-{
-    std::stringstream ss;
-    ss << r;
-    ss << ";";
-    ss << c;
-
-    return ss.str();
-}
-
 auto grid_to_map1(const std::vector<std::string>& grid)
 {
-    std::unordered_map<std::string, bool> map;
+    std::unordered_map<std::pair<long, long>, bool, PairHasher<long>> map;
 
-    auto mid_r = grid.size() / 2;
-    auto mid_c = grid[mid_r].size() / 2;
+    auto mid_r = ssize(grid) / 2;
+    auto mid_c = ssize(grid[mid_r]) / 2;
 
-    for (auto i = 0U; i < grid.size(); ++i)
-        for (auto j = 0U; j < grid[i].size(); ++j)
-            map[stringify(mid_r - i, j - mid_c)] = (grid[i][j] == '#');
+    for (auto i = 0l; i < ssize(grid); ++i)
+        for (auto j = 0l; j < ssize(grid[i]); ++j)
+            map[std::make_pair(mid_r - i, j - mid_c)] = (grid[i][j] == '#');
 
     return map;
 }
@@ -49,11 +41,11 @@ auto grid_to_map1(const std::vector<std::string>& grid)
 long count_turned_infected1(const std::vector<std::string>& grid,
     long r, long c, long r_dir, long c_dir, size_t iters)
 {
-    std::unordered_map<std::string, bool> map = grid_to_map1(grid);
+    auto map = grid_to_map1(grid);
     long turned_infected = 0;
 
     for (size_t i = 0; i < iters; ++i) {
-        auto& infected = map[stringify(r, c)];
+        auto& infected = map[std::make_pair(r, c)];
 
         if (infected) {
             // turn right
@@ -88,14 +80,14 @@ long count_turned_infected1(const std::vector<std::string>& grid,
 
 auto grid_to_map2(const std::vector<std::string>& grid)
 {
-    std::unordered_map<std::string, State> map;
+    std::unordered_map<std::pair<long, long>, State, PairHasher<long>> map;
 
-    auto mid_r = grid.size() / 2;
-    auto mid_c = grid[mid_r].size() / 2;
+    auto mid_r = ssize(grid) / 2;
+    auto mid_c = ssize(grid[mid_r]) / 2;
 
-    for (auto i = 0U; i < grid.size(); ++i)
-        for (auto j = 0U; j < grid[i].size(); ++j)
-            map[stringify(mid_r - i, j - mid_c)] =
+    for (auto i = 0l; i < ssize(grid); ++i)
+        for (auto j = 0l; j < ssize(grid[i]); ++j)
+            map[std::make_pair(mid_r - i, j - mid_c)] =
                 (grid[i][j] == '#') ? Infected : Clean;
 
     return map;
@@ -104,11 +96,11 @@ auto grid_to_map2(const std::vector<std::string>& grid)
 long count_turned_infected2(const std::vector<std::string>& grid,
     long r, long c, long r_dir, long c_dir, size_t iters)
 {
-    std::unordered_map<std::string, State> map = grid_to_map2(grid);
+    auto map = grid_to_map2(grid);
     long turned_infected = 0;
 
     for (size_t i = 0; i < iters; ++i) {
-        auto& state = map[stringify(r, c)];
+        auto& state = map[std::make_pair(r, c)];
 
         switch (state) {
         case Clean:

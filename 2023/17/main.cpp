@@ -90,7 +90,7 @@ auto solve(const vector<string>& grid, int dr, int dc, int min_steps, int max_st
                 states.erase(it);
 
             s.d = new_d;
-            states.insert(move(s));
+            states.insert(s);
 
             old_d = new_d;
         }

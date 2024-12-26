@@ -28,22 +28,22 @@ int main()
 
     int l1, l2, l3;
     while (std::cin >> l1 >> l2 >> l3)
-        sides_vec.push_back({l1, l2, l3});
+        sides_vec.emplace_back(l1, l2, l3);
 
     std::cout << count_triangles(sides_vec) << "\n";
 
     std::vector<Sides> sides_vec2;
 
     for (auto i = 0U; i < sides_vec.size() - 2; i += 3) {
-        sides_vec2.push_back({std::get<0>(sides_vec[i]),
+        sides_vec2.emplace_back(std::get<0>(sides_vec[i]),
             std::get<0>(sides_vec[i + 1]),
-            std::get<0>(sides_vec[i + 2])});
-        sides_vec2.push_back({std::get<1>(sides_vec[i]),
+            std::get<0>(sides_vec[i + 2]));
+        sides_vec2.emplace_back(std::get<1>(sides_vec[i]),
             std::get<1>(sides_vec[i + 1]),
-            std::get<1>(sides_vec[i + 2])});
-        sides_vec2.push_back({std::get<2>(sides_vec[i]),
+            std::get<1>(sides_vec[i + 2]));
+        sides_vec2.emplace_back(std::get<2>(sides_vec[i]),
             std::get<2>(sides_vec[i + 1]),
-            std::get<2>(sides_vec[i + 2])});
+            std::get<2>(sides_vec[i + 2]));
     }
 
     std::cout << count_triangles(sides_vec2) << "\n";

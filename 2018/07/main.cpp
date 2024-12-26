@@ -35,18 +35,18 @@ auto compute_order(const std::unordered_map<char, std::set<char>>& next_states,
 auto compute_duration(const std::unordered_map<char, std::set<char>>& next_states,
     std::unordered_map<char, std::set<char>> prev_states,
     std::set<char> avail_states,
-    size_t num_workers)
+    int num_workers)
 {
     auto t = 0;
-    std::vector<std::pair<size_t, char>> workers; // pair of duration to complete and state
+    std::vector<std::pair<int, char>> workers; // pair of duration to complete and state
 
     while (!avail_states.empty() || !workers.empty()) {
         // assign states (if available) to workers (if available)
-        while (!avail_states.empty() && workers.size() < num_workers) {
+        while (!avail_states.empty() && ssize(workers) < num_workers) {
             auto s = *avail_states.begin();
             avail_states.erase(s);
 
-            workers.push_back(std::make_pair(60 + s - 'A' + 1, s));
+            workers.emplace_back(60 + s - 'A' + 1, s);
         }
 
         // compute duration until a first task is done

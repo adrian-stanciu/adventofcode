@@ -6,8 +6,8 @@
 namespace {
     inline void circular_reverse(std::vector<unsigned int>& code, size_t first, size_t len)
     {
-        size_t size = code.size();
-        size_t last = first + len;
+        const size_t size = code.size();
+        const size_t last = first + len;
 
         if (last < size)
             reverse(code.begin() + first, code.begin() + last);

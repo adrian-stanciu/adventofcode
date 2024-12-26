@@ -34,7 +34,7 @@ auto next_state(const Grid& g, int r, int c)
 {
     auto on_neighbours = count_neighbours(g, r, c, '#');
 
-    bool on = on_neighbours == 3 ||
+    const bool on = on_neighbours == 3 ||
         (on_neighbours == 2 && g[r][c] == '#');
 
     return on ? '#' : '.';
@@ -53,7 +53,7 @@ auto next(const Grid& g)
 
 auto next_after(Grid g, const std::vector<std::pair<int, int>>& always_on, int iters)
 {
-    Grid next_g{std::move(g)};
+    Grid next_g{g};
 
     for (auto [r, c] : always_on)
         next_g[r][c] = '#';
@@ -70,7 +70,7 @@ auto next_after(Grid g, const std::vector<std::pair<int, int>>& always_on, int i
 
 auto sum_in_grid(const Grid& g)
 {
-    auto cnt = 0;
+    auto cnt = 0l;
 
     for (const auto& row : g)
         cnt += std::count(row.begin(), row.end(), '#');
@@ -88,7 +88,7 @@ int main()
 
     std::cout << sum_in_grid(next_after(g, {}, 100)) << "\n";
 
-    std::vector<std::pair<int, int>> always_on {
+    const std::vector<std::pair<int, int>> always_on {
         {0, 0},
         {0, C - 1},
         {R - 1, C - 1},

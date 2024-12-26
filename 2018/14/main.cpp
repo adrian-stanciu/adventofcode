@@ -2,13 +2,13 @@
 #include <iostream>
 #include <vector>
 
-void print_10_after(unsigned int n)
+void print_10_after(int n)
 {
     std::vector<int> recipes {3, 7};
     auto e1 = 0;
     auto e2 = 1;
 
-    while (recipes.size() < n + 10) {
+    while (ssize(recipes) < n + 10) {
         auto r1 = recipes[e1];
         auto r2 = recipes[e2];
 
@@ -31,7 +31,7 @@ void print_10_after(unsigned int n)
     std::cout << "\n";
 }
 
-auto count_until(unsigned int n)
+auto count_until(int n)
 {
     std::vector<int> pattern;
     while (n) {
@@ -39,14 +39,14 @@ auto count_until(unsigned int n)
         pattern.insert(pattern.begin(), d);
         n /= 10;
     }
-    auto pattern_len = pattern.size();
+    auto pattern_len = ssize(pattern);
 
     std::vector<int> recipes {3, 7};
     auto e1 = 0;
     auto e2 = 1;
 
     auto last_recipes_match_pattern = [&recipes, &pattern, pattern_len]() {
-        auto recipes_len = recipes.size();
+        auto recipes_len = ssize(recipes);
 
         if (recipes_len >= pattern_len) {
             for (auto i = 0U; i < pattern_len; ++i)
@@ -88,7 +88,7 @@ auto count_until(unsigned int n)
 
 int main()
 {
-    unsigned int n;
+    int n;
     std::cin >> n;
 
     print_10_after(n);

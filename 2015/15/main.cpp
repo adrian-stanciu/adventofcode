@@ -12,7 +12,7 @@ struct Properties {
     long texture;
     long calories;
 
-    auto score() const
+    [[nodiscard]] auto score() const
     {
         if (capacity < 0 || durability < 0 || flavor < 0 || texture < 0)
             return 0L;

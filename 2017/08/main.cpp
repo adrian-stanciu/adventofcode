@@ -96,8 +96,8 @@ auto read_instructions()
         auto [op_reg, op_code, op_param] = parse(matched[1].str());
         auto [cop_reg, cop_code, cop_param] = parse(matched[2].str());
 
-        Instruction::Op op = translate_op(op_code);
-        Instruction::CondOp cop = translate_cop(cop_code);
+        const Instruction::Op op = translate_op(op_code);
+        const Instruction::CondOp cop = translate_cop(cop_code);
 
         instructions.emplace_back(op, std::move(op_reg), op_param,
             cop, std::move(cop_reg), cop_param);
@@ -129,7 +129,7 @@ void store_reg(const std::string& reg, long val, std::unordered_map<std::string,
 
 bool test_instruction(const Instruction& i, const std::unordered_map<std::string, long>& regs)
 {
-    long cop_reg_val = load_reg(i.cop_reg, regs);
+    const long cop_reg_val = load_reg(i.cop_reg, regs);
 
     switch (i.cop) {
     case Instruction::CondOp::Eq:

@@ -34,7 +34,7 @@ auto solve2(const vector<int>& values)
     const auto size{240};
     const auto width{40};
 
-    vector<char> img(size, '.');
+    vector<char> img(size, ' ');
     auto x{1};
     auto cycle{0};
 

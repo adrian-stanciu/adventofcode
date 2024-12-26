@@ -49,7 +49,7 @@ auto next_states(const vector<string>& m, const State& s, const Point& src, cons
     vector<State> next;
 
     for (auto [dr, dc] : neigh) {
-        Point p{s.p.r + dr, s.p.c + dc};
+        const Point p{s.p.r + dr, s.p.c + dc};
         if (p.r == -1 || p.r == ssize(m))
             continue;
 

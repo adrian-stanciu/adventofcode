@@ -152,7 +152,7 @@ bool test_item_cmd(IntComputer& ic, const std::string& item, const std::string& 
 
     std::queue<std::string> expected_lines;
     expected_lines.push(std::move(res_line));
-    expected_lines.push("Command?");
+    expected_lines.emplace("Command?");
 
     std::string line;
     while (ic.run()) {

@@ -12,7 +12,7 @@ bool match(const string& s, size_t pos, const unordered_map<int, Rule>& rules, s
 struct CharRule {
     char ch;
 
-    bool match(const string& s, size_t pos,
+    [[nodiscard]] bool match(const string& s, size_t pos,
         const unordered_map<int, Rule>& rules, stack<int> todo) const
     {
         return s[pos] == ch && ::match(s, pos + 1, rules, move(todo));
@@ -22,7 +22,7 @@ struct CharRule {
 struct ListRule {
     vector<vector<int>> or_lists;
 
-    bool match(const string& s, size_t pos,
+    [[nodiscard]] bool match(const string& s, size_t pos,
         const unordered_map<int, Rule>& rules, const stack<int>& todo) const
     {
         for (auto& list : or_lists) {

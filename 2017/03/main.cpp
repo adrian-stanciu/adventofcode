@@ -16,8 +16,8 @@ unsigned long compute_matrix_size(unsigned long n)
 
 unsigned long distance(unsigned long n)
 {
-    unsigned long size = compute_matrix_size(n);
-    unsigned long max = size * size;
+    const unsigned long size = compute_matrix_size(n);
+    const unsigned long max = size * size;
 
     unsigned long diff = 0;
     if (n >= (max - (size - 1)))
@@ -87,14 +87,14 @@ unsigned long first_greater(unsigned long n, unsigned long start_val)
         const std::array<long, 4> c_inc_v{0, -1, 0, 1};
 
         for (int i = 0; i < 4; ++i) {
-            long r_inc = r_inc_v[i];
-            long c_inc = c_inc_v[i];
+            const long r_inc = r_inc_v[i];
+            const long c_inc = c_inc_v[i];
 
             for (unsigned long j = 0; j < size - 1; ++j) {
                 r += r_inc;
                 c += c_inc;
 
-                unsigned long val = compute_value(spiral, r, c);
+                const unsigned long val = compute_value(spiral, r, c);
                 if (val > n)
                     return val;
 

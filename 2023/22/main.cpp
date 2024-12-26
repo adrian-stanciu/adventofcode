@@ -64,7 +64,7 @@ void solve(int n, vector<Seg>& v)
     vector<set<int>> above_vec(n);
 
     for (auto i = 0; i < n; ++i) {
-        auto top_z = 0;
+        auto top_z = 0l;
 
         for (auto j = i - 1; j >= 0; --j) {
             if (v[j].to.z < top_z)
@@ -107,7 +107,7 @@ int main()
 
     string s;
     while (getline(cin, s)) {
-        string_view sv{s};
+        const string_view sv{s};
 
         auto sep = sv.find('~');
         auto src = split(sv.substr(0, sep), ',');

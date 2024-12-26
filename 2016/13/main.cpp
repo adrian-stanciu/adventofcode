@@ -69,7 +69,7 @@ auto sp(int n, int target_x, int target_y)
     static const std::array<int, 4> dx{0, 0, -1, 1};
     static const std::array<int, 4> dy{-1, 1, 0, 0};
 
-    Cell c{1, 1};
+    const Cell c{1, 1};
 
     std::queue<std::pair<Cell, int>> q;
     q.emplace(c, 0);
@@ -84,7 +84,7 @@ auto sp(int n, int target_x, int target_y)
             return dist;
 
         for (auto i = 0; i < 4; ++i) {
-            Cell next_c{c.x + dx[i], c.y + dy[i]};
+            const Cell next_c{c.x + dx[i], c.y + dy[i]};
 
             if (next_c.x < 0 || next_c.y < 0)
                 continue;
@@ -112,7 +112,7 @@ auto cover(int n, int max_d)
     static const std::array<int, 4> dx{0, 0, -1, 1};
     static const std::array<int, 4> dy{-1, 1, 0, 0};
 
-    Cell c{1, 1};
+    const Cell c{1, 1};
 
     std::queue<std::pair<Cell, int>> q;
     q.emplace(c, 0);
@@ -128,7 +128,7 @@ auto cover(int n, int max_d)
         const auto& [c, dist] = q.front();
 
         for (auto i = 0; i < 4; ++i) {
-            Cell next_c{c.x + dx[i], c.y + dy[i]};
+            const Cell next_c{c.x + dx[i], c.y + dy[i]};
 
             if (next_c.x < 0 || next_c.y < 0)
                 continue;

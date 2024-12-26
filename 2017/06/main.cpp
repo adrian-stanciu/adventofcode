@@ -80,7 +80,7 @@ unsigned int count_steps_to_cycle(std::vector<unsigned int> vec)
         if (cache.find(vec_str) != cache.end())
             return count;
         else
-            cache.insert(vec_str);
+            cache.emplace(std::move(vec_str));
     }
 }
 
@@ -99,7 +99,7 @@ unsigned int count_cycle_size(std::vector<unsigned int> vec)
         if (cache.find(vec_str) != cache.end())
             return (count - cache[vec_str]);
         else
-            cache.insert({vec_str, count});
+            cache.emplace(std::move(vec_str), count);
     }
 }
 

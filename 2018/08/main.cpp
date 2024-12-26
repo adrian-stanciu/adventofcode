@@ -3,7 +3,7 @@
 
 auto compute_metadata_sum(const std::vector<unsigned int>& vec, size_t& idx)
 {
-    auto s = 0;
+    auto s = 0U;
 
     if (vec.size() == idx)
         return s;
@@ -22,7 +22,7 @@ auto compute_metadata_sum(const std::vector<unsigned int>& vec, size_t& idx)
 
 auto compute_value(const std::vector<unsigned int>& vec, size_t& idx)
 {
-    auto s = 0;
+    auto s = 0U;
 
     if (vec.size() == idx)
         return s;

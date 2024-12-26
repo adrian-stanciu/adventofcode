@@ -19,7 +19,7 @@ auto parse(const std::string& addr)
     std::vector<Chunk> outer;
     std::vector<Chunk> inner;
 
-    auto pos = 0;
+    size_t pos = 0;
 
     while (true) {
         auto lb = addr.find_first_of('[', pos);
@@ -99,7 +99,7 @@ bool is_ipv7_ssl(const std::string& addr)
     auto inner_aba_set = get_aba_set(addr, inner);
 
     for (const auto& aba : outer_aba_set) {
-        std::string bab{aba[1], aba[0], aba[1]};
+        const std::string bab{aba[1], aba[0], aba[1]};
 
         if (inner_aba_set.count(bab) > 0)
             return true;

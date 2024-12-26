@@ -8,7 +8,7 @@ auto count_fwd(const string& s)
 
     auto cnt = 0;
 
-    auto i = 0zu;
+    size_t i = 0;
     while (true) {
         i = s.find(Value, i);
         if (i == s.npos)

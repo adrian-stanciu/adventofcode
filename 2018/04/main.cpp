@@ -76,7 +76,7 @@ auto find_strategy_1(const std::vector<Event>& events)
     auto max_sleep_per_mi = sleep_per_mi[0];
     auto max_sleep_mi = 0;
 
-    for (auto i = 1U; i < sleep_per_mi.size(); ++i) {
+    for (auto i = 1l; i < ssize(sleep_per_mi); ++i) {
         sleep_per_mi[i] += sleep_per_mi[i - 1];
 
         if (sleep_per_mi[i] > max_sleep_per_mi) {
@@ -118,7 +118,7 @@ auto find_strategy_2(const std::vector<Event>& events)
             max_sleep_mi = 0;
         }
 
-        for (auto i = 1U; i < g.sleep_table.size(); ++i) {
+        for (auto i = 1l; i < ssize(g.sleep_table); ++i) {
             g.sleep_table[i] += g.sleep_table[i - 1];
 
             if (g.sleep_table[i] > max_sleep) {
@@ -146,10 +146,10 @@ int main()
         std::smatch matched;
         regex_match(line, matched, time_re);
 
-        int mo = str2num(matched[2].str());
-        int d = str2num(matched[3].str());
-        int h = str2num(matched[4].str());
-        int mi = str2num(matched[5].str());
+        const int mo = str2num(matched[2].str());
+        const int d = str2num(matched[3].str());
+        const int h = str2num(matched[4].str());
+        const int mi = str2num(matched[5].str());
 
         auto type_str = matched[6].str();
 

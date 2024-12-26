@@ -79,7 +79,7 @@ auto find_reachable_keys(const Map& map, const State& state, long num_keys)
         const auto& [p, d] = q.front();
 
         for (auto i = 0; i < 4; ++i) {
-            Point next_p{p.r + dr[i], p.c + dc[i]};
+            const Point next_p{p.r + dr[i], p.c + dc[i]};
 
             if (visited.count(next_p) != 0)
                 continue;
@@ -97,7 +97,7 @@ auto find_reachable_keys(const Map& map, const State& state, long num_keys)
             }
 
             q.emplace(next_p, d + 1);
-            visited.emplace(std::move(next_p));
+            visited.emplace(next_p);
         }
 
         q.pop();
@@ -108,7 +108,7 @@ auto find_reachable_keys(const Map& map, const State& state, long num_keys)
 
 auto sp_dijkstra(const Map& map, const Point& point, const KeyMap& key_map, const KeySet& key_set)
 {
-    State s{point, key_set};
+    const State s{point, key_set};
 
     std::unordered_map<State, long, StateHasher> d_map;
     d_map[s] = 0;
@@ -140,7 +140,7 @@ auto sp_dijkstra(const Map& map, const Point& point, const KeyMap& key_map, cons
         else if (s.key_set.count() == key_map.size())
             return std::make_pair(*sp_dist, d_map[s]);
 
-        auto keys = find_reachable_keys(map, s, key_map.size());
+        auto keys = find_reachable_keys(map, s, ssize(key_map));
         if (keys.empty())
             continue;
 
@@ -149,7 +149,7 @@ auto sp_dijkstra(const Map& map, const Point& point, const KeyMap& key_map, cons
             new_key_set.set(key - '0');
 
             auto d = d_map[s] + d2key;
-            State next_s{key_map.at(key), new_key_set};
+            const State next_s{key_map.at(key), new_key_set};
 
             if (d_map.find(next_s) == d_map.end() || d_map[next_s] > d) {
                 auto it = states.find(next_s);
@@ -157,7 +157,7 @@ auto sp_dijkstra(const Map& map, const Point& point, const KeyMap& key_map, cons
                     states.erase(it);
 
                 d_map[next_s] = d;
-                states.emplace(std::move(next_s));
+                states.emplace(next_s);
             }
         }
     }

@@ -31,7 +31,7 @@ auto read_map(const std::vector<long long>& prog)
 
 auto compute_map_csum(const Map& map)
 {
-    auto s = 0;
+    auto s = 0U;
 
     for (auto i = 1U; i < map.size() - 1; ++i)
         for (auto j = 1U; j < map[i].size() - 1; ++j)

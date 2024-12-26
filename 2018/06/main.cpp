@@ -16,7 +16,7 @@ auto max_finite_area(const std::vector<std::pair<int, int>>& points, int max_x, 
 
             for (auto k = 0U; k < points.size(); ++k) {
                 auto d = abs(i - points[k].first) + abs(j - points[k].second);
-                d_vec.push_back(std::make_pair(d, k));
+                d_vec.emplace_back(d, k);
             }
 
             auto min_p = *min_element(d_vec.begin(), d_vec.end());
@@ -98,7 +98,7 @@ int main()
         min_y = std::min(min_y, y);
         max_x = std::max(max_x, x);
         max_y = std::max(max_y, y);
-        points.push_back(std::make_pair(x, y));
+        points.emplace_back(x, y);
     }
 
     max_x -= min_x;

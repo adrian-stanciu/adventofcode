@@ -1,3 +1,4 @@
+#include <array>
 #include <iostream>
 #include <limits>
 #include <set>
@@ -137,12 +138,16 @@ auto compute_cost(const TypeMap& t_map, int x_t, int y_t, int limit)
     };
 
     auto next_states = [&] (const auto& s) {
-        static const std::pair<int, int> neigh[] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-        static const Tool tools[] = {Tool::Torch, Tool::ClimbingGear, Tool::None};
+        static constexpr std::array<std::pair<int, int>, 4> Neigh{{
+            {-1, 0}, {1, 0}, {0, -1}, {0, 1}
+        }};
+        static constexpr std::array<Tool, 3> tools{
+            Tool::Torch, Tool::ClimbingGear, Tool::None
+        };
 
         std::vector<State> states;
 
-        for (auto [dx, dy] : neigh) {
+        for (auto [dx, dy] : Neigh) {
             auto next_x = s.x + dx;
             if (next_x < 0 || next_x > limit)
                 continue;

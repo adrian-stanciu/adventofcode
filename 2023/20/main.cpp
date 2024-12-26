@@ -133,7 +133,7 @@ int main()
 
     string s;
     while (getline(cin, s)) {
-        string_view sv{s};
+        const string_view sv{s};
 
         const string_view delim{"->"};
         auto sep = sv.find(delim);

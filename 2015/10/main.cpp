@@ -5,7 +5,7 @@ auto next_seq(const std::string& seq)
 {
     std::string next_seq;
 
-    auto pos = 0;
+    size_t pos = 0;
     while (true) {
         auto mismatch_pos = seq.find_first_not_of(seq[pos], pos);
         if (mismatch_pos == std::string::npos) {

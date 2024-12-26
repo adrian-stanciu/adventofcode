@@ -6,21 +6,21 @@ int main()
 {
     const unordered_map<string, function<bool(string)>> fields{
         make_pair("byr", [] (const auto& v) {
-            auto n = strtol(v.data(), nullptr, 10);
+            const auto n = strtol(v.data(), nullptr, 10);
             return n >= 1920 && n <= 2002;
         }),
         make_pair("iyr", [] (const auto& v) {
-            auto n = strtol(v.data(), nullptr, 10);
+            const auto n = strtol(v.data(), nullptr, 10);
             return n >= 2010 && n <= 2020;
         }),
         make_pair("eyr", [] (const auto& v) {
-            auto n = strtol(v.data(), nullptr, 10);
+            const auto n = strtol(v.data(), nullptr, 10);
             return n >= 2020 && n <= 2030;
         }),
         make_pair("hgt", [] (const auto& v) {
             char *str_end;
-            auto n = strtol(v.data(), &str_end, 10);
-            size_t n_sz = str_end - v.data();
+            const auto n = strtol(v.data(), &str_end, 10);
+            const size_t n_sz = str_end - v.data();
             if (n_sz == 0 || n_sz != v.size() - 2)
                 return false;
             auto unit = v.substr(n_sz, 2);
@@ -32,7 +32,9 @@ int main()
             });
         }),
         make_pair("ecl", [] (const auto& v) {
-            static unordered_set<string> colors{"amb", "blu", "brn", "gry", "grn", "hzl", "oth"};
+            static const unordered_set<string> colors{
+                "amb", "blu", "brn", "gry", "grn", "hzl", "oth"
+            };
             return colors.count(v) > 0;
         }),
         make_pair("pid", [] (const auto& v) {

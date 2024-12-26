@@ -16,7 +16,7 @@ auto build_all_size2_forms(std::string& image)
 
     for (size_t i = 0; i < 4; ++i) {
         // rotate right:
-        char tmp = image[0];
+        const char tmp = image[0];
         image[0] = image[2];
         image[2] = image[3];
         image[3] = image[1];
@@ -134,9 +134,9 @@ size_t count_pixels_on(const std::string& image)
 std::string read_subimage(const std::string& image,
     size_t r, size_t c, size_t size)
 {
-    size_t image_size = sqrt(image.size());
+    const size_t image_size = sqrt(image.size());
 
-    size_t capacity = size * size;
+    const size_t capacity = size * size;
     std::string subimage(capacity, ' ');
 
     size_t k = 0;
@@ -150,7 +150,7 @@ std::string read_subimage(const std::string& image,
 void write_subimage(std::string& image, const std::string& subimage,
     size_t r, size_t c, size_t size)
 {
-    size_t image_size = sqrt(image.size());
+    const size_t image_size = sqrt(image.size());
 
     size_t k = 0;
     for (size_t i = r; i < r + size; ++i)
@@ -171,9 +171,9 @@ void enhance(std::string& image, const Rules& rules)
         new_image_size = 4;
     }
 
-    size_t subimage_count = sqrt(image.size()) / subimage_size;
+    const size_t subimage_count = sqrt(image.size()) / subimage_size;
 
-    size_t new_image_capacity = pow(subimage_count * new_image_size, 2);
+    const size_t new_image_capacity = pow(subimage_count * new_image_size, 2);
     std::string new_image(new_image_capacity, ' ');
 
     for (size_t i = 0; i < subimage_count; ++i)

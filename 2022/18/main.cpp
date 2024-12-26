@@ -38,7 +38,7 @@ auto solve1(const set<Point>& points)
 void bfs(const set<Point>& points,
     int min_x, int max_x, int min_y, int max_y, int min_z, int max_z, int& cnt)
 {
-    Point src{min_x - 1, min_y - 1, min_z - 1};
+    const Point src{min_x - 1, min_y - 1, min_z - 1};
 
     queue<Point> q;
     q.push(src);
@@ -61,7 +61,7 @@ void bfs(const set<Point>& points,
             if (nz < min_z - 1 || nz > max_z + 1)
                 continue;
 
-            Point p{nx, ny, nz};
+            const Point p{nx, ny, nz};
 
             if (seen.contains(p))
                 continue;

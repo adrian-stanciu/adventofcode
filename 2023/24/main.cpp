@@ -157,7 +157,7 @@ int main()
 
     string s;
     while (getline(cin, s)) {
-        string_view sv{s};
+        const string_view sv{s};
 
         auto sep = sv.find('@');
         auto pos = split(sv.substr(0, sep), ',');

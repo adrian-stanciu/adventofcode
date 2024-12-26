@@ -13,12 +13,12 @@ private:
     std::optional<long> value2;
 
 public:
-    bool is_full() const
+    [[nodiscard]] bool is_full() const
     {
         return value1.has_value() && value2.has_value();
     }
 
-    std::optional<long> min() const
+    [[nodiscard]] std::optional<long> min() const
     {
         if (!is_full())
             return {};
@@ -26,7 +26,7 @@ public:
         return std::min(*value1, *value2);
     }
 
-    std::optional<long> max() const
+    [[nodiscard]] std::optional<long> max() const
     {
         if (!is_full())
             return {};

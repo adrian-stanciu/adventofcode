@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <limits>
 #include <string>
@@ -37,12 +38,14 @@ bool is_in_limits(const std::vector<Point>& points, int& min_r, int& min_c)
 
 void print_msg(const std::vector<Point>& points, int min_r, int min_c)
 {
-    std::vector<std::vector<char>> msg(R + 1, std::vector<char>(C + 1, '.'));
+    std::vector<std::vector<char>> msg(R + 1, std::vector<char>(C + 1, ' '));
 
     for (const auto& p : points)
         msg[p.y - min_r][p.x - min_c] = '#';
 
     for (auto i = 0; i < R + 1; ++i) {
+        if (std::count(msg[i].begin(), msg[i].end(), ' ') == C + 1)
+            continue;
         for (auto j = 0; j < C + 1; ++j)
             std::cout << msg[i][j];
         std::cout << "\n";
