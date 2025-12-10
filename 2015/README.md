@@ -4,7 +4,7 @@
 * 64-bit Linux
 * g++ with c++23 support
 * make
-* mbedtls libmbedcrypto
+* libmbedcrypto
 
 #### Compile
     make build
