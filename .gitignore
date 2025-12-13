@@ -2,7 +2,7 @@
 *.o
 
 # Executable
-main
+sol
 
 # Input file
 input

@@ -4,13 +4,13 @@ CC=g++
 CXXFLAGS=-std=c++23 -O2 -Wall -Wextra -I../../common
 LDLIBS=-lz3
 
-build: main
-main: main.o
-main.o: main.cpp ../../common/parser.hpp
+build: sol
+sol: sol.o
+sol.o: sol.cpp ../../common/parser.hpp
 
-run: main
-	./main < input
+run: sol
+	./sol < input
 
 clean:
-	rm -f *.o main
+	rm -f *.o sol
 

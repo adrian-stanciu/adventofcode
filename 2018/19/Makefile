@@ -3,13 +3,13 @@
 CC=g++
 CXXFLAGS=-std=c++23 -O2 -Wall -Wextra -I../common
 
-build: main
-main: main.o
-main.o: main.cpp ../common/asm_computer.hpp
+build: sol
+sol: sol.o
+sol.o: sol.cpp ../common/asm_computer.hpp
 
-run: main
-	./main < input
+run: sol
+	./sol < input
 
 clean:
-	rm -f *.o main
+	rm -f *.o sol
 
