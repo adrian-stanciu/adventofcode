@@ -2,7 +2,6 @@
 
 CC=g++
 CXXFLAGS=-std=c++23 -O2 -Wall -Wextra -I../../common
-LDLIBS=-lz3
 
 build: sol
 sol: sol.o

@@ -4,7 +4,6 @@
 * 64-bit Linux
 * g++ with c++23 support
 * make
-* libz3
 
 #### Compile
     make build

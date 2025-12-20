@@ -5,7 +5,6 @@
 * g++ with c++23 support
 * make
 * libmbedcrypto
-* libz3
 
 #### Compile
     make build
